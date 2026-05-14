@@ -30,6 +30,7 @@
         severity="danger"
         [rounded]="true"
         (click)="onLogout()"
+        [loading]="true"
       />
     </div>
   </div>
@@ -116,7 +117,7 @@
     [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
     [style]="{ width: '400px' }"
     [draggable]="false"
-    [resizable]="false"
+    [resizable]="true"
   >
     <div class="flex flex-column align-items-center gap-4 py-3">
       <div

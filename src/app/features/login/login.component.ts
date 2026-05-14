@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
 import { AuthServiceService } from '../../core/services/auth-service.service';
+import { ToastModule } from 'primeng/toast';
+import { NotificationService } from '../../core/services/notification.service.ts';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  template: `
-    <div class="login-box">
-      <h2>Select Role (Demo)</h2>
-      <button (click)="loginAs('admin')">Login as Admin</button>
-      <button (click)="loginAs('manager')">Login as Manager</button>
-      <!-- Add others -->
-    </div>
-  `,
-  imports: [],
+
+  imports: [ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private notify: NotificationService,
+  ) {}
 
   loginAs(role: string) {
+    this.notify.showSuccess('Operation completed successfully!');
+    this.notify.showError('Operation completed successfully!');
+    this.notify.showInfo('Operation completed successfully!');
+    this.notify.showWarning('Operation completed successfully!');
+
     this.authService.handleLogin(role);
   }
 }
