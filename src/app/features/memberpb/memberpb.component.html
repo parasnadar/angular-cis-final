@@ -1,6 +1,144 @@
-<div class="dashboard-container">
-  <header>
-    <h1>MemberPB Dashboard</h1>
-    <button class="logout-btn" (click)="onLogout()">Logout</button>
-  </header>
+<div class="p-4 md:p-6">
+  <!-- SECTION 1: PrimeFlex & Icons Test (Header) -->
+  <div
+    class="flex flex-column md:flex-row justify-content-between align-items-center mb-6 gap-4 p-4 border-round-xl shadow-4 bg-white-alpha-20"
+    style="
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    "
+  >
+    <div class="flex align-items-center gap-3">
+      <i class="pi pi-bolt text-yellow-400 text-5xl"></i>
+      <div>
+        <h1 class="m-0 text-900 line-height-1">System Health</h1>
+        <small class="text-700">Testing PrimeNG 21 + Aura Theme</small>
+      </div>
+    </div>
+    <div class="flex gap-2 align-items-center">
+      <p-button
+        [icon]="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"
+        [severity]="isDarkMode ? 'warn' : 'secondary'"
+        [rounded]="true"
+        [text]="true"
+        (click)="toggleDarkMode()"
+        pTooltip="Toggle Dark/Light Mode"
+        tooltipPosition="bottom"
+      />
+      <p-button
+        label="Sign Out"
+        icon="pi pi-power-off"
+        severity="danger"
+        [rounded]="true"
+        (click)="onLogout()"
+      />
+    </div>
+  </div>
+
+  <!-- SECTION 2: Responsive Grid & Component Test -->
+  <div class="grid">
+    <!-- Animation & Transition Test -->
+    <div class="col-12 lg:col-4">
+      <p-card header="1. Animation Engine" subheader="Async Provider Check">
+        <div class="flex flex-column gap-4">
+          <p class="m-0 text-600">
+            Hover the button for tooltip, click for modal animation.
+          </p>
+          <p-button
+            label="Verify Modal"
+            icon="pi pi-external-link"
+            (click)="showDialog()"
+            pTooltip="If I fade in gently, animations are OK!"
+            tooltipPosition="bottom"
+            styleClass="w-full"
+          />
+          <p-progressBar
+            [value]="loadingValue"
+            [showValue]="true"
+            styleClass="h-1rem"
+          />
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Theming & Design Tokens Test -->
+    <div class="col-12 lg:col-4">
+      <p-card header="2. Aura Theme" subheader="Design Token Check">
+        <div class="flex flex-column gap-3">
+          <p-message
+            severity="success"
+            text="Aura Theme is Active"
+            icon="pi pi-check-circle"
+            styleClass="w-full"
+          />
+          <div class="flex flex-column gap-2">
+            <label class="font-bold text-sm">Theme-Aware Input</label>
+            <input
+              pInputText
+              placeholder="Blue focus ring = Aura"
+              class="w-full"
+            />
+          </div>
+          <div class="flex gap-2">
+            <p-tag value="Primary" />
+            <p-tag value="Secondary" severity="secondary" />
+            <p-tag value="Contrast" severity="contrast" />
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Layout & Utility Test -->
+    <div class="col-12 lg:col-4">
+      <p-card header="3. PrimeFlex Layout" subheader="Utility Class Check">
+        <div class="surface-card p-4 border-round border-1 border-300">
+          <div class="flex justify-content-between mb-3">
+            <span class="font-medium text-500">Flexbox</span>
+            <p-tag value="Working" severity="success" [rounded]="true" />
+          </div>
+          <div class="flex align-items-center">
+            <div
+              class="w-2rem h-2rem bg-primary border-circle flex align-items-center justify-content-center mr-3"
+            >
+              <i class="pi pi-check text-sm"></i>
+            </div>
+            <span class="text-900 font-medium">Standard Colors Loaded</span>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- MODAL TEST (The Ultimate Test) -->
+  <p-dialog
+    header="System Diagnostic"
+    [(visible)]="visible"
+    [modal]="true"
+    [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+    [style]="{ width: '400px' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="flex flex-column align-items-center gap-4 py-3">
+      <div
+        class="w-4rem h-4rem bg-green-100 border-circle flex align-items-center justify-content-center"
+      >
+        <i class="pi pi-verified text-green-600 text-3xl"></i>
+      </div>
+      <div class="text-center">
+        <div class="text-900 font-bold text-xl mb-2">Everything is Fine!</div>
+        <p class="m-0 text-600">
+          If this dialog scaled up smoothly, your
+          <code>@angular/animations</code> is fully operational.
+        </p>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Great!"
+        (click)="visible = false"
+        styleClass="p-button-text"
+      />
+    </ng-template>
+  </p-dialog>
 </div>
