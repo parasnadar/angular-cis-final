@@ -1,0 +1,29 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Portal Login</h1>
+      <p>Select your access level to continue</p>
+    </div>
+
+    <div class="login-body">
+      <div class="input-group">
+        <label for="role">User Role</label>
+        <select #roleSelect id="role">
+          <option value="superadmin">Super Admin</option>
+          <option value="arbp">arbp</option>
+          <option value="memberpb">memberpb</option>
+          <option value="registrar">registrar</option>
+          <option value="scrunity">scrunity</option>
+        </select>
+      </div>
+
+      <button class="login-btn" (click)="loginAs(roleSelect.value)">
+        Enter Dashboard
+      </button>
+    </div>
+
+    <div class="login-footer">
+      <p>&copy; 2026 Your Enterprise System</p>
+    </div>
+  </div>
+</div>
