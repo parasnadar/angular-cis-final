@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { ToastModule } from 'primeng/toast';
-import { NotificationService } from '../../core/services/notification.service.ts';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
