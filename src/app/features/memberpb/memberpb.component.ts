@@ -11,6 +11,7 @@ import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { MessageModule } from 'primeng/message';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-memberpb',
@@ -25,6 +26,7 @@ import { MessageModule } from 'primeng/message';
     ProgressBarModule,
     TooltipModule,
     MessageModule,
+    SkeletonModule,
   ],
   templateUrl: './memberpb.component.html',
   styleUrl: './memberpb.component.scss',
