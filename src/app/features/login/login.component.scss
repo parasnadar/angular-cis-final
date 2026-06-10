@@ -15,7 +15,7 @@
   border-radius: 24px;
   width: 100%;
   max-width: 360px;
-  height: 470px;
+  height: 500px;
   transition:
     max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.25s ease;
@@ -77,7 +77,7 @@
     sans-serif;
 
   .sub-header {
-    font-size: 0.75rem;
+    font-size: 1 rm;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #38bdf8;
@@ -366,31 +366,29 @@
 
 .panel-footer {
   border-top: 1px solid #f1f5f9;
-  padding-top: 0.8rem;
-  margin-top: 1.25rem;
-  font-size: 0.72rem;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.15rem;
+  gap: 0.2rem;
   font-family: "Inter", sans-serif;
 
   .footer-label {
-    color: #64748b;
-    font-weight: 500;
+    color: red;
+    font-weight: 600;
   }
-  .email-link {
+
+  /* Swapped link states for secure professional text rendering */
+  .email-text-display {
     color: #001d7e;
     font-weight: 600;
-    text-decoration: none;
-    &:hover {
-      color: #112d93;
-      text-decoration: underline;
-    }
+    user-select: all; /* Allows quick copy-pasting for authentic users */
+    letter-spacing: 0.3px;
   }
 }
-
 /* --- Multi-Device Responsive Breakpoint pipelines --- */
 @media (max-width: 768px) {
   .page-body-container {
