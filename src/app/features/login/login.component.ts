@@ -48,7 +48,11 @@ export class LoginComponent implements OnInit {
     private notify: NotificationService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.triggerTransition();
+    }, 600);
+  }
 
   triggerTransition(): void {
     if (!this.hasTransitioned) {
