@@ -1,29 +1,215 @@
-<div class="login-wrapper">
-  <div class="login-card">
-    <div class="login-header">
-      <h1>Portal Login</h1>
-      <p>Select your access level to continue</p>
-    </div>
-
-    <div class="login-body">
-      <div class="input-group">
-        <label for="role">User Role</label>
-        <select #roleSelect id="role">
-          <option value="superadmin">Super Admin</option>
-          <option value="arbp">arbp</option>
-          <option value="memberpb">memberpb</option>
-          <option value="registrar">registrar</option>
-          <option value="scrunity">scrunity</option>
-        </select>
+<div class="page-body-container">
+  <div
+    class="login-card"
+    [class.is-split]="hasTransitioned"
+    (click)="triggerTransition()"
+  >
+    <div class="split-viewport">
+      <div class="brand-aside">
+        <div class="brand-backdrop-mesh"></div>
+        <div class="brand-content">
+          <span class="sub-header">Welcome to</span>
+          <h1 class="main-title">
+            Case Information System <span class="text-light">(CIS)</span>
+          </h1>
+          <div class="meta-badge-row">
+            <span class="badge">GSTAT</span>
+          </div>
+        </div>
       </div>
 
-      <button class="login-btn" (click)="loginAs(roleSelect.value)">
-        Enter Dashboard
-      </button>
-    </div>
+      <div class="form-aside" (click)="$event.stopPropagation()">
+        <div class="form-header">
+          <h2>Sign In</h2>
+          <p>Secure authentication gateway verification layer</p>
+        </div>
 
-    <div class="login-footer">
-      <p>&copy; 2026 Your Enterprise System</p>
+        <form class="auth-grid" (ngSubmit)="$event.preventDefault()">
+          <div class="input-group">
+            <label for="role">User Role</label>
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-users "></p-inputicon>
+              <select #roleSelect id="role" class="select-prime">
+                <option value="superadmin">Super Admin</option>
+                <option value="arbp">arbp</option>
+                <option value="memberpb">memberpb</option>
+                <option value="registrar">registrar</option>
+                <option value="scrunity">scrunity</option>
+              </select>
+            </p-iconfield>
+          </div>
+
+          <div class="input-group">
+            <label>Username</label>
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-user "></p-inputicon>
+              <input
+                #usernameInput
+                type="text"
+                pInputText
+                placeholder="name@domain.gov.in"
+                class="input-prime"
+              />
+            </p-iconfield>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-lock "></p-inputicon>
+              <input
+                #passwordInput
+                [type]="showPassword ? 'text' : 'password'"
+                pInputText
+                placeholder="••••••••"
+                class="input-prime"
+              />
+              <p-inputicon
+                [styleClass]="
+                  showPassword
+                    ? 'pi pi-eye cursor-pointer text-slate-clickable'
+                    : 'pi pi-eye-slash cursor-pointer text-slate-clickable'
+                "
+                (click)="showPassword = !showPassword"
+              ></p-inputicon>
+            </p-iconfield>
+          </div>
+
+          <div class="captcha-grid">
+            <div class="captcha-badge">
+              <span class="code">{{ currentCaptchaCode }}</span>
+              <button
+                pButton
+                type="button"
+                icon="pi pi-refresh"
+                class="p-button-text refresh-trigger"
+                (click)="regenerateCaptcha()"
+              ></button>
+            </div>
+            <input
+              #captchaInput
+              type="text"
+              pInputText
+              placeholder="Verify Captcha"
+              class="captcha-input-prime"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="action-row">
+            <a class="recover-trigger" (click)="openForgotPasswordModal()"
+              >Forgot Password?</a
+            >
+            <button
+              class="login-btn"
+              (click)="
+                processInitialLogin(
+                  roleSelect.value,
+                  usernameInput.value,
+                  passwordInput.value,
+                  captchaInput.value
+                )
+              "
+            >
+              Login
+            </button>
+          </div>
+        </form>
+
+        <footer class="panel-footer">
+          <span class="footer-label">Technical Assistance Helpdesk:</span>
+          <a href="mailto:itsupport@gstat.nic.in" class="email-link"
+            >itsupport[at]gstat[dot]nic[dot]in</a
+          >
+        </footer>
+      </div>
     </div>
   </div>
 </div>
+
+<p-dialog
+  header="Two-Factor Authentication"
+  [(visible)]="displayOtpModal"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '400px' }"
+  [draggable]="true"
+  [resizable]="true"
+>
+  <div class="dialog-workflow-body">
+    <p class="workflow-description">
+      A secure verification token has been transmitted to your credentials
+      destination parameters.
+    </p>
+
+    <div class="dialog-form-layout">
+      <div class="input-group text-left">
+        <label class="dialog-field-label">Enter 6-Digit OTP</label>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-key "></p-inputicon>
+          <input
+            #otpInput
+            type="text"
+            pInputText
+            placeholder="000000"
+            maxlength="6"
+            class="input-prime text-center font-bold tracking-widest text-base"
+          />
+        </p-iconfield>
+      </div>
+
+      <button
+        pButton
+        type="button"
+        label="Verify & Proceed"
+        class="workflow-submit-btn"
+        (click)="verifyOtpCode(otpInput.value)"
+      ></button>
+    </div>
+
+    <div class="resend-action-row">
+      <a class="resend-link-text" (click)="regenerateCaptcha()">Resend Code</a>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Account Recovery"
+  [(visible)]="displayForgotModal"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '400px' }"
+  [draggable]="true"
+  [resizable]="true"
+>
+  <div class="dialog-workflow-body">
+    <p class="workflow-description">
+      Provide your registered email identifier below to obtain account security
+      reset flags.
+    </p>
+
+    <div class="dialog-form-layout">
+      <div class="input-group text-left">
+        <label class="dialog-field-label">Official Email ID / Username</label>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-envelope "></p-inputicon>
+          <input
+            #recoveryEmail
+            type="email"
+            pInputText
+            placeholder="username@gstat.nic.in"
+            class="input-prime"
+          />
+        </p-iconfield>
+      </div>
+
+      <button
+        pButton
+        type="button"
+        label="Send Recovery Instructions"
+        class="workflow-submit-btn"
+        (click)="submitForgotPasswordRecovery(recoveryEmail.value)"
+      ></button>
+    </div>
+  </div>
+</p-dialog>

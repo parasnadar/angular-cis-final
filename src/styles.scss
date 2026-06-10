@@ -14,6 +14,14 @@ body {
   color: #818385;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image:
+    linear-gradient(rgba(143, 184, 224, 0.85), rgba(120, 154, 179, 0.7)),
+    /* Professional light-mask overlay */ url("../src/assets/images/back.jpg");
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Keeps background locked stable during card animations */
 }
 
 // When dark mode is active
