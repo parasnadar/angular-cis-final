@@ -136,13 +136,12 @@
   [modal]="true"
   [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
   [style]="{ width: '400px' }"
-  [draggable]="true"
-  [resizable]="true"
+  [draggable]="false"
+  [resizable]="false"
 >
   <div class="dialog-workflow-body">
     <p class="workflow-description">
-      A secure verification token has been transmitted to your credentials
-      destination parameters.
+      OTP has been transmitted to your credentials destination parameters.
     </p>
 
     <div class="dialog-form-layout">
@@ -182,8 +181,8 @@
   [modal]="true"
   [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
   [style]="{ width: '400px' }"
-  [draggable]="true"
-  [resizable]="true"
+  [draggable]="false"
+  [resizable]="false"
 >
   <div class="dialog-workflow-body">
     <p class="workflow-description">
@@ -193,17 +192,51 @@
 
     <div class="dialog-form-layout">
       <div class="input-group text-left">
-        <label class="dialog-field-label">Official Email ID / Username</label>
+        <label class="dialog-field-label">Enter Username</label>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-user "></p-inputicon>
+          <input
+            #recoveryUserName
+            type="text"
+            pInputText
+            placeholder="Enter Username"
+            class="input-prime"
+          />
+        </p-iconfield>
+      </div>
+      <div class="input-group text-left">
+        <label class="dialog-field-label">Enter Email ID </label>
         <p-iconfield>
           <p-inputicon styleClass="pi pi-envelope "></p-inputicon>
           <input
             #recoveryEmail
             type="email"
             pInputText
-            placeholder="username@gstat.nic.in"
+            placeholder="Enter Email Id"
             class="input-prime"
+            autocomplete="off"
           />
         </p-iconfield>
+      </div>
+      <div class="captcha-grid">
+        <div class="captcha-badge">
+          <span class="code">{{ currentCaptchaCode }}</span>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-refresh"
+            class="p-button-text refresh-trigger"
+            (click)="regenerateCaptcha()"
+          ></button>
+        </div>
+        <input
+          #resetCaptchaInput
+          type="text"
+          pInputText
+          placeholder="Verify Captcha"
+          class="captcha-input-prime"
+          autocomplete="off"
+        />
       </div>
 
       <button
@@ -211,7 +244,13 @@
         type="button"
         label="Send Recovery Instructions"
         class="workflow-submit-btn"
-        (click)="submitForgotPasswordRecovery(recoveryEmail.value)"
+        (click)="
+          submitForgotPasswordRecovery(
+            recoveryEmail.value,
+            resetCaptchaInput.value,
+            recoveryUserName.value
+          )
+        "
       ></button>
     </div>
   </div>

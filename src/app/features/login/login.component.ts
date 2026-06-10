@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
   displayOtpModal: boolean = false;
   displayForgotModal: boolean = false;
   selectedRoleOnHold: string = '';
+  private readonly emailRegex =
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   // Input Data States
   showPassword: boolean = false;
@@ -76,9 +78,7 @@ export class LoginComponent implements OnInit {
     captcha?: string,
   ): void {
     if (!user || !pass) {
-      this.notify.showWarning(
-        'Please input your username and account password.',
-      );
+      this.notify.showError('Please input your username and account password.');
       return;
     }
     if (captcha?.toUpperCase() !== this.currentCaptchaCode) {
@@ -94,22 +94,43 @@ export class LoginComponent implements OnInit {
 
   verifyOtpCode(otpValue: string): void {
     if (!otpValue || otpValue.length !== 6) {
-      this.notify.showWarning('Please fill out a valid 6-digit OTP code.');
+      this.notify.showError('Please fill out a valid 6-digit OTP code.');
+      return;
+    }
+
+    if (otpValue !== '123456') {
+      this.notify.showError('Wrong Otp Entered, Please Try Again');
       return;
     }
 
     this.displayOtpModal = false;
     this.authService.handleLogin(this.selectedRoleOnHold);
+    this.notify.showSuccess('Login Successfull');
   }
 
   openForgotPasswordModal(): void {
     this.displayForgotModal = true;
   }
 
-  submitForgotPasswordRecovery(emailValue: string): void {
-    if (!emailValue) {
-      this.notify.showWarning(
-        'Please specify your registered organizational email identifier.',
+  submitForgotPasswordRecovery(
+    emailValue: string,
+    captcha?: string,
+    userValue?: string,
+  ): void {
+    if (!emailValue || !userValue) {
+      this.notify.showError('Please input your username and email id.');
+      return;
+    }
+    if (!this.emailRegex.test(emailValue)) {
+      this.notify.showError(
+        'Invalid email format. Please provide a valid email ID (e.g., name@domain.gov.in).',
+      );
+      return;
+    }
+
+    if (captcha?.toUpperCase() !== this.currentCaptchaCode) {
+      this.notify.showError(
+        'Security checking captcha text validation failed.',
       );
       return;
     }
