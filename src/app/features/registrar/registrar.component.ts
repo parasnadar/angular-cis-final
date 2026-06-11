@@ -19,7 +19,6 @@ export class REGISTRARComponent {
   constructor(private authService: AuthServiceService) {}
   isPasswordModalVisible: boolean = false;
   public visible: boolean = false;
-  isDarkMode: boolean = false;
   loggedInUser = {
     name: 'Registrar',
     initials: 'R',
@@ -133,16 +132,6 @@ export class REGISTRARComponent {
       );
     } else {
       console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
-    }
-  }
-
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    const element = document.querySelector('html');
-    if (this.isDarkMode) {
-      element?.classList.add('my-app-dark');
-    } else {
-      element?.classList.remove('my-app-dark');
     }
   }
 }

@@ -1,6 +1,13 @@
-<div class="dashboard-container">
-  <header>
-    <p>scrunity works!</p>
-    <button class="logout-btn" (click)="onLogout()">Logout</button>
-  </header>
-</div>
+<app-utility-bar
+  [menuOptions]="gstatViewOptions"
+  [defaultSelectId]="'home'"
+  (onOptionSelected)="handleBarSelectionEvent($event)"
+  (onAccountAction)="handleAccountActionEvent($event)"
+  [username]="loggedInUser.name"
+  [initials]="loggedInUser.initials"
+>
+</app-utility-bar>
+<app-change-password-modal
+  [(visible)]="isPasswordModalVisible"
+  (onSave)="onPasswordUpdateSaved($event)"
+></app-change-password-modal>
