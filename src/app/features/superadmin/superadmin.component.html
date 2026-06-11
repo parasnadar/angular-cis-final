@@ -11,3 +11,744 @@
   [(visible)]="isPasswordModalVisible"
   (onSave)="onPasswordUpdateSaved($event)"
 ></app-change-password-modal>
+
+<div class="workspace-main-viewport">
+  @if (activeView === "home") {
+    <div class="fade-in-container">
+      <div class="super-admin-dashboard">
+        <div class="welcome-hero-card">
+          <div class="hero-content">
+            <div class="badge-role">
+              <i class="pi pi-shield"></i>
+              <span>Super Admin Workspace</span>
+            </div>
+            <h1 class="hero-title">Welcome Back, System Administrator</h1>
+            <p class="hero-subtitle">
+              You have full root access to manage core security parameters,
+              modify structural menus, and update global master database pools.
+            </p>
+          </div>
+          <div class="hero-illustration">
+            <i class="pi pi-verified system-giant-icon"></i>
+          </div>
+        </div>
+
+        <div class="dashboard-section-header">
+          <h2 class="section-title">Administrative Command Center</h2>
+          <p class="section-subtitle">
+            Quick launch operational pathways to manage your active platform
+            instance
+          </p>
+        </div>
+
+        <div class="quick-actions-grid">
+          <div class="action-card" (click)="navigateAdminAction('create_user')">
+            <div class="card-icon-wrapper color-indigo">
+              <i class="pi pi-user-plus"></i>
+            </div>
+            <div class="card-meta">
+              <h3>Create New User</h3>
+              <p>
+                Provision credentials, define platform scope, and deploy system
+                security profiles.
+              </p>
+            </div>
+            <i class="pi pi-arrow-right card-arrow"></i>
+          </div>
+
+          <div
+            class="action-card"
+            (click)="navigateAdminAction('manage_users')"
+          >
+            <div class="card-icon-wrapper color-emerald">
+              <i class="pi pi-users"></i>
+            </div>
+            <div class="card-meta">
+              <h3>User Management</h3>
+              <p>
+                Modify roles, reset access security tokens, and view active
+                session auditing logs.
+              </p>
+            </div>
+            <i class="pi pi-arrow-right card-arrow"></i>
+          </div>
+
+          <div class="action-card" (click)="navigateAdminAction('create_menu')">
+            <div class="card-icon-wrapper color-amber">
+              <i class="pi pi-sitemap"></i>
+            </div>
+            <div class="card-meta">
+              <h3>Configure Menu Trees</h3>
+              <p>
+                Build platform navigation trees, assign layout nodes, and set
+                routing parameters.
+              </p>
+            </div>
+            <i class="pi pi-arrow-right card-arrow"></i>
+          </div>
+
+          <div
+            class="action-card"
+            (click)="navigateAdminAction('manage_masters')"
+          >
+            <div class="card-icon-wrapper color-purple">
+              <i class="pi pi-database"></i>
+            </div>
+            <div class="card-meta">
+              <h3>Global Master Records</h3>
+              <p>
+                Update Judge Masters rosters, modify courtroom locations, and
+                edit lookup variables.
+              </p>
+            </div>
+            <i class="pi pi-arrow-right card-arrow"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else if (activeView === "sucreate_user") {
+    <div class="form-content-card fade-in-container">
+      <div class="form-card-header">
+        <h2>User Registration</h2>
+        <p class="header-disclaimer">
+          Fields marked with an asterisk (<span class="required-star">*</span>)
+          are strictly mandatory.
+        </p>
+      </div>
+
+      <!-- Active Form View Binding Wrapper -->
+      <form
+        [formGroup]="userForm"
+        (ngSubmit)="onRegisterSubmit()"
+        class="workspace-form-layout"
+      >
+        <div class="form-grid-columns">
+          <!-- Field 1: Bench Location Dropdown -->
+          <div class="form-field-group">
+            <label for="reg_location"
+              >Location <span class="required-star">*</span></label
+            >
+            <p-select
+              id="reg_location"
+              formControlName="location"
+              [options]="locationOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select bench location"
+              styleClass="w-full form-dropdown-field"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('location') }"
+            ></p-select>
+            <div class="error-msg-space" *ngIf="isFieldInvalid('location')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Bench location selection is
+                required.</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 2: First Name Input -->
+          <div class="form-field-group">
+            <label for="reg_firstName"
+              >First Name <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="reg_firstName"
+              type="text"
+              formControlName="firstName"
+              class="w-full form-input-field"
+              placeholder="Enter first name"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('firstName') }"
+            />
+            <div class="error-msg-space" *ngIf="isFieldInvalid('firstName')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> First name is required (min
+                2 characters).</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 3: Last Name Input -->
+          <div class="form-field-group">
+            <label for="reg_lastName"
+              >Last Name <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="reg_lastName"
+              type="text"
+              formControlName="lastName"
+              class="w-full form-input-field"
+              placeholder="Enter last name"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('lastName') }"
+            />
+            <div class="error-msg-space" *ngIf="isFieldInvalid('lastName')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Last name is
+                required.</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 4: User Name Input -->
+          <div class="form-field-group">
+            <label for="reg_username"
+              >User Name <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="reg_username"
+              type="text"
+              formControlName="username"
+              class="w-full form-input-field"
+              placeholder="Choose unique username"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('username') }"
+            />
+            <div class="error-msg-space" *ngIf="isFieldInvalid('username')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Username is required (min 4
+                characters).</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 5: Email ID Input -->
+          <div class="form-field-group">
+            <label for="reg_email"
+              >Email Id <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="reg_email"
+              type="email"
+              formControlName="email"
+              class="w-full form-input-field"
+              placeholder="name@organization.gov"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('email') }"
+            />
+            <div class="error-msg-space" *ngIf="isFieldInvalid('email')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Provide a valid email
+                address path.</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 6: Gender Dropdown -->
+          <div class="form-field-group">
+            <label for="reg_gender"
+              >Gender <span class="required-star">*</span></label
+            >
+            <p-select
+              id="reg_gender"
+              formControlName="gender"
+              [options]="genderOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select gender"
+              styleClass="w-full form-dropdown-field"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('gender') }"
+            ></p-select>
+            <div class="error-msg-space" *ngIf="isFieldInvalid('gender')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Gender specification is
+                required.</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 7: Court Assignment Dropdown -->
+          <div class="form-field-group">
+            <label for="reg_court"
+              >Court <span class="required-star">*</span></label
+            >
+            <p-select
+              id="reg_court"
+              formControlName="court"
+              [options]="courtOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select court room assignment"
+              styleClass="w-full form-dropdown-field"
+              [ngClass]="{ 'field-error-border': isFieldInvalid('court') }"
+            ></p-select>
+            <div class="error-msg-space" *ngIf="isFieldInvalid('court')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Courtroom allocation target
+                is required.</small
+              >
+            </div>
+          </div>
+
+          <!-- Field 8: Mobile Number Input -->
+          <div class="form-field-group">
+            <label for="reg_mobileNumber"
+              >Mobile Number <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="reg_mobileNumber"
+              type="text"
+              formControlName="mobileNumber"
+              class="w-full form-input-field"
+              placeholder="10-digit phone number"
+              maxlength="10"
+              [ngClass]="{
+                'field-error-border': isFieldInvalid('mobileNumber'),
+              }"
+            />
+            <div class="error-msg-space" *ngIf="isFieldInvalid('mobileNumber')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Provide a valid 10-digit
+                mobile number.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Button Row -->
+        <div class="form-actions-row">
+          <button
+            type="submit"
+            class="submit-registration-btn"
+            [disabled]="userForm.invalid && userForm.touched"
+          >
+            <i class="pi pi-user-plus btn-icon-gap"></i> Register Me
+          </button>
+        </div>
+      </form>
+    </div>
+  } @else if (activeView === "sucreate_menu") {
+    <div class="form-content-card fade-in-container">
+      <div class="form-card-header">
+        <h2>Menu Creation</h2>
+        <p class="header-disclaimer">
+          Fields marked with an asterisk (<span class="required-star">*</span>)
+          are strictly mandatory.
+        </p>
+      </div>
+
+      <form
+        [formGroup]="menuForm"
+        (ngSubmit)="onMenuSubmit()"
+        class="workspace-form-layout"
+      >
+        <div class="form-grid-columns">
+          <div class="form-field-group">
+            <label for="menu_name"
+              >Menu Name <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="menu_name"
+              type="text"
+              formControlName="menuName"
+              class="w-full form-input-field"
+              placeholder="e.g., Judicial Masters"
+              [class.field-error-border]="isMenuFieldInvalid('menuName')"
+            />
+            <div class="error-msg-space" *ngIf="isMenuFieldInvalid('menuName')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Menu designation name is
+                required.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-input-group form-field-group">
+            <label for="menu_has_submenu"
+              >Has Submenu <span class="required-star">*</span></label
+            >
+            <p-select
+              id="menu_has_submenu"
+              formControlName="hasSubmenu"
+              [options]="hasSubmenuOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select option"
+              styleClass="w-full form-dropdown-field"
+              [class.field-error-border]="isMenuFieldInvalid('hasSubmenu')"
+            ></p-select>
+            <div
+              class="error-msg-space"
+              *ngIf="isMenuFieldInvalid('hasSubmenu')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Submenu specification
+                strategy flag is mandatory.</small
+              >
+            </div>
+          </div>
+
+          @if (menuForm.get("hasSubmenu")?.value === false) {
+            <div class="form-field-group conditional-slide-field">
+              <label for="menu_link"
+                >Menu Link <span class="required-star">*</span></label
+              >
+              <input
+                pInputText
+                id="menu_link"
+                type="text"
+                formControlName="menuLink"
+                class="w-full form-input-field"
+                placeholder="e.g., nclt/case-history"
+                [class.field-error-border]="isMenuFieldInvalid('menuLink')"
+              />
+              <div
+                class="error-msg-space"
+                *ngIf="isMenuFieldInvalid('menuLink')"
+              >
+                <small class="error-text"
+                  ><i class="pi pi-times-circle"></i> Routing path link
+                  configuration is mandatory for terminal nodes.</small
+                >
+              </div>
+            </div>
+          }
+
+          <div class="form-field-group">
+            <label for="menu_priority">Priority</label>
+            <input
+              pInputText
+              id="menu_priority"
+              type="text"
+              formControlName="priority"
+              class="w-full form-input-field"
+              placeholder="e.g., 1 (Optional sort ranking index)"
+              [class.field-error-border]="isMenuFieldInvalid('priority')"
+            />
+            <div class="error-msg-space" *ngIf="isMenuFieldInvalid('priority')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Sorting parameters must
+                contain an integer number value.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label for="menu_display"
+              >Display <span class="required-star">*</span></label
+            >
+            <p-select
+              id="menu_display"
+              formControlName="display"
+              [options]="displayOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select visibility mode"
+              styleClass="w-full form-dropdown-field"
+              [class.field-error-border]="isMenuFieldInvalid('display')"
+            ></p-select>
+            <div class="error-msg-space" *ngIf="isMenuFieldInvalid('display')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Visibility deployment state
+                option is required.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions-row">
+          <button
+            type="submit"
+            class="submit-registration-btn"
+            [disabled]="menuForm.invalid && menuForm.touched"
+          >
+            <i class="pi pi-plus btn-icon-gap"></i> Add Menu
+          </button>
+        </div>
+      </form>
+    </div>
+  } @else if (activeView === "sucreate_sub_menu") {
+    <div class="form-content-card fade-in-container">
+      <div class="form-card-header">
+        <h2>Sub-Menu Creation</h2>
+        <p class="header-disclaimer">
+          Fields marked with an asterisk (<span class="required-star">*</span>)
+          are strictly mandatory.
+        </p>
+      </div>
+
+      <form
+        [formGroup]="subMenuForm"
+        (ngSubmit)="onSubMenuSubmit()"
+        class="workspace-form-layout"
+      >
+        <div class="form-grid-columns">
+          <div class="form-field-group">
+            <label for="sub_parent_menu"
+              >Select Parent Menu <span class="required-star">*</span></label
+            >
+            <p-select
+              id="sub_parent_menu"
+              formControlName="parentMenu"
+              [options]="parentMenuOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select root parent tree container"
+              styleClass="w-full form-dropdown-field"
+              [class.field-error-border]="isSubMenuFieldInvalid('parentMenu')"
+            ></p-select>
+            <div
+              class="error-msg-space"
+              *ngIf="isSubMenuFieldInvalid('parentMenu')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Selecting a primary parent
+                node is mandatory.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label for="sub_menu_name"
+              >Sub-Menu Name <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="sub_menu_name"
+              type="text"
+              formControlName="subMenuName"
+              class="w-full form-input-field"
+              placeholder="e.g., Create New Document"
+              [class.field-error-border]="isSubMenuFieldInvalid('subMenuName')"
+            />
+            <div
+              class="error-msg-space"
+              *ngIf="isSubMenuFieldInvalid('subMenuName')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Sub-menu display title name
+                is required.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label for="sub_link"
+              >Link <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="sub_link"
+              type="text"
+              formControlName="link"
+              class="w-full form-input-field"
+              placeholder="GSTAT/routing-endpoint-path"
+              [class.field-error-border]="isSubMenuFieldInvalid('link')"
+            />
+            <div class="error-msg-space" *ngIf="isSubMenuFieldInvalid('link')">
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Provide an active framework
+                terminal link mapping path.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label for="sub_priority">Priority</label>
+            <input
+              pInputText
+              id="sub_priority"
+              type="text"
+              formControlName="priority"
+              class="w-full form-input-field"
+              placeholder="e.g., 2 (Optional sort weight index ranking)"
+              [class.field-error-border]="isSubMenuFieldInvalid('priority')"
+            />
+            <div
+              class="error-msg-space"
+              *ngIf="isSubMenuFieldInvalid('priority')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Priority constraints must
+                match integer parameters.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <label for="sub_display"
+              >Display <span class="required-star">*</span></label
+            >
+            <p-select
+              id="sub_display"
+              formControlName="display"
+              [options]="displayOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select visibility profile mode state"
+              styleClass="w-full form-dropdown-field"
+              [class.field-error-border]="isSubMenuFieldInvalid('display')"
+            ></p-select>
+            <div
+              class="error-msg-space"
+              *ngIf="isSubMenuFieldInvalid('display')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Global deployment state
+                choice is mandatory.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions-row">
+          <button
+            type="submit"
+            class="submit-registration-btn"
+            [disabled]="subMenuForm.invalid && subMenuForm.touched"
+          >
+            <i class="pi pi-plus btn-icon-gap"></i> Add Sub-Menu
+          </button>
+        </div>
+      </form>
+    </div>
+  } @else if (activeView === "sujudge_master") {
+    <div class="form-content-card fade-in-container">
+      <div class="form-card-header">
+        <h2>JUDGE MASTER ADD</h2>
+        <p class="header-disclaimer">
+          Fields marked with an asterisk (<span class="required-star">*</span>)
+          are strictly mandatory.
+        </p>
+      </div>
+
+      <!-- Reactive Judge Master Setup Container Form -->
+      <form
+        [formGroup]="judgeMasterForm"
+        (ngSubmit)="onJudgeMasterSubmit()"
+        class="workspace-form-layout"
+      >
+        <div class="form-grid-columns">
+          <!-- Input Field 1: Designation Dropdown -->
+          <div class="form-field-group">
+            <label for="judge_designation"
+              >Designation <span class="required-star">*</span></label
+            >
+            <p-select
+              id="judge_designation"
+              formControlName="designation"
+              [options]="designationOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select official designation"
+              styleClass="w-full form-dropdown-field"
+              [class.field-error-border]="isJudgeFieldInvalid('designation')"
+            ></p-select>
+            <div
+              class="error-msg-space"
+              *ngIf="isJudgeFieldInvalid('designation')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Selecting a professional
+                judicial title designation is required.</small
+              >
+            </div>
+          </div>
+
+          <!-- Input Field 2: Judge Name Input -->
+          <div class="form-field-group">
+            <label for="judge_name"
+              >Judge Name <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="judge_name"
+              type="text"
+              formControlName="judgeName"
+              class="w-full form-input-field"
+              placeholder="Enter full name (e.g., Hon'ble Justice S. Ravi)"
+              [class.field-error-border]="isJudgeFieldInvalid('judgeName')"
+            />
+            <div
+              class="error-msg-space"
+              *ngIf="isJudgeFieldInvalid('judgeName')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Judicial officer name
+                description is mandatory.</small
+              >
+            </div>
+          </div>
+
+          <!-- Input Field 3: Seniority Index Input -->
+          <div class="form-field-group">
+            <label for="judge_seniority"
+              >Seniority <span class="required-star">*</span></label
+            >
+            <input
+              pInputText
+              id="judge_seniority"
+              type="text"
+              formControlName="seniority"
+              class="w-full form-input-field"
+              placeholder="Enter seniority order ranking index value (e.g., 1)"
+              [class.field-error-border]="isJudgeFieldInvalid('seniority')"
+            />
+            <div
+              class="error-msg-space"
+              *ngIf="isJudgeFieldInvalid('seniority')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Seniority weight ranking
+                code must match an integer parameter index.</small
+              >
+            </div>
+          </div>
+
+          <!-- Input Field 4: Date of Retirement Calendar/DatePicker Selection -->
+          <div class="form-field-group">
+            <label for="judge_retirement"
+              >Date of Retirement <span class="required-star">*</span></label
+            >
+            <p-datepicker
+              id="judge_retirement"
+              formControlName="dateOfRetirement"
+              placeholder="Select calendar date"
+              [showIcon]="true"
+              [iconDisplay]="'input'"
+              dateFormat="dd/mm/yy"
+              styleClass="w-full form-calendar-field"
+              [inputStyleClass]="
+                isJudgeFieldInvalid('dateOfRetirement')
+                  ? 'w-full form-input-field field-error-border'
+                  : 'w-full form-input-field'
+              "
+            ></p-datepicker>
+            <div
+              class="error-msg-space"
+              *ngIf="isJudgeFieldInvalid('dateOfRetirement')"
+            >
+              <small class="error-text"
+                ><i class="pi pi-times-circle"></i> Official mandatory
+                retirement date target configuration is required.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Actions Bar Row Button Layout -->
+        <div class="form-actions-row">
+          <button
+            type="submit"
+            class="submit-registration-btn"
+            [disabled]="judgeMasterForm.invalid && judgeMasterForm.touched"
+          >
+            <i class="pi pi-check btn-icon-gap"></i> Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  } @else {
+    <!-- Catch-all structural fallback view fallback if a route logic is not yet built -->
+    <div class="fallback-empty-state fade-in-container">
+      <i class="pi pi-folder-open empty-icon"></i>
+      <h3>Workspace Panel Content Pending</h3>
+      <p>
+        The system view model layer for action target [{{ activeView }}] is
+        ready for form element injections.
+      </p>
+    </div>
+  }
+</div>
