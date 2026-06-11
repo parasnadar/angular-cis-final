@@ -3,18 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
-
-// PrimeNG v21 Standalone Component Imports
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { Select } from 'primeng/select'; // PrimeNG v21 modern replacement for DropdownModule
-import { TagModule } from 'primeng/tag';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { TooltipModule } from 'primeng/tooltip';
-import { MessageModule } from 'primeng/message';
-import { SkeletonModule } from 'primeng/skeleton';
+import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
 
 export interface BarOptionItem {
   id: string | number;
@@ -30,57 +19,14 @@ export interface BarOptionItem {
   imports: [
     CommonModule,
     FormsModule,
-    ButtonModule,
-    CardModule,
-    DialogModule,
-    InputTextModule,
-    Select, // Registered for v21 standalone usage
-    TagModule,
-    ProgressBarModule,
-    TooltipModule,
-    MessageModule,
-    SkeletonModule,
     UtilityBarComponent,
+    ChangePasswordModalComponent,
   ],
   templateUrl: './memberpb.component.html',
   styleUrl: './memberpb.component.scss',
 })
 export class MEMBERPBComponent {
   isPasswordModalVisible: boolean = false;
-
-  // Password visibility tracking toggles
-  showOldPassword = false;
-  showNewPassword = false;
-  showConfirmPassword = false;
-
-  // Real-time component form states
-  passwordForm = {
-    username: '',
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: '',
-  };
-
-  // Rule verification evaluation flags
-  validationRules = {
-    minLength: false,
-    hasUpper: false,
-    hasLower: false,
-    hasNumber: false,
-    hasSpecial: false,
-    passwordsMatch: false,
-  };
-
-  isNewPasswordTouched = false;
-  isConfirmPasswordTouched = false;
-
-  // Enterprise Dummy Dataset for Selection Mapping
-  userOptions = [
-    { label: 'Administrator (admin)', value: 'admin' },
-    { label: 'Clerk Operator (clerk_01)', value: 'clerk_01' },
-    { label: 'Reviewing Magistrate (mag_judge)', value: 'mag_judge' },
-    { label: 'System Registrar (registrar_office)', value: 'registrar_office' },
-  ];
 
   gstatViewOptions: BarOptionItem[] = [
     { id: 'home', label: 'Home', icon: 'pi pi-home' },
@@ -148,79 +94,18 @@ export class MEMBERPBComponent {
 
   handleAccountActionEvent(actionType: string): void {
     if (actionType === 'change_password') {
-      this.resetPasswordForm();
       this.isPasswordModalVisible = true;
     } else if (actionType === 'logout') {
       this.authService.logout();
     }
   }
-
-  validatePasswordInput(): void {
-    this.isNewPasswordTouched = true;
-    const pass = this.passwordForm.newPassword || '';
-
-    this.validationRules.minLength = pass.length >= 8;
-    this.validationRules.hasUpper = /[A-Z]/.test(pass);
-    this.validationRules.hasLower = /[a-z]/.test(pass);
-    this.validationRules.hasNumber = /[0-9]/.test(pass);
-    this.validationRules.hasSpecial = /[!@#$%^&*(),.?":{}|<>_]/.test(pass);
-
-    this.checkPasswordMatch();
-  }
-
-  checkPasswordMatch(): void {
-    if (this.passwordForm.confirmPassword) {
-      this.isConfirmPasswordTouched = true;
-    }
-    this.validationRules.passwordsMatch =
-      this.passwordForm.newPassword === this.passwordForm.confirmPassword &&
-      this.passwordForm.confirmPassword.length > 0;
-  }
-
-  isFormValid(): boolean {
-    return (
-      !!this.passwordForm.username &&
-      this.passwordForm.oldPassword.trim() !== '' &&
-      this.validationRules.minLength &&
-      this.validationRules.hasUpper &&
-      this.validationRules.hasLower &&
-      this.validationRules.hasNumber &&
-      this.validationRules.hasSpecial &&
-      this.validationRules.passwordsMatch
-    );
-  }
-
-  saveNewPassword(): void {
-    if (!this.isFormValid()) return;
-
+  onPasswordUpdateSaved(payload: any): void {
     console.log(
-      'Pushing valid password updates safely to system pipeline...',
-      this.passwordForm,
+      'Parent received valid payload. Ready for HTTP request pipeline:',
+      payload,
     );
-    this.isPasswordModalVisible = false;
-    this.resetPasswordForm();
-  }
-
-  resetPasswordForm(): void {
-    this.passwordForm = {
-      username: '',
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    };
-    this.validationRules = {
-      minLength: false,
-      hasUpper: false,
-      hasLower: false,
-      hasNumber: false,
-      hasSpecial: false,
-      passwordsMatch: false,
-    };
-    this.isNewPasswordTouched = false;
-    this.isConfirmPasswordTouched = false;
-    this.showOldPassword = false;
-    this.showNewPassword = false;
-    this.showConfirmPassword = false;
+    // Execute backend API post operations here:
+    // this.authService.changePassword(payload.username, payload.oldPassword, payload.newPassword).subscribe(...);
   }
 
   handleBarSelectionEvent(event: {
