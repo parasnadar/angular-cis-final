@@ -17,9 +17,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 export interface BarOptionItem {
   id: string | number;
   label: string;
-  icon?: string; // Optional standard PrimeIcons tokens string target (ex: 'pi pi-folder')
-  count?: number; // Optional data tracking counters overlay value
-  customMeta?: any; // Flexible payload pointer for API parsing logic integration downstream
+  icon?: string; // Standard PrimeIcons token (e.g., 'pi pi-folder')
+  children?: BarOptionItem[]; // Optional nested dropdown sub-items
+  customMeta?: any; // Flexible payload pointer for API parsing
 }
 
 @Component({
@@ -42,35 +42,112 @@ export interface BarOptionItem {
   styleUrl: './memberpb.component.scss',
 })
 export class MEMBERPBComponent {
-  caseTrackerOptions: BarOptionItem[] = [
-    { id: 'all', label: 'All Cases', icon: 'pi pi-briefcase', count: 142 },
+  // Removed the redundant 'change_password' element object tracking logic from here
+  gstatViewOptions: BarOptionItem[] = [
     {
-      id: 'pending',
-      label: 'Pending Scrutiny',
-      icon: 'pi pi-clock',
-      count: 18,
+      id: 'home',
+      label: 'Home',
+      icon: 'pi pi-home',
     },
     {
-      id: 'allocated',
-      label: 'Allocated Benches',
-      icon: 'pi pi-calendar-plus',
+      id: 'listing',
+      label: 'Listing',
+      icon: 'pi pi-list',
+      children: [{ id: 'inter_bench', label: 'Inter Bench' }],
     },
     {
-      id: 'disposed',
-      label: 'Disposed',
-      icon: 'pi pi-check-circle',
-      count: 84,
+      id: 'report',
+      label: 'Report',
+      icon: 'pi pi-file',
+      children: [
+        { id: 'case_docs', label: 'Case Docs' },
+        { id: 'mis_report', label: 'Mis Reports' },
+        {
+          id: 'efiled_cases',
+          label: 'Efiled Cases',
+        },
+        { id: 'case_status', label: 'Case Status' },
+      ],
+    },
+    {
+      id: 'cause_list',
+      label: 'Causelist',
+      icon: 'pi pi-calendar',
+      children: [
+        {
+          id: 'final_causelist',
+          label: 'Final CauseList',
+        },
+      ],
+    },
+    {
+      id: 'order',
+      label: 'Order',
+      icon: 'pi pi-book',
+      children: [
+        {
+          id: 'generate_order',
+          label: 'Generate Order',
+        },
+        { id: 'upload_order', label: 'Upload Order' },
+      ],
+    },
+    {
+      id: 'transfer_case',
+      label: 'Transfer Case',
+      icon: 'pi pi-arrow-h',
+      children: [
+        {
+          id: 'transfer_request',
+          label: 'Transfer Request',
+        },
+        {
+          id: 'transfer_action_taken',
+          label: 'Transfer Action Taken',
+        },
+      ],
+    },
+    {
+      id: 'recuse',
+      label: 'Recuse',
+      icon: 'pi pi-user-minus',
+      children: [
+        {
+          id: 'recuse_judge_from_case',
+          label: 'Recuse Judge(s) From Case',
+        },
+        {
+          id: 'recused_cases',
+          label: 'Recused Cases',
+        },
+      ],
     },
   ];
 
+  // Handles user profile dropdown selections
+  handleAccountActionEvent(actionType: string): void {
+    if (actionType === 'change_password') {
+      console.log(
+        'Routing down to Change Password modal configuration views...',
+      );
+    } else if (actionType === 'logout') {
+      console.log(
+        'Clearing session tokens. Redirecting user stream back to Login gateway...',
+      );
+    }
+  }
+
   handleBarSelectionEvent(event: {
-    index: number;
-    payload: BarOptionItem;
+    parent: BarOptionItem;
+    child?: BarOptionItem;
   }): void {
-    console.log(
-      `Loading metrics pipeline dataset matching context target: ${event.payload.id}`,
-    );
-    // Your actual API endpoint reload logic goes straight here...
+    if (event.child) {
+      console.log(
+        `Triggering Sub-Option Endpoint: ${event.child.id} under parent ${event.parent.id}`,
+      );
+    } else {
+      console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
+    }
   }
 
   isDarkMode: boolean = false; // Track state

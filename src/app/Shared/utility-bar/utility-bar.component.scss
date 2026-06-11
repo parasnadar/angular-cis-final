@@ -1,20 +1,18 @@
-/* --- Modern Universal Utility Container Core Layer Frame --- */
-.universal-bar-container {
+// Layout Spacing and Container Base Configurations
+.utility-bar-container {
   width: 100%;
-  background: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* Fine link to your parent master glass theme models */
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(0, 29, 126, 0.06);
-  border-radius: 12px; /* Curves map cleanly inside system view limits boundaries context */
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   padding: 0.5rem 1rem;
   box-sizing: border-box;
-  box-shadow: 0 4px 20px -2px rgba(0, 29, 126, 0.02);
-  margin-bottom: 1.25rem;
+
+  // Clean, modern spatial distribution definitions
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  // Subtle structural shadow profile
+  box-shadow: 0 4px 18px -4px rgba(15, 23, 42, 0.04);
 }
 
 .bar-inner-flex {
@@ -25,31 +23,25 @@
   gap: 1.5rem;
 }
 
-/* --- Left Segment: Fluid Multi-Option Navigation Rails --- */
 .options-nav-rail {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  overflow-x: auto; /* Gracefully transforms row items into horizontal swipe tracks on tablet breaks */
-  scroll-behavior: smooth;
-  padding: 0.1rem 0;
-
-  /* Disables messy default window track scrolls blocks indicators views */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  gap: 0.35rem;
+  flex-wrap: wrap;
 }
 
-/* Pristine Geometric Interaction Pill Selectors Rules */
+.nav-item-wrapper {
+  position: relative;
+}
+
+// Left Navigation Pill Item Layouts
 .nav-item-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   background: transparent;
   border: 1px solid transparent;
-  padding: 0.45rem 1rem;
+  padding: 0.5rem 0.85rem;
   border-radius: 8px;
   color: #475569;
   font-family:
@@ -57,72 +49,361 @@
     -apple-system,
     sans-serif;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-sizing: border-box;
 
-  .pill-embedded-icon {
-    font-size: 0.85rem;
+  .pill-icon {
+    font-size: 0.9rem;
     color: #64748b;
     transition: color 0.15s ease;
   }
 
-  .pill-badge-count {
-    background: rgba(71, 85, 105, 0.08);
-    color: #475569;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-    transition: all 0.15s ease;
+  .arrow-icon {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    transition:
+      transform 0.2s ease,
+      color 0.15s ease;
   }
 
-  /* Interaction Hover Transitions State Modifiers mapping rules */
   &:hover {
-    background: rgba(0, 29, 126, 0.03);
-    color: #001d7e;
+    background: #f1f5f9;
+    color: #0f172a;
 
-    .pill-embedded-icon {
-      color: #001d7e;
+    .pill-icon {
+      color: #0f172a;
+    }
+    .arrow-icon {
+      color: #475569;
     }
   }
 
-  /* Solid Core Active Engagement Highlight Vector State */
+  &.has-dropdown-open {
+    background: #f1f5f9;
+    color: #0f172a;
+
+    .arrow-icon {
+      transform: rotate(180deg);
+      color: #0f172a;
+    }
+  }
+
+  // Active / Selected Master Tab State
   &.is-active {
-    background: #001d7e !important; /* Your principal corporate structural identity blue index */
-    border-color: #001d7e !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(0, 29, 126, 0.15);
+    background: #eff6ff;
+    border-color: rgba(59, 130, 246, 0.15);
+    color: #1d4ed8; // Corporate Tech Royal Blue Tint Index
+    font-weight: 600;
 
-    .pill-embedded-icon {
-      color: #38bdf8 !important;
-    } /* Electric ice blue vector variant matching primary layout specs */
-
-    .pill-badge-count {
-      background: rgba(255, 255, 255, 0.2) !important;
-      color: #ffffff !important;
+    .pill-icon,
+    .arrow-icon {
+      color: #1d4ed8;
     }
   }
 }
 
-/* --- Right Segment: Custom Content Actions Docking Dock --- */
+// Nested Navigation Overlays Submenu
+.dropdown-menu-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 150;
+  min-width: 210px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow:
+    0 12px 30px -4px rgba(15, 23, 42, 0.08),
+    0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  padding: 0.35rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.15rem;
+
+  &.is-visible {
+    display: flex;
+    animation: menuFadeIn 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  color: #475569;
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+
+  .item-icon {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    transition: color 0.1s ease;
+  }
+
+  &:hover {
+    background: #f8fafc;
+    color: #0f172a;
+
+    .item-icon {
+      color: #475569;
+    }
+  }
+
+  &.is-child-active {
+    background: #f5f3ff;
+    color: #6d28d9; // Distinct deep violet variant for sub-level nodes
+    font-weight: 600;
+
+    .item-icon {
+      color: #6d28d9;
+    }
+  }
+}
+
+// Right Action Alignments Slot and Fixed Profile Layouts
 .bar-actions-dock {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
+  margin-left: auto;
 }
 
-/* --- Multi-Device Responsive Pipeline Breakpoints --- */
-@media (max-width: 768px) {
-  .bar-inner-flex {
-    flex-direction: column; /* Stacks layout rows cleanly into blocks arrays context on mobile formats */
-    align-items: stretch;
-    gap: 0.85rem;
+.user-profile-wrapper {
+  position: relative;
+}
+
+.profile-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 0.35rem 0.85rem 0.35rem 0.45rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+
+  &:hover,
+  &.is-menu-open {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+
+    .profile-arrow {
+      color: #1e293b;
+    }
+  }
+}
+
+// High Contrast Modern Corporate Avatar Badge
+.avatar-badge {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+
+  span {
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+}
+
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25;
+
+  .user-id-tag {
+    color: #0f172a;
+    font-family: "Inter", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: -0.1px;
   }
 
+  .user-role-sub {
+    color: #64748b;
+    font-family: "Inter", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+}
+
+.profile-arrow {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-trigger-btn.is-menu-open .profile-arrow {
+  transform: rotate(180deg);
+}
+
+// Account Settings Dropdown Panels
+.profile-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 200;
+  width: 240px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow:
+    0 16px 36px -6px rgba(15, 23, 42, 0.12),
+    0 4px 16px -3px rgba(15, 23, 42, 0.04);
+  padding: 0.5rem;
+  display: none;
+  flex-direction: column;
+
+  &.is-visible {
+    display: flex;
+    animation: menuFadeIn 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.panel-header-context {
+  padding: 0.6rem 0.75rem 0.75rem 0.75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #f1f5f9;
+
+  .signed-in-as {
+    color: #64748b;
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .user-email-text {
+    color: #0f172a;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0.2rem 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.panel-group-label {
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.75rem 0.25rem 0.75rem;
+}
+
+.panel-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 0.4rem 0.5rem;
+}
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  color: #334155;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  .icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+
+    i {
+      font-size: 0.85rem;
+    }
+
+    &.indigo-tint {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+    &.red-tint {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+  }
+
+  &:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+
+  &.logout-variant:hover {
+    background: #fef2f2;
+    color: #991b1b;
+
+    .icon-wrap.red-tint {
+      background: #dc2626;
+      color: #ffffff;
+    }
+  }
+}
+
+// Micro-Animations Keyframe Pipelines
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Flow Braking Layout Parameters
+@media (max-width: 768px) {
+  .bar-inner-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
   .bar-actions-dock {
-    justify-content: flex-end; /* Anchors complementary control items back to primary action line rules bounds */
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 0.75rem;
   }
 }

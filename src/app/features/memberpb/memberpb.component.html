@@ -1,7 +1,8 @@
 <app-utility-bar
-  [menuOptions]="caseTrackerOptions"
-  [selectedOptionIndex]="0"
+  [menuOptions]="gstatViewOptions"
+  [defaultSelectId]="'home'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
+  (onAccountAction)="handleAccountActionEvent($event)"
 >
 </app-utility-bar>
 <div class="surface-card p-4 border-round shadow-2">

@@ -1,25 +1,100 @@
-<div class="universal-bar-container">
+<div class="utility-bar-container">
   <div class="bar-inner-flex">
-    <div class="options-nav-rail">
-      <button
+    <nav class="options-nav-rail">
+      <div
         *ngFor="let item of menuOptions; let idx = index"
-        type="button"
-        class="nav-item-pill"
-        [class.is-active]="selectedOptionIndex === idx"
-        (click)="selectOption(idx, item)"
+        class="nav-item-wrapper"
       >
-        <i *ngIf="item.icon" [class]="item.icon + ' pill-embedded-icon'"></i>
+        <button
+          type="button"
+          class="nav-item-pill"
+          [class.is-active]="currentSelectedParent === item"
+          [class.has-dropdown-open]="activeDropdownIndex === idx"
+          (click)="handleParentClick(item, idx, $event)"
+        >
+          <i *ngIf="item.icon" [class]="item.icon + ' pill-icon'"></i>
+          <span class="pill-label">{{ item.label }}</span>
+          <i
+            *ngIf="item.children && item.children.length > 0"
+            class="pi pi-chevron-down arrow-icon"
+          ></i>
+        </button>
 
-        <span class="pill-label-text">{{ item.label }}</span>
-
-        <span *ngIf="item.count !== undefined" class="pill-badge-count">
-          {{ item.count }}
-        </span>
-      </button>
-    </div>
+        <div
+          *ngIf="item.children && item.children.length > 0"
+          class="dropdown-menu-panel"
+          [class.is-visible]="activeDropdownIndex === idx"
+        >
+          <button
+            *ngFor="let child of item.children"
+            type="button"
+            class="dropdown-menu-item"
+            [class.is-child-active]="currentSelectedItem === child"
+            (click)="handleChildClick(item, child, $event)"
+          >
+            <i *ngIf="child.icon" [class]="child.icon + ' item-icon'"></i>
+            <span class="item-label">{{ child.label }}</span>
+          </button>
+        </div>
+      </div>
+    </nav>
 
     <div class="bar-actions-dock">
       <ng-content select="[actions]"></ng-content>
+
+      <div class="user-profile-wrapper">
+        <button
+          type="button"
+          class="profile-trigger-btn"
+          [class.is-menu-open]="isProfileMenuOpen"
+          (click)="toggleProfileMenu($event)"
+        >
+          <div class="avatar-badge">
+            <span>MP</span>
+          </div>
+          <div class="profile-meta">
+            <span class="user-id-tag">MEMBERPB1</span>
+            <span class="user-role-sub">Principal Bench</span>
+          </div>
+          <i class="pi pi-chevron-down profile-arrow"></i>
+        </button>
+
+        <div
+          class="profile-dropdown-panel"
+          [class.is-visible]="isProfileMenuOpen"
+        >
+          <div class="panel-header-context">
+            <p class="signed-in-as">Signed in as</p>
+            <p class="user-email-text">memberpb1@gstat.gov.in</p>
+          </div>
+
+          <div class="panel-group-label">Account Settings</div>
+
+          <button
+            type="button"
+            class="profile-menu-item"
+            (click)="handleAccountAction('change_password')"
+          >
+            <div class="icon-wrap indigo-tint">
+              <i class="pi pi-shield"></i>
+            </div>
+            <span>Change Password</span>
+          </button>
+
+          <div class="panel-divider"></div>
+
+          <button
+            type="button"
+            class="profile-menu-item logout-variant"
+            (click)="handleAccountAction('logout')"
+          >
+            <div class="icon-wrap red-tint">
+              <i class="pi pi-sign-out"></i>
+            </div>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
