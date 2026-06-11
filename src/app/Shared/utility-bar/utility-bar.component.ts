@@ -7,6 +7,7 @@ import {
   HostListener,
   ElementRef,
   OnInit,
+  input,
 } from '@angular/core';
 
 export interface BarOptionItem {
@@ -25,6 +26,8 @@ export interface BarOptionItem {
   styleUrl: './utility-bar.component.scss',
 })
 export class UtilityBarComponent implements OnInit {
+  username = input<string>('GUEST');
+  initials = input<string>('GS');
   @Input() menuOptions: BarOptionItem[] = [];
   @Input() defaultSelectId: string | number = 'cause_list';
 

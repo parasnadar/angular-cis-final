@@ -60,11 +60,10 @@
           (click)="toggleProfileMenu($event)"
         >
           <div class="dock-avatar-frame">
-            <span>MP</span>
+            <span>{{ initials() }}</span>
           </div>
           <div class="dock-profile-meta">
-            <span class="meta-user-name">MEMBERPB1</span>
-            <span class="meta-user-role">Principal Bench</span>
+            <span class="meta-user-name">{{ username() }}</span>
           </div>
           <i class="pi pi-chevron-down trigger-arrow"></i>
         </button>

@@ -3,6 +3,8 @@
   [defaultSelectId]="'home'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
   (onAccountAction)="handleAccountActionEvent($event)"
+  [username]="loggedInUser.name"
+  [initials]="loggedInUser.initials"
 >
 </app-utility-bar>
 <app-change-password-modal

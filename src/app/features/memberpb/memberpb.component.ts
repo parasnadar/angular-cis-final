@@ -26,7 +26,14 @@ export interface BarOptionItem {
   styleUrl: './memberpb.component.scss',
 })
 export class MEMBERPBComponent {
+  constructor(private authService: AuthServiceService) {}
+  loggedInUser = {
+    name: 'MemberPb',
+    initials: 'MB',
+  };
   isPasswordModalVisible: boolean = false;
+  public visible: boolean = false;
+  isDarkMode: boolean = false;
 
   gstatViewOptions: BarOptionItem[] = [
     { id: 'home', label: 'Home', icon: 'pi pi-home' },
@@ -51,7 +58,7 @@ export class MEMBERPBComponent {
       id: 'cause_list',
       label: 'Causelist',
       icon: 'pi pi-calendar',
-      children: [{ id: 'final_causelist', label: 'Final CauseList' }],
+      children: [{ id: 'final_causelist', label: 'Final Causelist' }],
     },
     {
       id: 'order',
@@ -65,7 +72,7 @@ export class MEMBERPBComponent {
     {
       id: 'transfer_case',
       label: 'Transfer Case',
-      icon: 'pi pi-arrow-h',
+      icon: 'pi pi-sync',
       children: [
         { id: 'transfer_request', label: 'Transfer Request' },
         { id: 'transfer_action_taken', label: 'Transfer Action Taken' },
@@ -82,16 +89,6 @@ export class MEMBERPBComponent {
     },
   ];
 
-  public visible: boolean = false;
-  public loadingValue: number = 0;
-  isDarkMode: boolean = false;
-
-  constructor(private authService: AuthServiceService) {
-    setInterval(() => {
-      this.loadingValue = this.loadingValue >= 100 ? 0 : this.loadingValue + 10;
-    }, 2000);
-  }
-
   handleAccountActionEvent(actionType: string): void {
     if (actionType === 'change_password') {
       this.isPasswordModalVisible = true;
@@ -99,6 +96,7 @@ export class MEMBERPBComponent {
       this.authService.logout();
     }
   }
+
   onPasswordUpdateSaved(payload: any): void {
     console.log(
       'Parent received valid payload. Ready for HTTP request pipeline:',
@@ -129,12 +127,5 @@ export class MEMBERPBComponent {
     } else {
       element?.classList.remove('my-app-dark');
     }
-  }
-
-  showDialog() {
-    this.visible = true;
-  }
-  onLogout() {
-    this.authService.logout();
   }
 }
