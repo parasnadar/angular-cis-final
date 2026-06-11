@@ -27,19 +27,30 @@ export class SUPERADMINComponent {
   gstatViewOptions: BarOptionItem[] = [
     { id: 'home', label: 'Home', icon: 'pi pi-home' },
     {
-      id: 'sreport',
-      label: 'Report',
-      icon: 'pi pi-file',
+      id: 'suuser',
+      label: 'User',
+      icon: 'pi pi-user',
       children: [
-        { id: 'sdefect_notices', label: 'Defect Notices' },
-        { id: 'sscrutinized_notices', label: 'Scrutinized Notices' },
+        { id: 'sucreate_user', label: 'Create User' },
+        { id: 'suview_user', label: 'View User' },
       ],
     },
     {
-      id: 'sdocument_scrutiny',
-      label: 'Document Scrutiny',
-      icon: 'pi pi-file-check',
-      children: [{ id: 'sscrutiny', label: 'Scrutiny' }],
+      id: 'sumenu',
+      label: 'Menu',
+      icon: 'pi pi-bars',
+      children: [
+        { id: 'sucreate_menu', label: 'Create Menu' },
+        { id: 'sucreate_sub_menu', label: 'Create Submenu' },
+        { id: 'suview_menu', label: 'View Menu' },
+        { id: 'suview_sub_view', label: 'View Submenu' },
+      ],
+    },
+    {
+      id: 'sumasters',
+      label: 'Masters',
+      icon: 'pi pi-building-columns',
+      children: [{ id: 'sujudge_master', label: 'Judge Master' }],
     },
   ];
 

@@ -25,7 +25,7 @@ export class ARBPComponent {
   };
 
   gstatViewOptions: BarOptionItem[] = [
-    { id: 'home', label: 'Home', icon: 'pi pi-home' },
+    { id: 'ahome', label: 'Home', icon: 'pi pi-home' },
 
     {
       id: 'areport',

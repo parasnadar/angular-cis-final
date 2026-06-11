@@ -25,21 +25,21 @@ export class STENOComponent {
   };
 
   gstatViewOptions: BarOptionItem[] = [
-    { id: 'home', label: 'Home', icon: 'pi pi-home' },
+    { id: 'sthome', label: 'Home', icon: 'pi pi-home' },
     {
-      id: 'sreport',
-      label: 'Report',
-      icon: 'pi pi-file',
-      children: [
-        { id: 'sdefect_notices', label: 'Defect Notices' },
-        { id: 'sscrutinized_notices', label: 'Scrutinized Notices' },
-      ],
+      id: 'stcause_list',
+      label: 'Causelist',
+      icon: 'pi pi-calendar',
+      children: [{ id: 'stfinal_causelist', label: 'Final Causelist' }],
     },
     {
-      id: 'sdocument_scrutiny',
-      label: 'Document Scrutiny',
-      icon: 'pi pi-file-check',
-      children: [{ id: 'sscrutiny', label: 'Scrutiny' }],
+      id: 'storder',
+      label: 'Order',
+      icon: 'pi pi-book',
+      children: [
+        { id: 'stgenerate_order', label: 'Generate Order' },
+        { id: 'stupload_order', label: 'Upload Order' },
+      ],
     },
   ];
 

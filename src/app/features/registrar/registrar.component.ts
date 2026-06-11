@@ -25,7 +25,7 @@ export class REGISTRARComponent {
   };
 
   gstatViewOptions: BarOptionItem[] = [
-    { id: 'home', label: 'Home', icon: 'pi pi-home' },
+    { id: 'rhome', label: 'Home', icon: 'pi pi-home' },
     {
       id: 'rdashboard',
       label: 'Dashboard',
