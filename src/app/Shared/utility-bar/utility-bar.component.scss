@@ -325,46 +325,6 @@ $glass-bg: rgba(255, 255, 255, 0.85);
   }
 }
 
-.dropdown-user-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.55rem;
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 10px;
-
-  .card-avatar-initials {
-    width: 34px;
-    height: 34px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    span {
-      color: $slate-primary;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-  }
-  .card-display-title {
-    color: $slate-primary;
-    font-size: 0.88rem;
-    font-weight: 600;
-    margin: 0;
-  }
-  .card-subtitle-email {
-    color: $slate-secondary;
-    font-size: 0.75rem;
-    margin: 0;
-  }
-}
-
-.dropdown-section-divider {
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
-  margin: 0.4rem 0.25rem;
-}
 .dropdown-action-list {
   display: flex;
   flex-direction: column;
