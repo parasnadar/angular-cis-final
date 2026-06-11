@@ -1,3 +1,9 @@
+<app-utility-bar
+  [menuOptions]="caseTrackerOptions"
+  [selectedOptionIndex]="0"
+  (onOptionSelected)="handleBarSelectionEvent($event)"
+>
+</app-utility-bar>
 <div class="surface-card p-4 border-round shadow-2">
   <div class="flex mb-3">
     <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />

@@ -1,0 +1,25 @@
+<div class="universal-bar-container">
+  <div class="bar-inner-flex">
+    <div class="options-nav-rail">
+      <button
+        *ngFor="let item of menuOptions; let idx = index"
+        type="button"
+        class="nav-item-pill"
+        [class.is-active]="selectedOptionIndex === idx"
+        (click)="selectOption(idx, item)"
+      >
+        <i *ngIf="item.icon" [class]="item.icon + ' pill-embedded-icon'"></i>
+
+        <span class="pill-label-text">{{ item.label }}</span>
+
+        <span *ngIf="item.count !== undefined" class="pill-badge-count">
+          {{ item.count }}
+        </span>
+      </button>
+    </div>
+
+    <div class="bar-actions-dock">
+      <ng-content select="[actions]"></ng-content>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+/* --- Modern Universal Utility Container Core Layer Frame --- */
+.universal-bar-container {
+  width: 100%;
+  background: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Fine link to your parent master glass theme models */
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(0, 29, 126, 0.06);
+  border-radius: 12px; /* Curves map cleanly inside system view limits boundaries context */
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px -2px rgba(0, 29, 126, 0.02);
+  margin-bottom: 1.25rem;
+}
+
+.bar-inner-flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* --- Left Segment: Fluid Multi-Option Navigation Rails --- */
+.options-nav-rail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto; /* Gracefully transforms row items into horizontal swipe tracks on tablet breaks */
+  scroll-behavior: smooth;
+  padding: 0.1rem 0;
+
+  /* Disables messy default window track scrolls blocks indicators views */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Pristine Geometric Interaction Pill Selectors Rules */
+.nav-item-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  color: #475569;
+  font-family:
+    "Inter",
+    -apple-system,
+    sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+
+  .pill-embedded-icon {
+    font-size: 0.85rem;
+    color: #64748b;
+    transition: color 0.15s ease;
+  }
+
+  .pill-badge-count {
+    background: rgba(71, 85, 105, 0.08);
+    color: #475569;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+  }
+
+  /* Interaction Hover Transitions State Modifiers mapping rules */
+  &:hover {
+    background: rgba(0, 29, 126, 0.03);
+    color: #001d7e;
+
+    .pill-embedded-icon {
+      color: #001d7e;
+    }
+  }
+
+  /* Solid Core Active Engagement Highlight Vector State */
+  &.is-active {
+    background: #001d7e !important; /* Your principal corporate structural identity blue index */
+    border-color: #001d7e !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 29, 126, 0.15);
+
+    .pill-embedded-icon {
+      color: #38bdf8 !important;
+    } /* Electric ice blue vector variant matching primary layout specs */
+
+    .pill-badge-count {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #ffffff !important;
+    }
+  }
+}
+
+/* --- Right Segment: Custom Content Actions Docking Dock --- */
+.bar-actions-dock {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* --- Multi-Device Responsive Pipeline Breakpoints --- */
+@media (max-width: 768px) {
+  .bar-inner-flex {
+    flex-direction: column; /* Stacks layout rows cleanly into blocks arrays context on mobile formats */
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .bar-actions-dock {
+    justify-content: flex-end; /* Anchors complementary control items back to primary action line rules bounds */
+  }
+}
