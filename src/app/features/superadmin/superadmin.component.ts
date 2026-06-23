@@ -12,6 +12,7 @@ import {
 import { Select } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 import { DatePickerModule } from 'primeng/datepicker';
+import { NotificationService } from '../../core/services/notification.service';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -37,6 +38,7 @@ export class SUPERADMINComponent {
   constructor(
     private authService: AuthServiceService,
     private fb: FormBuilder,
+    private notify: NotificationService,
   ) {}
   isPasswordModalVisible: boolean = false;
   loggedInUser = {
@@ -86,6 +88,7 @@ export class SUPERADMINComponent {
       'Parent received valid payload. Ready for HTTP request pipeline:',
       payload,
     );
+    this.notify.showSuccess('Password Changed Successfully');
     // Execute backend API post operations here:
     // this.authService.changePassword(payload.username, payload.oldPassword, payload.newPassword).subscribe(...);
   }
@@ -105,6 +108,10 @@ export class SUPERADMINComponent {
       this.activeView = event.parent.id as string;
       console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
     }
+    this.initializeRegistrationForm();
+    this.initializeMenuCreationForm();
+    this.initializeSubMenuCreationForm();
+    this.initializeJudgeMasterForm();
   }
   // Add this method inside your MEMBERPBComponent class
   navigateAdminAction(actionType: string): void {
@@ -114,16 +121,16 @@ export class SUPERADMINComponent {
 
     switch (actionType) {
       case 'create_user':
-        // Open your user creation dialog or trigger appropriate service modal
+        this.activeView = 'sucreate_user';
         break;
       case 'manage_users':
         // Route user stream to user index logs table view
         break;
       case 'create_menu':
-        // Initialize layout configuration parameters context maps
+        this.activeView = 'sucreate_menu';
         break;
       case 'manage_masters':
-        // Redirect workspace visibility grid straight to Master lookup tables
+        this.activeView = 'sujudge_master';
         break;
       default:
         console.warn(
@@ -187,8 +194,11 @@ export class SUPERADMINComponent {
       'Form submission successful. Sending payload to your API pipe:',
       this.userForm.value,
     );
+    this.notify.showSuccess(
+      'Form submission successful. Sending payload to your API pipe:',
+    );
     // Execute backend posting operations here. Then reset gracefully:
-    // this.userForm.reset();
+    this.userForm.reset();
   }
 
   // create menu
@@ -251,8 +261,11 @@ export class SUPERADMINComponent {
       'Menu schema validation passed. Dispatching tree mapping parameters:',
       this.menuForm.value,
     );
+    this.notify.showSuccess(
+      'Menu schema validation passed. Dispatching tree mapping parameters:',
+    );
     // Execute backend posting operations here. Then reset gracefully:
-    // this.menuForm.reset();
+    this.menuForm.reset();
   }
 
   //sub-menu
