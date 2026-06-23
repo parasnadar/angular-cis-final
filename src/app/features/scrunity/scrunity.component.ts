@@ -75,9 +75,6 @@ export class SCRUNITYComponent {
     this.loadAssignedMenus();
 
     this.form = this.fb.group({
-      // Previous control
-      selectedRole: [null, Validators.required],
-
       caseCategory: ['fresh'],
       caseType: ['all'],
       diaryFilingNo: [''],
@@ -98,11 +95,6 @@ export class SCRUNITYComponent {
       fromFilingDate: null,
       toFilingDate: null,
     });
-  }
-
-  isFieldInvalid(): boolean {
-    const control = this.form.get('selectedRole');
-    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
   loadAssignedMenus() {
