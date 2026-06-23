@@ -1,7 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
+import { MENU_REGISTRY } from '../../core/menu-registry';
+import { RadioButton } from 'primeng/radiobutton';
+import { Select } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -11,37 +25,106 @@ export interface BarOptionItem {
 }
 @Component({
   selector: 'app-scrunity',
-  imports: [UtilityBarComponent, ChangePasswordModalComponent],
+  imports: [
+    CommonModule,
+    UtilityBarComponent,
+    ChangePasswordModalComponent,
+    RadioButton,
+    ReactiveFormsModule,
+    Select,
+    DatePickerModule,
+    ButtonModule,
+    InputTextModule,
+  ],
   templateUrl: './scrunity.component.html',
   styleUrl: './scrunity.component.scss',
 })
 export class SCRUNITYComponent {
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private fb: FormBuilder,
+  ) {}
+  form!: FormGroup;
+
+  // Your 4 options
+  caseCategoryOptions = [
+    { label: 'Fresh case for scrutiny', value: 'fresh' },
+    { label: 'Defective cases', value: 'defective' },
+    { label: 'Refiled Cases', value: 'refiled' },
+    { label: 'Return Cases', value: 'return' },
+  ];
+
+  caseTypeOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Company Appeal', value: 'ca' },
+    { label: 'Contempt Petition', value: 'cp' },
+  ];
   isPasswordModalVisible: boolean = false;
-  public visible: boolean = false;
+
   loggedInUser = {
     name: 'Scrunity',
     initials: 'S',
   };
 
-  gstatViewOptions: BarOptionItem[] = [
-    { id: 'home', label: 'Home', icon: 'pi pi-home' },
-    {
-      id: 'sreport',
-      label: 'Report',
-      icon: 'pi pi-file',
-      children: [
-        { id: 'sdefect_notices', label: 'Defect Notices' },
-        { id: 'sscrutinized_notices', label: 'Scrutinized Notices' },
-      ],
-    },
-    {
-      id: 'sdocument_scrutiny',
-      label: 'Document Scrutiny',
-      icon: 'pi pi-file-check',
-      children: [{ id: 'sscrutiny', label: 'Scrutiny' }],
-    },
-  ];
+  activeView: string = 'ScrunityHome';
+  activeComponentType: Type<any> | null = null; // Holds the current matching component class
+
+  gstatViewOptions: BarOptionItem[] = [];
+
+  ngOnInit(): void {
+    this.loadAssignedMenus();
+
+    this.form = this.fb.group({
+      // Previous control
+      selectedRole: [null, Validators.required],
+
+      caseCategory: ['fresh'],
+      caseType: ['all'],
+      diaryFilingNo: [''],
+      fromFilingDate: [null],
+      toFilingDate: [null],
+    });
+  }
+
+  onSearch(): void {
+    console.log('Executing query payload:', this.form.value);
+  }
+
+  onReset(): void {
+    this.form.patchValue({
+      caseCategory: ['fresh'],
+      caseType: 'all',
+      diaryFilingNo: '',
+      fromFilingDate: null,
+      toFilingDate: null,
+    });
+  }
+
+  isFieldInvalid(): boolean {
+    const control = this.form.get('selectedRole');
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  loadAssignedMenus() {
+    this.gstatViewOptions = [
+      { id: 'ScrunityHome', label: 'Home', icon: 'pi pi-home' },
+      {
+        id: 'sreport',
+        label: 'Report',
+        icon: 'pi pi-file',
+        children: [
+          { id: 'sdefect_notices', label: 'Defect Notices' },
+          { id: 'sscrutinized_notices', label: 'Scrutinized Notices' },
+        ],
+      },
+      {
+        id: 'sdocument_scrutiny',
+        label: 'Document Scrutiny',
+        icon: 'pi pi-file-check',
+        children: [{ id: 'sscrutiny', label: 'Scrutiny' }],
+      },
+    ];
+  }
 
   handleAccountActionEvent(actionType: string): void {
     if (actionType === 'change_password') {
@@ -63,12 +146,16 @@ export class SCRUNITYComponent {
     parent: BarOptionItem;
     child?: BarOptionItem;
   }): void {
-    if (event.child) {
-      console.log(
-        `Triggering Sub-Option Endpoint: ${event.child.id} under parent ${event.parent.id}`,
-      );
+    const selectedId = event.child
+      ? (event.child.id as string)
+      : (event.parent.id as string);
+    this.activeView = selectedId;
+
+    // Dynamically look up the component type using the string ID from MENU_REGISTRY
+    if (selectedId === 'ScrunityHome') {
+      this.activeComponentType = null;
     } else {
-      console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
+      this.activeComponentType = MENU_REGISTRY[selectedId] || null;
     }
   }
 }

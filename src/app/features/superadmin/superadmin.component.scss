@@ -1,98 +1,4 @@
-/* Root Workspace Container Layout */
-.super-admin-dashboard {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
-}
-
-/* Premium Welcome Hero Banner Card */
-.welcome-hero-card {
-  background: linear-gradient(
-    135deg,
-    #1e1b4b 0%,
-    #312e81 100%
-  ); /* Deep Navy/Indigo Executive Gradient */
-  border-radius: 20px;
-  padding: 2.5rem;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow:
-    0 10px 25px -5px rgba(49, 46, 129, 0.15),
-    0 8px 10px -6px rgba(49, 46, 129, 0.15);
-  margin-bottom: 3rem;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .hero-content {
-    max-width: 70%;
-    z-index: 2;
-  }
-
-  .badge-role {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 0.4rem 0.8rem;
-    border-radius: 30px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #e0e7ff;
-    margin-bottom: 1.2rem;
-
-    i {
-      font-size: 0.85rem;
-    }
-  }
-
-  .hero-title {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.75rem 0;
-    color: #ffffff;
-  }
-
-  .hero-subtitle {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #c7d2fe;
-    margin: 0;
-    font-weight: 400;
-  }
-
-  .hero-illustration {
-    z-index: 2;
-    padding-right: 1rem;
-
-    .system-giant-icon {
-      font-size: 4.5rem;
-      color: rgba(255, 255, 255, 0.15);
-    }
-  }
-}
-
-/* Section Header Typography Layout */
+/* Administrative Command Center Grid Section Styling */
 .dashboard-section-header {
   margin-bottom: 1.5rem;
 
@@ -111,14 +17,13 @@
   }
 }
 
-/* Modern Multi-Column Command Grid Layout */
 .quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
 }
 
-/* Interactive Admin Action Action Cards */
+/* Admin Custom Navigation Control Cards Parameters */
 .action-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -144,7 +49,6 @@
       font-size: 1.2rem;
     }
 
-    /* Professional Icon Color Accents */
     &.color-indigo {
       background: #f5f3ff;
       color: #4f46e5;
@@ -171,7 +75,6 @@
       margin: 0 0 0.4rem 0;
       letter-spacing: -0.01em;
     }
-
     p {
       font-size: 0.82rem;
       line-height: 1.5;
@@ -191,7 +94,6 @@
     transition: all 0.2s ease;
   }
 
-  /* Micro-interactions during cursor card focus */
   &:hover {
     border-color: #cbd5e1;
     transform: translateY(-3px);
@@ -200,270 +102,10 @@
     .card-icon-wrapper {
       transform: scale(1.04);
     }
-
     .card-arrow {
       opacity: 1;
       transform: translateX(0);
       color: #1e293b;
     }
-  }
-}
-/* Header Disclaimer Labeling Styles */
-.required-star {
-  color: #ef4444; /* High-contrast validation alert red tint */
-  font-weight: 600;
-  margin-left: 0.15rem;
-}
-
-.header-disclaimer {
-  font-size: 0.82rem !important;
-  color: #64748b !important;
-  margin-top: 0.25rem !important;
-}
-
-/* Form Structural Core Base Grid Settings */
-.workspace-form-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 1rem;
-}
-
-.form-grid-columns {
-  display: grid;
-  grid-template-columns: repeat(
-    2,
-    minmax(0, 1fr)
-  ); /* Clean 2-column balanced framework horizontal axis */
-  gap: 1.5rem 1.25rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr; /* Responsively downscales to single column layouts on smaller tablet monitors */
-  }
-}
-
-/* Individual Form Field Container Controls */
-.form-field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-
-  label {
-    color: #334155;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-
-  .form-input-field {
-    width: 100%;
-    font-size: 0.92rem;
-    padding: 0.65rem 0.85rem;
-    border-radius: 10px;
-    border: 1px solid #cbd5e1;
-    background: #f8fafc;
-    color: #1e293b;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-
-    &:focus {
-      border-color: #4f46e5 !important; /* Premium Indigo Accent Highlight focus tracking indicator */
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12) !important;
-      background: #ffffff;
-      outline: none;
-    }
-  }
-
-  /* Specific Error Border Rule Override Intersections */
-  .field-error-border {
-    border-color: #f87171 !important;
-    background: #fef2f2 !important;
-
-    &:focus {
-      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
-    }
-  }
-}
-
-/* Defensive Error Message Space Allocations preventing modal sizing pop text jitters */
-.error-msg-space {
-  margin-top: 0.15rem;
-  animation: slideInFieldValidation 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
-  .error-text {
-    color: #dc2626;
-    font-size: 0.78rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-}
-
-/* Submission Operational Action Buttons Row Alignment */
-.form-actions-row {
-  display: flex;
-  justify-content: flex-end;
-  border-top: 1px solid #f1f5f9;
-  padding-top: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.submit-registration-btn {
-  background: #4f46e5;
-  border: 1px solid #4f46e5;
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.75rem 1.75rem;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.15s ease-in-out;
-
-  .btn-icon-gap {
-    margin-right: 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  &:hover:not([disabled]) {
-    background: #4338ca;
-    border-color: #4338ca;
-    box-shadow:
-      0 10px 15px -3px rgba(79, 70, 229, 0.15),
-      0 4px 6px -4px rgba(79, 70, 229, 0.15);
-  }
-
-  &:disabled {
-    background: #cbd5e1;
-    border-color: #cbd5e1;
-    color: #94a3b8;
-    cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.7;
-  }
-}
-
-/* Micro-interaction Animation Keyframes */
-@keyframes slideInFieldValidation {
-  from {
-    opacity: 0;
-    transform: translateY(-3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Main Workspace Layout Canvas Setup */
-.workspace-main-viewport {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
-}
-
-/* Premium Form Workspace Display Container Sheets */
-.form-content-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03);
-
-  .form-card-header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 1.25rem;
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 0 0 0.35rem 0;
-      letter-spacing: -0.02em;
-    }
-
-    p {
-      font-size: 0.88rem;
-      color: #64748b;
-      margin: 0;
-    }
-  }
-}
-
-/* Mock Field Layout Frame Block */
-.mock-input-placeholder {
-  border: 2px dashed #cbd5e1;
-  background: #f8fafc;
-  border-radius: 12px;
-  padding: 4rem 2rem;
-  text-align: center;
-  color: #64748b;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-/* Fallback/Pending Menu Screen State Styling profiles */
-.fallback-empty-state {
-  text-align: center;
-  padding: 5rem 2rem;
-  background: #f8fafc;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-
-  .empty-icon {
-    font-size: 3rem;
-    color: #94a3b8;
-    margin-bottom: 1.2rem;
-  }
-
-  h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 0 0 0.4rem 0;
-  }
-
-  p {
-    font-size: 0.88rem;
-    color: #64748b;
-    margin: 0;
-  }
-}
-
-/* Micro-interaction Workspace Fade-In Animations */
-.fade-in-container {
-  animation: workspaceEntry 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes workspaceEntry {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Add this class rule block layout configuration inside your memberpb.component.scss file */
-.conditional-slide-field {
-  animation: slideFieldIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes slideFieldIn {
-  from {
-    opacity: 0;
-    transform: scale(0.97) translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
   }
 }

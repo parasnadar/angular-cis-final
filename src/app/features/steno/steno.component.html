@@ -1,13 +1,58 @@
 <app-utility-bar
   [menuOptions]="gstatViewOptions"
-  [defaultSelectId]="'home'"
+  [defaultSelectId]="'sthome'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
   (onAccountAction)="handleAccountActionEvent($event)"
   [username]="loggedInUser.name"
   [initials]="loggedInUser.initials"
->
-</app-utility-bar>
+></app-utility-bar>
+
 <app-change-password-modal
   [(visible)]="isPasswordModalVisible"
   (onSave)="onPasswordUpdateSaved($event)"
 ></app-change-password-modal>
+
+<!-- Global Shared Workspace Wrapper -->
+<div class="workspace-main-viewport">
+  @if (activeView === "sthome") {
+    <div class="fade-in-container">
+      <div class="super-admin-dashboard">
+        <div class="welcome-hero-card">
+          <div class="hero-content">
+            <div class="badge-role">
+              <i class="pi pi-pencil"></i>
+              <span>Judicial Stenographer Workspace</span>
+            </div>
+            <h1 class="hero-title">Welcome Back, Court Reporter</h1>
+            <p class="hero-subtitle">
+              Access active court rosters, generate official orders from
+              division benches, and finalize verified daily causelists.
+            </p>
+          </div>
+          <div class="hero-illustration">
+            <i class="pi pi-book system-giant-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Dynamic Injection Gateway Component Outlet Slot -->
+  @else if (activeComponentType) {
+    <div class="form-content-card fade-in-container">
+      <ng-container *ngComponentOutlet="activeComponentType"></ng-container>
+    </div>
+  }
+
+  <!-- Fallback boundary catch state -->
+  @else {
+    <div class="fallback-empty-state fade-in-container">
+      <i class="pi pi-folder-open empty-icon"></i>
+      <h3>Workspace Panel Content Pending</h3>
+      <p>
+        The system view model layer for action target [{{ activeView }}] is
+        ready for form element injections.
+      </p>
+    </div>
+  }
+</div>

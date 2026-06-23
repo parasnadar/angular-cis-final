@@ -1,13 +1,161 @@
 <app-utility-bar
   [menuOptions]="gstatViewOptions"
-  [defaultSelectId]="'home'"
+  [defaultSelectId]="'ScrunityHome'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
   (onAccountAction)="handleAccountActionEvent($event)"
   [username]="loggedInUser.name"
   [initials]="loggedInUser.initials"
->
-</app-utility-bar>
+></app-utility-bar>
+
 <app-change-password-modal
   [(visible)]="isPasswordModalVisible"
   (onSave)="onPasswordUpdateSaved($event)"
 ></app-change-password-modal>
+
+<div class="workspace-main-viewport">
+  @if (activeView === "ScrunityHome") {
+    <div class="fade-in-container">
+      <!-- <div class="super-admin-dashboard">
+        <div class="welcome-hero-card">
+          <div class="hero-content">
+            <div class="badge-role">
+              <i class="pi pi-shield"></i>
+              <span>Scrutiny Workspace</span>
+            </div>
+            <h1 class="hero-title">Welcome Back, Scrutiny Officer</h1>
+            <p class="hero-subtitle">
+              Access active court rosters, generate official orders from
+              division benches, and finalize verified daily causelists.
+            </p>
+          </div>
+          <div class="hero-illustration">
+            <i class="pi pi-book system-giant-icon"></i>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Form block container sheet style wrapper -->
+      <div class="form-content-card search-filter-card">
+        <form [formGroup]="form" class="workspace-form-layout">
+          <!-- 1. TOP SECTION: Case Status Category Row (From image_0cec7b.png) -->
+          <div class="case-category-row">
+            @for (category of caseCategoryOptions; track category.value) {
+              <div
+                class="category-pill"
+                [class.active-pill]="
+                  form.get('caseCategory')?.value === category.value
+                "
+              >
+                <p-radiobutton
+                  [inputId]="category.value"
+                  [value]="category.value"
+                  formControlName="caseCategory"
+                ></p-radiobutton>
+
+                <label [for]="category.value" class="category-label">
+                  {{ category.label }}
+                </label>
+              </div>
+            }
+          </div>
+
+          <!-- 2. BOTTOM SECTION: Dense Filter Input Criteria Row (From image_0cec7b.png) -->
+          <div class="filter-criteria-row">
+            <!-- Field Component 1: Case Type Select -->
+            <div class="inline-filter-field dropdown-wrapper">
+              <label class="filter-label">Case Types:</label>
+              <p-select
+                formControlName="caseType"
+                [options]="caseTypeOptions"
+                optionLabel="label"
+                optionValue="value"
+                styleClass="w-full white-bg-select"
+              ></p-select>
+            </div>
+
+            <!-- Field Component 2: Diary / Filing Input Text -->
+            <div class="inline-filter-field text-input-wrapper">
+              <label class="filter-label">Diary/Filing No:</label>
+              <input
+                pInputText
+                type="text"
+                formControlName="diaryFilingNo"
+                class="w-full plain-text-input"
+              />
+            </div>
+
+            <!-- Field Component 3: From Filing Calendar Datepicker -->
+            <div class="inline-filter-field date-wrapper">
+              <label class="filter-label">From filing date:</label>
+              <p-datepicker
+                formControlName="fromFilingDate"
+                placeholder="dd-mm-yyyy"
+                dateFormat="dd-mm-yy"
+                [showIcon]="true"
+                [iconDisplay]="'input'"
+                styleClass="w-full"
+                inputStyleClass="dense-calendar-input"
+              ></p-datepicker>
+            </div>
+
+            <!-- Field Component 4: To Filing Calendar Datepicker -->
+            <div class="inline-filter-field date-wrapper">
+              <label class="filter-label">To filing date:</label>
+              <p-datepicker
+                formControlName="toFilingDate"
+                placeholder="dd-mm-yyyy"
+                dateFormat="dd-mm-yy"
+                [showIcon]="true"
+                [iconDisplay]="'input'"
+                styleClass="w-full"
+                inputStyleClass="dense-calendar-input"
+              ></p-datepicker>
+            </div>
+
+            <!-- Action Operational Utility Buttons Group -->
+            <div class="filter-actions-group">
+              <button
+                pButton
+                type="button"
+                label="Search"
+                (click)="onSearch()"
+                class="filter-search-btn"
+              ></button>
+              <button
+                pButton
+                type="button"
+                label="Reset"
+                (click)="onReset()"
+                class="filter-reset-btn"
+              ></button>
+            </div>
+          </div>
+        </form>
+        <!-- Dense Metrics Alerts Banner Section -->
+        <div class="pending-metrics-banner">
+          <div class="alert-icon-circle">
+            <i class="pi pi-exclamation-circle"></i>
+          </div>
+
+          <h2 class="metrics-title">
+            <span class="title-text">Total cases pending for scrutiny:</span>
+          </h2>
+          <span class="metrics-count-badge">240</span>
+        </div>
+      </div>
+    </div>
+  } @else if (activeComponentType) {
+    <div class="form-content-card fade-in-container">
+      <ng-container *ngComponentOutlet="activeComponentType"></ng-container>
+    </div>
+  } @else {
+    <div class="fallback-empty-state fade-in-container">
+      <i class="pi pi-folder-open empty-icon"></i>
+      <h3>Workspace Panel Content Pending</h3>
+      <p>
+        The system view model layer for action target [{{ activeView }}] is
+        ready for form element injections.
+      </p>
+    </div>
+  }
+</div>
