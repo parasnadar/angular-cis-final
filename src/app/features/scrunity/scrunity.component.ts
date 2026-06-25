@@ -112,7 +112,7 @@ export class SCRUNITYComponent {
         id: 'sdocument_scrutiny',
         label: 'Document Scrutiny',
         icon: 'pi pi-file-check',
-        children: [{ id: 'sscrutiny', label: 'Scrutiny' }],
+        children: [{ id: 'scrutiny', label: 'Scrutiny' }],
       },
     ];
   }
