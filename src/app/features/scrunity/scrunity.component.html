@@ -15,51 +15,17 @@
 <div class="workspace-main-viewport">
   @if (activeView === "ScrunityHome") {
     <div class="fade-in-container">
-      <!-- <div class="super-admin-dashboard">
-        <div class="welcome-hero-card">
-          <div class="hero-content">
-            <div class="badge-role">
-              <i class="pi pi-shield"></i>
-              <span>Scrutiny Workspace</span>
-            </div>
-            <h1 class="hero-title">Welcome Back, Scrutiny Officer</h1>
-            <p class="hero-subtitle">
-              Access active court rosters, generate official orders from
-              division benches, and finalize verified daily causelists.
-            </p>
-          </div>
-          <div class="hero-illustration">
-            <i class="pi pi-book system-giant-icon"></i>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- Form block container sheet style wrapper -->
       <div class="form-content-card search-filter-card">
         <form [formGroup]="form" class="workspace-form-layout">
-          <!-- 1. TOP SECTION: Case Status Category Row (From image_0cec7b.png) -->
-          <div class="case-category-row">
-            @for (category of caseCategoryOptions; track category.value) {
-              <div
-                class="category-pill"
-                [class.active-pill]="
-                  form.get('caseCategory')?.value === category.value
-                "
-              >
-                <p-radiobutton
-                  [inputId]="category.value"
-                  [value]="category.value"
-                  formControlName="caseCategory"
-                ></p-radiobutton>
-
-                <label [for]="category.value" class="category-label">
-                  {{ category.label }}
-                </label>
-              </div>
-            }
+          <div>
+            <app-dynamic-radio-group
+              formControlName="caseCategory"
+              [options]="caseCategoryOptions"
+              groupName="scrutinyCategories"
+              [minWidthPx]="220"
+            ></app-dynamic-radio-group>
           </div>
 
-          <!-- 2. BOTTOM SECTION: Dense Filter Input Criteria Row (From image_0cec7b.png) -->
           <div class="filter-criteria-row">
             <!-- Field Component 1: Case Type Select -->
             <div class="inline-filter-field dropdown-wrapper">
@@ -73,7 +39,6 @@
               ></p-select>
             </div>
 
-            <!-- Field Component 2: Diary / Filing Input Text -->
             <div class="inline-filter-field text-input-wrapper">
               <label class="filter-label">Diary/Filing No:</label>
               <input
@@ -84,7 +49,6 @@
               />
             </div>
 
-            <!-- Field Component 3: From Filing Calendar Datepicker -->
             <div class="inline-filter-field date-wrapper">
               <label class="filter-label">From filing date:</label>
               <p-datepicker
@@ -98,7 +62,6 @@
               ></p-datepicker>
             </div>
 
-            <!-- Field Component 4: To Filing Calendar Datepicker -->
             <div class="inline-filter-field date-wrapper">
               <label class="filter-label">To filing date:</label>
               <p-datepicker
@@ -112,7 +75,6 @@
               ></p-datepicker>
             </div>
 
-            <!-- Action Operational Utility Buttons Group -->
             <div class="filter-actions-group">
               <button
                 pButton
@@ -131,7 +93,7 @@
             </div>
           </div>
         </form>
-        <!-- Dense Metrics Alerts Banner Section -->
+
         <div class="pending-metrics-banner">
           <div class="alert-icon-circle">
             <i class="pi pi-exclamation-circle"></i>

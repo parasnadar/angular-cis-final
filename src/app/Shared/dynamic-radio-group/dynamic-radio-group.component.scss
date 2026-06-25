@@ -1,0 +1,39 @@
+.dynamic-radio-grid {
+  display: grid;
+  // Automatically scales columns based on the dynamic width metrics provided
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--min-col-width, 200px), 1fr)
+  );
+  gap: 1rem;
+  width: 100%;
+
+  .category-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    transition: all 0.2s ease-in-out;
+
+    &.active-pill {
+      border-color: #1e3a8a; // Dark Navy accent matching image_0cec7b.png
+      background: rgba(30, 58, 138, 0.02);
+    }
+  }
+
+  .category-label {
+    cursor: pointer;
+    font-weight: 700;
+    color: #1e3a8a;
+    font-size: 0.9rem;
+    width: 100%;
+    margin: 0;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

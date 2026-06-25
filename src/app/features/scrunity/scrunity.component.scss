@@ -4,40 +4,6 @@
   padding: 2rem 2.5rem;
 }
 
-/* 1. Case Category Row Layout (image_0cec7b.png) */
-.case-category-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  border-bottom: 1px solid #f1f5f9;
-  padding-bottom: 1.5rem;
-  margin-bottom: 1rem;
-
-  .category-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    transition: border-color 0.2s ease;
-
-    &.active-pill {
-      border-color: #1e3a8a; // Dark Navy accent border matching image_0cec7b.png selected block
-    }
-  }
-
-  .category-label {
-    cursor: pointer;
-    font-weight: 700;
-    color: #1e3a8a;
-    font-size: 0.9rem;
-    width: 100%;
-    margin: 0;
-  }
-}
-
 /* 2. Horizontal Filter Criteria Fields Container Block (image_0cec7b.png) */
 .filter-criteria-row {
   display: flex;

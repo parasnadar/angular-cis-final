@@ -1,0 +1,21 @@
+<div class="dynamic-radio-grid" [style.--min-col-width]="minWidthPx + 'px'">
+  @for (option of options; track option.value) {
+    <div
+      class="category-pill"
+      [class.active-pill]="selectedValue === option.value"
+    >
+      <p-radiobutton
+        [inputId]="groupName + '_' + option.value"
+        [name]="groupName"
+        [value]="option.value"
+        [disabled]="disabled"
+        [(ngModel)]="selectedValue"
+        (ngModelChange)="onModelChange($event)"
+      ></p-radiobutton>
+
+      <label [for]="groupName + '_' + option.value" class="category-label">
+        {{ option.label }}
+      </label>
+    </div>
+  }
+</div>
