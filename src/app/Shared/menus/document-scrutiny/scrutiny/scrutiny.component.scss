@@ -1,0 +1,133 @@
+/* 2. Horizontal Filter Criteria Fields Container Block (image_0cec7b.png) */
+.filter-criteria-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 1.25rem;
+
+  padding: 1.25rem;
+
+  .inline-filter-field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+
+    &.dropdown-wrapper,
+    &.text-input-wrapper {
+      min-width: 10px;
+    }
+
+    &.date-wrapper {
+      min-width: 230px;
+    }
+  }
+
+  .filter-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #334155;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  /* PrimeNG Injected Component Style Modifications */
+  ::ngdeep .white-bg-select {
+    background: #ffffff !important;
+  }
+
+  .plain-text-input {
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+
+  ::ngdeep .dense-calendar-input {
+    padding: 0.45rem 0.75rem !important;
+    background: #ffffff !important;
+  }
+}
+
+/* 3. Action Buttons Configurations Matrix */
+.filter-actions-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  .filter-search-btn {
+    background: #1e3a8a !important;
+    border-color: #1e3a8a !important;
+    padding: 0.45rem 1.25rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+  }
+
+  .filter-reset-btn {
+    background: #ffffff !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 0.45rem 1.25rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+  }
+}
+.search-management-wrapper {
+  margin-top: 1rem;
+}
+
+.filter-card-container {
+  border-top-left-radius: 0px !important; /* Blends seamlessly with the top tab border */
+  padding: 1.5rem 2rem;
+}
+
+/* Tab Toggle Container Bar Track */
+.search-tab-header {
+  display: flex;
+  gap: 0.25rem;
+
+  .tab-toggle-btn {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    color: #475569;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover:not(.is-active) {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    &.is-active {
+      background: #ffffff;
+      color: #1e3a8a;
+      border-color: #e2e8f0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.02);
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #ffffff;
+      }
+    }
+  }
+}
+
+/* Give filing form field a premium descriptive feel layout scale */
+.custom-label-field {
+  max-width: 450px;
+}
