@@ -48,8 +48,8 @@ export class STENOComponent {
         label: 'Order',
         icon: 'pi pi-book',
         children: [
-          { id: 'stgenerate_order', label: 'Generate Order' },
-          { id: 'stupload_order', label: 'Upload Order' },
+          { id: 'generate_order', label: 'Generate Order' },
+          { id: 'upload_order', label: 'Upload Order' },
         ],
       },
     ];
