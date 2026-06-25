@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-report',
+  selector: 'app-defect_notices',
   imports: [
     CommonModule,
 
@@ -24,10 +24,10 @@ import {
     ButtonModule,
     InputTextModule,
   ],
-  templateUrl: './report.component.html',
-  styleUrl: './report.component.scss',
+  templateUrl: './defect-notices.component.html',
+  styleUrl: './defect-notices.component.scss',
 })
-export class ReportComponent {
+export class DefectNoticesComponent {
   constructor(private fb: FormBuilder) {}
   form!: FormGroup;
   showOption = [
