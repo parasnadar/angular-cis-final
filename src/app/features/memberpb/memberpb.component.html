@@ -1,6 +1,6 @@
 <app-utility-bar
   [menuOptions]="gstatViewOptions"
-  [defaultSelectId]="'home'"
+  [defaultSelectId]="'memberhome'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
   (onAccountAction)="handleAccountActionEvent($event)"
   [username]="loggedInUser.name"
@@ -11,3 +11,34 @@
   [(visible)]="isPasswordModalVisible"
   (onSave)="onPasswordUpdateSaved($event)"
 ></app-change-password-modal>
+<div class="workspace-main-viewport">
+  @if (activeView === "memberhome") {
+    <div class="fade-in-container">
+      <div class="form-content-card search-filter-card">
+        <form [formGroup]="form" class="workspace-form-layout">
+          <div>
+            <app-dynamic-radio-group
+              formControlName="caseCategory"
+              [options]="caseCategoryOptions"
+              groupName="scrutinyCategories"
+              [minWidthPx]="220"
+            ></app-dynamic-radio-group>
+          </div>
+        </form>
+      </div>
+    </div>
+  } @else if (activeComponentType) {
+    <div class="form-content-card fade-in-container">
+      <ng-container *ngComponentOutlet="activeComponentType"></ng-container>
+    </div>
+  } @else {
+    <div class="fallback-empty-state fade-in-container">
+      <i class="pi pi-folder-open empty-icon"></i>
+      <h3>Workspace Panel Content Pending</h3>
+      <p>
+        The system view model layer for action target [{{ activeView }}] is
+        ready for form element injections.
+      </p>
+    </div>
+  }
+</div>

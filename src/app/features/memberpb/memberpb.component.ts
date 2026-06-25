@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
+import { MENU_REGISTRY } from '../../core/menu-registry';
+import { Select } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dynamic-radio-group.component';
 
 export interface BarOptionItem {
   id: string | number;
@@ -18,76 +29,101 @@ export interface BarOptionItem {
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     UtilityBarComponent,
     ChangePasswordModalComponent,
+    ReactiveFormsModule,
+    Select,
+    DatePickerModule,
+    ButtonModule,
+    InputTextModule,
+    DynamicRadioGroupComponent,
   ],
   templateUrl: './memberpb.component.html',
   styleUrl: './memberpb.component.scss',
 })
 export class MEMBERPBComponent {
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private fb: FormBuilder,
+  ) {}
+  form!: FormGroup;
   loggedInUser = {
     name: 'MemberPb',
     initials: 'MB',
   };
   isPasswordModalVisible: boolean = false;
-  public visible: boolean = false;
+
   isDarkMode: boolean = false;
 
-  gstatViewOptions: BarOptionItem[] = [
-    { id: 'home', label: 'Home', icon: 'pi pi-home' },
-    {
-      id: 'listing',
-      label: 'Listing',
-      icon: 'pi pi-list',
-      children: [{ id: 'inter_bench', label: 'Inter Bench' }],
-    },
-    {
-      id: 'report',
-      label: 'Report',
-      icon: 'pi pi-file',
-      children: [
-        { id: 'case_docs', label: 'Case Docs' },
-        { id: 'mis_report', label: 'Mis Reports' },
-        { id: 'efiled_cases', label: 'Efiled Cases' },
-        { id: 'case_status', label: 'Case Status' },
-      ],
-    },
-    {
-      id: 'cause_list',
-      label: 'Causelist',
-      icon: 'pi pi-calendar',
-      children: [{ id: 'final_causelist', label: 'Final Causelist' }],
-    },
-    {
-      id: 'order',
-      label: 'Order',
-      icon: 'pi pi-book',
-      children: [
-        { id: 'generate_order', label: 'Generate Order' },
-        { id: 'upload_order', label: 'Upload Order' },
-      ],
-    },
-    {
-      id: 'transfer_case',
-      label: 'Transfer Case',
-      icon: 'pi pi-sync',
-      children: [
-        { id: 'transfer_request', label: 'Transfer Request' },
-        { id: 'transfer_action_taken', label: 'Transfer Action Taken' },
-      ],
-    },
-    {
-      id: 'recuse',
-      label: 'Recuse',
-      icon: 'pi pi-user-minus',
-      children: [
-        { id: 'recuse_judge_from_case', label: 'Recuse Judge(s) From Case' },
-        { id: 'recused_cases', label: 'Recused Cases' },
-      ],
-    },
-  ];
+  caseCategoryOptions = [{ label: 'CauseList', value: 'causelist' }];
+
+  activeView: string = 'memberhome';
+  activeComponentType: Type<any> | null = null; // Holds the current matching component class
+
+  ngOnInit(): void {
+    this.loadAssignedMenus();
+
+    this.form = this.fb.group({
+      caseCategory: ['causelist'],
+    });
+  }
+
+  gstatViewOptions: BarOptionItem[] = [];
+  loadAssignedMenus() {
+    this.gstatViewOptions = [
+      { id: 'memberhome', label: 'Home', icon: 'pi pi-home' },
+      {
+        id: 'listing',
+        label: 'Listing',
+        icon: 'pi pi-list',
+        children: [{ id: 'inter_bench', label: 'Inter Bench' }],
+      },
+      {
+        id: 'report',
+        label: 'Report',
+        icon: 'pi pi-file',
+        children: [
+          { id: 'case_docs', label: 'Case Docs' },
+          { id: 'mis_report', label: 'Mis Reports' },
+          { id: 'efiled_cases', label: 'Efiled Cases' },
+          { id: 'case_status', label: 'Case Status' },
+        ],
+      },
+      {
+        id: 'cause_list',
+        label: 'Causelist',
+        icon: 'pi pi-calendar',
+        children: [{ id: 'final_causelist', label: 'Final Causelist' }],
+      },
+      {
+        id: 'order',
+        label: 'Order',
+        icon: 'pi pi-book',
+        children: [
+          { id: 'generate_order', label: 'Generate Order' },
+          { id: 'upload_order', label: 'Upload Order' },
+        ],
+      },
+      {
+        id: 'transfer_case',
+        label: 'Transfer Case',
+        icon: 'pi pi-sync',
+        children: [
+          { id: 'transfer_request', label: 'Transfer Request' },
+          { id: 'transfer_action_taken', label: 'Transfer Action Taken' },
+        ],
+      },
+      {
+        id: 'recuse',
+        label: 'Recuse',
+        icon: 'pi pi-user-minus',
+        children: [
+          { id: 'recuse_judge_from_case', label: 'Recuse Judge(s) From Case' },
+          { id: 'recused_cases', label: 'Recused Cases' },
+        ],
+      },
+    ];
+  }
 
   handleAccountActionEvent(actionType: string): void {
     if (actionType === 'change_password') {
@@ -110,12 +146,16 @@ export class MEMBERPBComponent {
     parent: BarOptionItem;
     child?: BarOptionItem;
   }): void {
-    if (event.child) {
-      console.log(
-        `Triggering Sub-Option Endpoint: ${event.child.id} under parent ${event.parent.id}`,
-      );
+    const selectedId = event.child
+      ? (event.child.id as string)
+      : (event.parent.id as string);
+    this.activeView = selectedId;
+
+    // Dynamically look up the component type using the string ID from MENU_REGISTRY
+    if (selectedId === 'memberhome') {
+      this.activeComponentType = null;
     } else {
-      console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
+      this.activeComponentType = MENU_REGISTRY[selectedId] || null;
     }
   }
 

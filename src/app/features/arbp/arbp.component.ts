@@ -45,7 +45,6 @@ export class ARBPComponent {
   ) {}
   form!: FormGroup;
   isPasswordModalVisible: boolean = false;
-  public visible: boolean = false;
   loggedInUser = {
     name: 'Arbp',
     initials: 'A',
