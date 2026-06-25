@@ -41,7 +41,7 @@ export class STENOComponent {
         id: 'stcause_list',
         label: 'Causelist',
         icon: 'pi pi-calendar',
-        children: [{ id: 'stfinal_causelist', label: 'Final Causelist' }],
+        children: [{ id: 'final_causelist', label: 'Final Causelist' }],
       },
       {
         id: 'storder',

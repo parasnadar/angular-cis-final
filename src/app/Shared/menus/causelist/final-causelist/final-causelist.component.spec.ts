@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CauselistComponent } from './causelist.component';
+import { FinalCauselistComponent } from './final-causelist.component';
 
-describe('CauselistComponent', () => {
-  let component: CauselistComponent;
-  let fixture: ComponentFixture<CauselistComponent>;
+describe('FinalCauselistComponent', () => {
+  let component: FinalCauselistComponent;
+  let fixture: ComponentFixture<FinalCauselistComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CauselistComponent]
+      imports: [FinalCauselistComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CauselistComponent);
+    fixture = TestBed.createComponent(FinalCauselistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
