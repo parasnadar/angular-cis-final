@@ -1,6 +1,6 @@
 <app-utility-bar
   [menuOptions]="gstatViewOptions"
-  [defaultSelectId]="'home'"
+  [defaultSelectId]="'arbphome'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
   (onAccountAction)="handleAccountActionEvent($event)"
   [username]="loggedInUser.name"
@@ -11,3 +11,113 @@
   [(visible)]="isPasswordModalVisible"
   (onSave)="onPasswordUpdateSaved($event)"
 ></app-change-password-modal>
+
+<div class="workspace-main-viewport">
+  @if (activeView === "arbphome") {
+    <div class="fade-in-container">
+      <div class="form-content-card search-filter-card">
+        <form [formGroup]="form" class="workspace-form-layout">
+          <div>
+            <app-dynamic-radio-group
+              formControlName="caseCategory"
+              [options]="caseCategoryOptions"
+              groupName="scrutinyCategories"
+              [minWidthPx]="220"
+            ></app-dynamic-radio-group>
+          </div>
+
+          <div class="filter-criteria-row">
+            <!-- Field Component 1: Case Type Select -->
+            <div class="inline-filter-field dropdown-wrapper">
+              <label class="filter-label">Case Types:</label>
+              <p-select
+                formControlName="caseType"
+                [options]="caseTypeOptions"
+                optionLabel="label"
+                optionValue="value"
+                styleClass="w-full white-bg-select"
+              ></p-select>
+            </div>
+
+            <div class="inline-filter-field text-input-wrapper">
+              <label class="filter-label">Diary/Filing No:</label>
+              <input
+                pInputText
+                type="text"
+                formControlName="diaryFilingNo"
+                class="w-full plain-text-input"
+              />
+            </div>
+
+            <div class="inline-filter-field date-wrapper">
+              <label class="filter-label">From filing date:</label>
+              <p-datepicker
+                formControlName="fromFilingDate"
+                placeholder="dd-mm-yyyy"
+                dateFormat="dd-mm-yy"
+                [showIcon]="true"
+                [iconDisplay]="'input'"
+                styleClass="w-full"
+                inputStyleClass="dense-calendar-input"
+              ></p-datepicker>
+            </div>
+
+            <div class="inline-filter-field date-wrapper">
+              <label class="filter-label">To filing date:</label>
+              <p-datepicker
+                formControlName="toFilingDate"
+                placeholder="dd-mm-yyyy"
+                dateFormat="dd-mm-yy"
+                [showIcon]="true"
+                [iconDisplay]="'input'"
+                styleClass="w-full"
+                inputStyleClass="dense-calendar-input"
+              ></p-datepicker>
+            </div>
+
+            <div class="filter-actions-group">
+              <button
+                pButton
+                type="button"
+                label="Search"
+                (click)="onSearch()"
+                class="filter-search-btn"
+              ></button>
+              <button
+                pButton
+                type="button"
+                label="Reset"
+                (click)="onReset()"
+                class="filter-reset-btn"
+              ></button>
+            </div>
+          </div>
+        </form>
+
+        <div class="pending-metrics-banner">
+          <div class="alert-icon-circle">
+            <i class="pi pi-exclamation-circle"></i>
+          </div>
+
+          <h2 class="metrics-title">
+            <span class="title-text">Total cases pending for scrutiny:</span>
+          </h2>
+          <span class="metrics-count-badge">240</span>
+        </div>
+      </div>
+    </div>
+  } @else if (activeComponentType) {
+    <div class="form-content-card fade-in-container">
+      <ng-container *ngComponentOutlet="activeComponentType"></ng-container>
+    </div>
+  } @else {
+    <div class="fallback-empty-state fade-in-container">
+      <i class="pi pi-folder-open empty-icon"></i>
+      <h3>Workspace Panel Content Pending</h3>
+      <p>
+        The system view model layer for action target [{{ activeView }}] is
+        ready for form element injections.
+      </p>
+    </div>
+  }
+</div>

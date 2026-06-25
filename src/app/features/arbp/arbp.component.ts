@@ -1,7 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
+import { MENU_REGISTRY } from '../../core/menu-registry';
+import { Select } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dynamic-radio-group.component';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -11,65 +24,109 @@ export interface BarOptionItem {
 }
 @Component({
   selector: 'app-arbp',
-  imports: [UtilityBarComponent, ChangePasswordModalComponent],
+  imports: [
+    CommonModule,
+    UtilityBarComponent,
+    ChangePasswordModalComponent,
+    ReactiveFormsModule,
+    Select,
+    DatePickerModule,
+    ButtonModule,
+    InputTextModule,
+    DynamicRadioGroupComponent,
+  ],
   templateUrl: './arbp.component.html',
   styleUrl: './arbp.component.scss',
 })
 export class ARBPComponent {
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private fb: FormBuilder,
+  ) {}
+  form!: FormGroup;
   isPasswordModalVisible: boolean = false;
   public visible: boolean = false;
   loggedInUser = {
     name: 'Arbp',
     initials: 'A',
   };
-
-  gstatViewOptions: BarOptionItem[] = [
-    { id: 'ahome', label: 'Home', icon: 'pi pi-home' },
-
-    {
-      id: 'areport',
-      label: 'Report',
-      icon: 'pi pi-file',
-      children: [
-        { id: 'amis_report', label: 'Mis Reports' },
-        { id: 'asearch_cases', label: 'Search Case' },
-        { id: 'adefect_notices', label: 'Defect Notices' },
-        { id: 'ascrutinized_cases', label: 'Scrutinized Cases' },
-      ],
-    },
-
-    {
-      id: 'aproceeding',
-      label: 'Proceeding',
-      icon: 'pi pi-history',
-      children: [{ id: 'acase_proceeding', label: 'Case Proceeding' }],
-    },
-    {
-      id: 'acause_list',
-      label: 'Causelist',
-      icon: 'pi pi-calendar',
-      children: [
-        { id: 'adraft_causelist', label: 'Draft Causelist' },
-        { id: 'afinal_causelist', label: 'Final Causelist' },
-      ],
-    },
-    {
-      id: 'adocument_scrutiny',
-      label: 'Document Scrutiny',
-      icon: 'pi pi-file-check',
-      children: [{ id: 'ascrutiny', label: 'Scrutiny' }],
-    },
-    {
-      id: 'anotice',
-      label: 'Notice',
-      icon: 'pi pi-megaphone',
-      children: [
-        { id: 'acreate_notice', label: 'Create Notice' },
-        { id: 'anotice_lists', label: 'Notice Lists' },
-      ],
-    },
+  caseCategoryOptions = [
+    { label: 'Fresh case for scrutiny', value: 'fresh' },
+    { label: 'Defective cases', value: 'defective' },
+    { label: 'Refiled Cases', value: 'refiled' },
+    { label: 'Return Cases', value: 'return' },
   ];
+
+  caseTypeOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Company Appeal', value: 'ca' },
+    { label: 'Contempt Petition', value: 'cp' },
+  ];
+
+  activeView: string = 'arbphome';
+  activeComponentType: Type<any> | null = null; // Holds the current matching component class
+
+  ngOnInit(): void {
+    this.loadAssignedMenus();
+
+    this.form = this.fb.group({
+      caseCategory: ['fresh'],
+      caseType: ['all'],
+      diaryFilingNo: [''],
+      fromFilingDate: [null],
+      toFilingDate: [null],
+    });
+  }
+
+  gstatViewOptions: BarOptionItem[] = [];
+  loadAssignedMenus() {
+    this.gstatViewOptions = [
+      { id: 'arbphome', label: 'Home', icon: 'pi pi-home' },
+
+      {
+        id: 'areport',
+        label: 'Report',
+        icon: 'pi pi-file',
+        children: [
+          { id: 'amis_report', label: 'Mis Reports' },
+          { id: 'asearch_cases', label: 'Search Case' },
+          { id: 'defect_notices', label: 'Defect Notices' },
+          { id: 'scrutinized_notices', label: 'Scrutinized Cases' },
+        ],
+      },
+
+      {
+        id: 'aproceeding',
+        label: 'Proceeding',
+        icon: 'pi pi-history',
+        children: [{ id: 'acase_proceeding', label: 'Case Proceeding' }],
+      },
+      {
+        id: 'acause_list',
+        label: 'Causelist',
+        icon: 'pi pi-calendar',
+        children: [
+          { id: 'adraft_causelist', label: 'Draft Causelist' },
+          { id: 'afinal_causelist', label: 'Final Causelist' },
+        ],
+      },
+      {
+        id: 'adocument_scrutiny',
+        label: 'Document Scrutiny',
+        icon: 'pi pi-file-check',
+        children: [{ id: 'scrutiny', label: 'Scrutiny' }],
+      },
+      {
+        id: 'anotice',
+        label: 'Notice',
+        icon: 'pi pi-megaphone',
+        children: [
+          { id: 'acreate_notice', label: 'Create Notice' },
+          { id: 'anotice_lists', label: 'Notice Lists' },
+        ],
+      },
+    ];
+  }
 
   handleAccountActionEvent(actionType: string): void {
     if (actionType === 'change_password') {
@@ -91,12 +148,30 @@ export class ARBPComponent {
     parent: BarOptionItem;
     child?: BarOptionItem;
   }): void {
-    if (event.child) {
-      console.log(
-        `Triggering Sub-Option Endpoint: ${event.child.id} under parent ${event.parent.id}`,
-      );
+    const selectedId = event.child
+      ? (event.child.id as string)
+      : (event.parent.id as string);
+    this.activeView = selectedId;
+
+    // Dynamically look up the component type using the string ID from MENU_REGISTRY
+    if (selectedId === 'arbphome') {
+      this.activeComponentType = null;
     } else {
-      console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
+      this.activeComponentType = MENU_REGISTRY[selectedId] || null;
     }
+  }
+
+  onSearch(): void {
+    console.log('Executing query payload:', this.form.value);
+  }
+
+  onReset(): void {
+    this.form.patchValue({
+      caseCategory: ['fresh'],
+      caseType: 'all',
+      diaryFilingNo: '',
+      fromFilingDate: null,
+      toFilingDate: null,
+    });
   }
 }
