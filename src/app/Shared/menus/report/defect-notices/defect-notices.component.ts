@@ -43,6 +43,7 @@ export class DefectNoticesComponent {
       diaryFilingNo: [''],
       fromFilingDate: [null],
       toFilingDate: [null],
+      diaryKeyword: [''],
     });
   }
 
@@ -56,6 +57,7 @@ export class DefectNoticesComponent {
       diaryFilingNo: '',
       fromFilingDate: null,
       toFilingDate: null,
+      diaryKeyword: '',
     });
   }
 }

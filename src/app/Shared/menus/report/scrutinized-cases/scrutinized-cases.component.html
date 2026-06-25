@@ -1,1 +1,78 @@
-<p>scrutinized-cases works!</p>
+<div class="fade-in-container">
+  <form [formGroup]="form" class="workspace-form-layout">
+    <div>
+      <app-dynamic-radio-group
+        formControlName="caseCategory"
+        [options]="caseCategoryOptions"
+        groupName="scrutinyCategories"
+        [minWidthPx]="220"
+      ></app-dynamic-radio-group>
+    </div>
+
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Show:</label>
+        <p-select
+          formControlName="show"
+          [options]="showOption"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select"
+        ></p-select>
+      </div>
+
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">From filing date:</label>
+        <p-datepicker
+          formControlName="fromFilingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">To filing date:</label>
+        <p-datepicker
+          formControlName="toFilingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <div class="inline-filter-field text-input-wrapper">
+        <label class="filter-label">Filing No:</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="diaryFilingNo"
+          class="w-full plain-text-input"
+        />
+      </div>
+
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Search"
+          (click)="onSearch()"
+          class="filter-search-btn"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Reset"
+          (click)="onReset()"
+          class="filter-reset-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>

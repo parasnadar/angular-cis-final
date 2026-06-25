@@ -46,7 +46,6 @@ export class SCRUNITYComponent {
   ) {}
   form!: FormGroup;
 
-  // Your 4 options
   caseCategoryOptions = [
     { label: 'Fresh case for scrutiny', value: 'fresh' },
     { label: 'Defective cases', value: 'defective' },
@@ -105,8 +104,8 @@ export class SCRUNITYComponent {
         label: 'Report',
         icon: 'pi pi-file',
         children: [
-          { id: 'sdefect_notices', label: 'Defect Notices' },
-          { id: 'sscrutinized_notices', label: 'Scrutinized Notices' },
+          { id: 'defect_notices', label: 'Defect Notices' },
+          { id: 'scrutinized_notices', label: 'Scrutinized Notices' },
         ],
       },
       {
