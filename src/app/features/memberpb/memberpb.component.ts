@@ -93,7 +93,10 @@ export class MEMBERPBComponent {
         id: 'cause_list',
         label: 'Causelist',
         icon: 'pi pi-calendar',
-        children: [{ id: 'final_causelist', label: 'Final Causelist' }],
+        children: [
+          { id: 'final_causelist', label: 'Final Causelist' },
+          { id: 'draft_causelist', label: 'Draft Causelist' },
+        ],
       },
       {
         id: 'order',

@@ -1,1 +1,43 @@
-<p>final-causelist works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Final Cause List</h2>
+  </div>
+</div>
+<div class="fade-in-container">
+  <form [formGroup]="form" class="workspace-form-layout">
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field text-input-wrapper">
+        <label class="filter-label">Court:</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="court"
+          class="w-full plain-text-input"
+        />
+      </div>
+
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">Date:</label>
+        <p-datepicker
+          formControlName="date"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Submit"
+          (click)="onSearch()"
+          class="filter-search-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
