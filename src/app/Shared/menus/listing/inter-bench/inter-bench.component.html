@@ -1,0 +1,145 @@
+<div class="fade-in-container search-management-wrapper">
+  <div class="search-tab-header">
+    <button
+      type="button"
+      class="tab-toggle-btn"
+      [class.is-active]="activeSearchTab === 'filing'"
+      (click)="activeSearchTab = 'filing'; resetForms()"
+    >
+      <i class="pi pi-search btn-icon-gap"></i> Search by Filing Number
+    </button>
+    <button
+      type="button"
+      class="tab-toggle-btn"
+      [class.is-active]="activeSearchTab === 'case'"
+      (click)="activeSearchTab = 'case'; resetForms()"
+    >
+      <i class="pi pi-filter btn-icon-gap"></i> Search by Case Parameters
+    </button>
+  </div>
+
+  <div class="form-content-card filter-card-container">
+    @if (activeSearchTab === "filing") {
+      <form
+        [formGroup]="filingForm"
+        class="workspace-form-layout"
+        (ngSubmit)="onFilingSearch()"
+      >
+        <div class="filter-criteria-row">
+          <div class="inline-filter-field dropdown-wrapper">
+            <label class="filter-label">Case Location:</label>
+            <p-select
+              formControlName="caseLocation"
+              [options]="caseLocationOption"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="w-full white-bg-select"
+            ></p-select>
+          </div>
+
+          <div
+            class="inline-filter-field text-input-wrapper custom-label-field"
+          >
+            <label class="filter-label">Filing Number:</label>
+            <input
+              pInputText
+              type="text"
+              formControlName="filingNo"
+              class="w-full plain-text-input"
+              (keypress)="blockNonNumbers($event)"
+              placeholder="Enter numerical filing number"
+            />
+          </div>
+
+          <div class="filter-actions-group">
+            <button
+              pButton
+              type="submit"
+              label="Search"
+              class="filter-search-btn"
+              [disabled]="filingForm.invalid"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Reset"
+              (click)="resetForms()"
+              class="filter-reset-btn"
+            ></button>
+          </div>
+        </div>
+      </form>
+    } @else if (activeSearchTab === "case") {
+      <form
+        [formGroup]="caseDetailsForm"
+        class="workspace-form-layout"
+        (ngSubmit)="onCaseSearch()"
+      >
+        <div class="filter-criteria-row">
+          <div class="inline-filter-field dropdown-wrapper">
+            <label class="filter-label">Case Location:</label>
+            <p-select
+              formControlName="caseLocation"
+              [options]="caseLocationOption"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="w-full white-bg-select"
+            ></p-select>
+          </div>
+          <div class="inline-filter-field dropdown-wrapper">
+            <label class="filter-label">Case Type:</label>
+            <p-select
+              formControlName="caseType"
+              [options]="caseTypeOption"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="w-full white-bg-select"
+            ></p-select>
+          </div>
+
+          <div class="inline-filter-field text-input-wrapper">
+            <label class="filter-label">Case No:</label>
+            <input
+              pInputText
+              type="text"
+              formControlName="caseNo"
+              class="w-full plain-text-input"
+              (keypress)="blockNonNumbers($event)"
+              placeholder="Enter Case Number"
+            />
+          </div>
+
+          <div class="inline-filter-field dropdown-wrapper">
+            <label class="filter-label">Case Year:</label>
+            <p-select
+              formControlName="caseYear"
+              [options]="caseYearOptions"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="w-full white-bg-select"
+              [filter]="true"
+              filterPlaceholder="Search year..."
+            ></p-select>
+          </div>
+
+          <div class="filter-actions-group">
+            <button
+              pButton
+              type="submit"
+              label="Search"
+              class="filter-search-btn"
+              [disabled]="caseDetailsForm.invalid"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Reset"
+              (click)="resetForms()"
+              class="filter-reset-btn"
+            ></button>
+          </div>
+        </div>
+      </form>
+    }
+  </div>
+</div>

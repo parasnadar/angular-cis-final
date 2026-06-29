@@ -7,6 +7,7 @@ import { UploadOrderComponent } from '../Shared/menus/order/upload-order/upload-
 import { ScrutinyComponent } from '../Shared/menus/document-scrutiny/scrutiny/scrutiny.component';
 import { DraftCauselistComponent } from '../Shared/menus/causelist/draft-causelist/draft-causelist.component';
 import { CaseDocsComponent } from '../Shared/menus/report/case-docs/case-docs.component';
+import { InterBenchComponent } from '../Shared/menus/listing/inter-bench/inter-bench.component';
 export const MENU_REGISTRY: Record<string, Type<any>> = {
   final_causelist: FinalCauselistComponent,
   defect_notices: DefectNoticesComponent,
@@ -16,6 +17,7 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   scrutiny: ScrutinyComponent,
   draft_causelist: DraftCauselistComponent,
   case_docs: CaseDocsComponent,
+  inter_bench: InterBenchComponent,
 
   // Add more mappings here as you create more screens
 };
