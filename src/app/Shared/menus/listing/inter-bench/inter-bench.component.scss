@@ -1,0 +1,15 @@
+.case-location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 1.25rem;
+  padding: 1.25rem;
+
+  .filter-label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #045fdf;
+    white-space: nowrap;
+    margin: 0;
+  }
+}

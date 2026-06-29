@@ -1,3 +1,15 @@
+<div class="case-location">
+  <label class="filter-label">Case location :</label>
+  <p-select
+    [(ngModel)]="selectedLocation"
+    (onChange)="onLocationChange($event)"
+    [options]="caseLocationOption"
+    optionLabel="label"
+    optionValue="value"
+    placeholder="Select Location"
+  ></p-select>
+</div>
+
 <div class="fade-in-container search-management-wrapper">
   <div class="search-tab-header">
     <button
@@ -26,17 +38,6 @@
         (ngSubmit)="onFilingSearch()"
       >
         <div class="filter-criteria-row">
-          <div class="inline-filter-field dropdown-wrapper">
-            <label class="filter-label">Case Location:</label>
-            <p-select
-              formControlName="caseLocation"
-              [options]="caseLocationOption"
-              optionLabel="label"
-              optionValue="value"
-              styleClass="w-full white-bg-select"
-            ></p-select>
-          </div>
-
           <div
             class="inline-filter-field text-input-wrapper custom-label-field"
           >
@@ -76,16 +77,6 @@
         (ngSubmit)="onCaseSearch()"
       >
         <div class="filter-criteria-row">
-          <div class="inline-filter-field dropdown-wrapper">
-            <label class="filter-label">Case Location:</label>
-            <p-select
-              formControlName="caseLocation"
-              [options]="caseLocationOption"
-              optionLabel="label"
-              optionValue="value"
-              styleClass="w-full white-bg-select"
-            ></p-select>
-          </div>
           <div class="inline-filter-field dropdown-wrapper">
             <label class="filter-label">Case Type:</label>
             <p-select

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -18,13 +19,14 @@ import { Select } from 'primeng/select';
     Select,
     ButtonModule,
     InputTextModule,
+    FormsModule,
   ],
   templateUrl: './inter-bench.component.html',
   styleUrl: './inter-bench.component.scss',
 })
 export class InterBenchComponent {
   constructor(private fb: FormBuilder) {}
-
+  selectedLocation: string = 'DL';
   // Separate form tracks
   filingForm!: FormGroup;
   caseDetailsForm!: FormGroup;
@@ -48,7 +50,6 @@ export class InterBenchComponent {
     // Form 1: Filing Number Tracking Only
     this.filingForm = this.fb.group({
       filingNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      caseLocation: ['1'],
     });
 
     // Form 2: Detailed Case Criteria Tracking
@@ -56,7 +57,6 @@ export class InterBenchComponent {
       caseType: ['1'],
       caseNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       caseYear: [new Date().getFullYear().toString()],
-      caseLocation: ['1'],
     });
   }
 
@@ -82,13 +82,25 @@ export class InterBenchComponent {
   }
 
   onFilingSearch(): void {
-    if (this.filingForm.invalid) return;
-    console.log('Filing Search Payload:', this.filingForm.value);
+    // Map master criteria context on execution submit payload
+    const queryPayload = {
+      location: this.selectedLocation,
+      ...this.filingForm.value,
+    };
+    console.log('Executing Filing Query Payload:', queryPayload);
   }
 
   onCaseSearch(): void {
     if (this.caseDetailsForm.invalid) return;
-    console.log('Case Details Search Payload:', this.caseDetailsForm.value);
+    const queryPayload = {
+      location: this.selectedLocation,
+      ...this.caseDetailsForm.value,
+    };
+    console.log('Executing Case Parameter Query Payload:', queryPayload);
+  }
+
+  onLocationChange(event: any): void {
+    console.log('Global query scope context changed to location:', event.value);
   }
 
   resetForms(): void {
