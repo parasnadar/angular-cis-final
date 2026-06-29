@@ -4,16 +4,10 @@ import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
 import { MENU_REGISTRY } from '../../core/menu-registry';
-import { Select } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dynamic-radio-group.component';
 
 export interface BarOptionItem {
@@ -32,7 +26,6 @@ export interface BarOptionItem {
     UtilityBarComponent,
     ChangePasswordModalComponent,
     ReactiveFormsModule,
-    Select,
     DatePickerModule,
     ButtonModule,
     InputTextModule,

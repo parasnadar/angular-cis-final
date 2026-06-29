@@ -6,7 +6,7 @@ import { GenerateOrderComponent } from '../Shared/menus/order/generate-order/gen
 import { UploadOrderComponent } from '../Shared/menus/order/upload-order/upload-order.component';
 import { ScrutinyComponent } from '../Shared/menus/document-scrutiny/scrutiny/scrutiny.component';
 import { DraftCauselistComponent } from '../Shared/menus/causelist/draft-causelist/draft-causelist.component';
-// 2. Map the menu string IDs to their compiled component classes
+import { CaseDocsComponent } from '../Shared/menus/report/case-docs/case-docs.component';
 export const MENU_REGISTRY: Record<string, Type<any>> = {
   final_causelist: FinalCauselistComponent,
   defect_notices: DefectNoticesComponent,
@@ -15,6 +15,7 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   upload_order: UploadOrderComponent,
   scrutiny: ScrutinyComponent,
   draft_causelist: DraftCauselistComponent,
+  case_docs: CaseDocsComponent,
 
   // Add more mappings here as you create more screens
 };

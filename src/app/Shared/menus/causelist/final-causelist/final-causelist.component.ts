@@ -5,12 +5,13 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-final-causelist',
   imports: [
     CommonModule,
-
+    Select,
     ReactiveFormsModule,
     DatePickerModule,
     ButtonModule,
@@ -33,4 +34,11 @@ export class FinalCauselistComponent {
   onSearch(): void {
     console.log('Executing query payload:', this.form.value);
   }
+
+  courtTypeOptions = [
+    { label: 'Court I', value: 'I' },
+    { label: 'Court II', value: 'II' },
+    { label: 'Court III', value: 'III' },
+    { label: 'Court IV', value: 'IV' },
+  ];
 }

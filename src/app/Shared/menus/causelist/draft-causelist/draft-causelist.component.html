@@ -3,19 +3,10 @@
     <h2 class="section-title">Draft Cause List</h2>
   </div>
 </div>
+
 <div class="fade-in-container">
   <form [formGroup]="form" class="workspace-form-layout">
     <div class="filter-criteria-row">
-      <div class="inline-filter-field text-input-wrapper">
-        <label class="filter-label">Court:</label>
-        <input
-          pInputText
-          type="text"
-          formControlName="court"
-          class="w-full plain-text-input"
-        />
-      </div>
-
       <div class="inline-filter-field date-wrapper">
         <label class="filter-label">Date:</label>
         <p-datepicker
@@ -27,6 +18,17 @@
           styleClass="w-full"
           inputStyleClass="dense-calendar-input"
         ></p-datepicker>
+      </div>
+
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Court:</label>
+        <p-select
+          formControlName="court"
+          [options]="courtTypeOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select"
+        ></p-select>
       </div>
 
       <div class="filter-actions-group">
