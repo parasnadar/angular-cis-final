@@ -1,0 +1,92 @@
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Cases Reports</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form [formGroup]="misform" class="workspace-form-layout">
+    <div class="filter-criteria-row">
+      <!-- Fixed Parameter 1: Search By Category Selection -->
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Search by:</label>
+        <p-select
+          formControlName="searchBy"
+          [options]="searchByOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Search by"
+        ></p-select>
+      </div>
+
+      @if (shouldShowDynamicDropdown()) {
+        <div class="inline-filter-field dropdown-wrapper fade-in-element">
+          <p-select
+            formControlName="dynamicFilterValue"
+            [options]="dynamicOptions"
+            optionLabel="label"
+            optionValue="value"
+            styleClass="w-full white-bg-select locked-dropdown-frame"
+            [style]="{ width: '100%', 'min-width': '0' }"
+            placeholder="Select option"
+          ></p-select>
+        </div>
+      }
+
+      <!-- Fixed Parameter 2: From Date Calendar input -->
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">From:</label>
+        <p-datepicker
+          formControlName="fromFilingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <!-- Fixed Parameter 3: To Date Calendar input -->
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">To:</label>
+        <p-datepicker
+          formControlName="toFilingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <!-- Fixed Parameter 4: Case Types Selection -->
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Case Types:</label>
+        <p-select
+          formControlName="caseType"
+          [options]="caseTypeOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Select option"
+        ></p-select>
+      </div>
+
+      <!-- Grid Actions Controller Section -->
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Search"
+          (click)="onSearch()"
+          class="filter-search-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>

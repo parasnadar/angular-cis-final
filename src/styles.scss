@@ -448,11 +448,11 @@ body {
 
     &.dropdown-wrapper,
     &.text-input-wrapper {
-      min-width: 20px;
+      min-width: 50px;
     }
 
     &.date-wrapper {
-      min-width: 200px;
+      min-width: 50px;
     }
   }
 
@@ -479,6 +479,26 @@ body {
   ::ngdeep .dense-calendar-input {
     padding: 0.45rem 0.75rem !important;
     background: #ffffff !important;
+  }
+}
+
+/* Target PrimeNG Internal Framework Elements securely */
+::ngdeep {
+  .locked-dropdown-frame {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important; /* Zeroes out default text sizing algorithms */
+    overflow: hidden !important;
+  }
+
+  /* Targets the active visible text display box container window */
+  .p-select-label-container,
+  .p-select-label {
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important; /* Adds the clean metric triple-dot (...) truncation clip */
+    flex: 1 1 0% !important;
   }
 }
 /* 3. Action Buttons Configurations Matrix */

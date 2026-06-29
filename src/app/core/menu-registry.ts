@@ -8,6 +8,9 @@ import { ScrutinyComponent } from '../Shared/menus/document-scrutiny/scrutiny/sc
 import { DraftCauselistComponent } from '../Shared/menus/causelist/draft-causelist/draft-causelist.component';
 import { CaseDocsComponent } from '../Shared/menus/report/case-docs/case-docs.component';
 import { InterBenchComponent } from '../Shared/menus/listing/inter-bench/inter-bench.component';
+import { MisReportComponent } from '../Shared/menus/report/mis-report/mis-report.component';
+import { EfiledCasesComponent } from '../Shared/menus/report/efiled-cases/efiled-cases.component';
+import { CaseStatusComponent } from '../Shared/menus/report/case-status/case-status.component';
 export const MENU_REGISTRY: Record<string, Type<any>> = {
   final_causelist: FinalCauselistComponent,
   defect_notices: DefectNoticesComponent,
@@ -18,6 +21,8 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   draft_causelist: DraftCauselistComponent,
   case_docs: CaseDocsComponent,
   inter_bench: InterBenchComponent,
-
+  mis_report: MisReportComponent,
+  efiled_cases: EfiledCasesComponent,
+  case_status: CaseStatusComponent,
   // Add more mappings here as you create more screens
 };
