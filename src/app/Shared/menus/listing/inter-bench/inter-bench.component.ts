@@ -10,6 +10,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
+import { DynamicRadioGroupComponent } from '../../../dynamic-radio-group/dynamic-radio-group.component';
 
 @Component({
   selector: 'app-inter-bench',
@@ -20,6 +21,7 @@ import { Select } from 'primeng/select';
     ButtonModule,
     InputTextModule,
     FormsModule,
+    DynamicRadioGroupComponent,
   ],
   templateUrl: './inter-bench.component.html',
   styleUrl: './inter-bench.component.scss',
@@ -29,7 +31,13 @@ export class InterBenchComponent {
   selectedLocation: string = 'DL';
   // Separate form tracks
   filingForm!: FormGroup;
+  form!: FormGroup;
   caseDetailsForm!: FormGroup;
+
+  caseCategoryOptions = [
+    { label: 'Case Transfer', value: '1' },
+    { label: 'Inter State Transfer', value: '1' },
+  ];
 
   // Track active panel option: 'filing' or 'case'
   activeSearchTab: 'filing' | 'case' = 'filing';
@@ -46,7 +54,9 @@ export class InterBenchComponent {
 
   ngOnInit(): void {
     this.generateYearOptions();
-
+    this.form = this.fb.group({
+      caseCategory: ['1'],
+    });
     // Form 1: Filing Number Tracking Only
     this.filingForm = this.fb.group({
       filingNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],

@@ -1,3 +1,14 @@
+<form [formGroup]="form" class="workspace-form-layout">
+  <div>
+    <app-dynamic-radio-group
+      formControlName="caseCategory"
+      [options]="caseCategoryOptions"
+      groupName="scrutinyCategories"
+      [minWidthPx]="220"
+    ></app-dynamic-radio-group>
+  </div>
+</form>
+
 <div class="case-location">
   <label class="filter-label">Case location :</label>
   <p-select
