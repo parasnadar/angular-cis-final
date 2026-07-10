@@ -4,7 +4,12 @@ import { CommonModule } from '@angular/common';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Select } from 'primeng/select';
 
 @Component({
@@ -25,9 +30,9 @@ export class FinalCauselistComponent {
   form!: FormGroup;
   ngOnInit(): void {
     this.form = this.fb.group({
-      court: [''],
+      court: ['', Validators.required],
 
-      date: [null],
+      date: [null, Validators.required],
     });
   }
 
@@ -41,4 +46,9 @@ export class FinalCauselistComponent {
     { label: 'Court III', value: 'III' },
     { label: 'Court IV', value: 'IV' },
   ];
+
+  isFieldInvalid(fieldName: string): boolean {
+    const control = this.form.get(fieldName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
 }
