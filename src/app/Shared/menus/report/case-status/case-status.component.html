@@ -12,10 +12,8 @@
   >
     <div class="filter-criteria-grid">
       <!-- Field 1: Master Jurisdiction Location Dropdown -->
-      <div class="inline-filter-field date-wrapper">
-        <label class="filter-label"
-          ><i class="pi pi-map-marker"></i> Case Location</label
-        >
+      <div class="form-field-group">
+        <label> Case Location</label>
         <p-select
           formControlName="caseLocation"
           [options]="caseLocationOption"
@@ -28,8 +26,8 @@
       </div>
 
       <!-- Field 2: Search Categorization Target Parameters -->
-      <div class="inline-filter-field dropdown-wrapper nexus-field-accent">
-        <label class="filter-label">Search By</label>
+      <div class="form-field-group">
+        <label>Search By</label>
         <p-select
           formControlName="searchBy"
           [options]="searchByOptions"
@@ -42,8 +40,8 @@
       </div>
 
       <!-- Field 3: Case Core Category Classification Drops -->
-      <div class="inline-filter-field dropdown-wrapper nexus-field-accent">
-        <label class="filter-label">Case Type</label>
+      <div class="form-field-group">
+        <label>Case Type</label>
         <p-select
           formControlName="caseType"
           [options]="caseTypeOption"
@@ -56,21 +54,27 @@
       </div>
 
       <!-- Field 4: Numerical Record Serial Entry Text Input -->
-      <div class="inline-filter-field text-input-wrapper nexus-field-accent">
-        <label class="filter-label">Case Number</label>
+      <div class="form-field-group">
+        <label>Case Number <span class="required-star">*</span></label>
         <input
           pInputText
           type="text"
           formControlName="caseNo"
-          class="w-full plain-text-input modern-inset-input"
+          class="w-full form-input-field"
           (keypress)="blockNonNumbers($event)"
           placeholder="Numbers only"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('caseNo') }"
         />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('caseNo')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Case Number is required.</small
+          >
+        </div>
       </div>
 
       <!-- Field 5: Calendar Fiscal Year Assignment Drops -->
-      <div class="inline-filter-field dropdown-wrapper nexus-field-accent">
-        <label class="filter-label">Case Year</label>
+      <div class="form-field-group">
+        <label>Case Year</label>
         <p-select
           formControlName="caseYear"
           [options]="caseYearOptions"
@@ -84,8 +88,10 @@
       </div>
 
       <!-- Field 6: Secure Interactive Captcha Verification Cluster -->
-      <div class="inline-filter-field captcha-wrapper nexus-field-accent">
-        <label class="filter-label">Security Verification</label>
+      <div class="form-field-group">
+        <label
+          >Security Verification <span class="required-star">*</span></label
+        >
         <div class="captcha-control-deck">
           <!-- Graphic Block Render Simulation -->
           <div

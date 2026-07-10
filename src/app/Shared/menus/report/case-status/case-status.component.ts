@@ -73,6 +73,10 @@ export class CaseStatusComponent implements OnInit {
     });
   }
 
+  isFieldInvalid(fieldName: string): boolean {
+    const control = this.searchForm.get(fieldName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
   generateYearOptions(): void {
     const currentYear = new Date().getFullYear();
     const startYear = 1998;

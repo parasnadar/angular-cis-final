@@ -1,0 +1,168 @@
+/* Luxury Multi-Column Input Grid Form Factors Configuration */
+.filter-criteria-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem 1.25rem;
+  width: 100%;
+  margin-bottom: 1.75rem;
+}
+
+/* Luxury Input Field Alignment Accent Block Wrapper Rules */
+.nexus-field-accent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 0.45rem !important;
+
+  .filter-label {
+    font-weight: 700 !important;
+    font-size: 0.76rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b !important;
+    margin: 0;
+  }
+
+  .modern-inset-input {
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 0.8rem !important;
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.9rem;
+
+    &:focus {
+      background: #ffffff !important;
+      border-color: #1e3a8a !important;
+    }
+  }
+
+  ::ngdeep .modern-inset-dropdown {
+    background: #f8fafc !important;
+    border: 100px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.9rem;
+
+    &:focus-within {
+      background: #ffffff !important;
+      border-color: #1e3a8a !important;
+    }
+  }
+}
+
+/* Captcha Cluster Elements Formatting */
+.captcha-control-deck {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+
+  .captcha-display-canvas {
+    background: repeating-linear-gradient(
+      45deg,
+      #e2e8f0,
+      #e2e8f0 4px,
+      #f1f5f9 4px,
+      #f1f5f9 8px
+    );
+    border: 1px dashed #94a3b8;
+    border-radius: 8px;
+    padding: 0.45rem 1rem;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 95px;
+    height: 38px;
+    cursor: pointer;
+    user-select: none;
+
+    .captcha-text-distort {
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: #0f172a;
+      letter-spacing: 3px;
+      font-style: italic;
+      transform: rotate(-2deg);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+    }
+
+    .captcha-noise-line {
+      position: absolute;
+      width: 120%;
+      height: 2px;
+      background: rgba(15, 23, 42, 0.25);
+      transform: rotate(12deg);
+      z-index: 1;
+    }
+  }
+
+  .captcha-refresh-btn {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
+  }
+
+  .captcha-input-box {
+    width: 110px !important;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1rem !important;
+    letter-spacing: 1px;
+  }
+}
+
+.captcha-error-alert {
+  color: #dc2626;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Symmetrical Row Operations Execution Pair */
+.nexus-buttons-pivot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.5rem;
+  margin-top: 0.5rem;
+
+  .action-search-luxury {
+    background: #0f172a !important; /* Premium Obsidian Theme base fill */
+    border-color: #0f172a !important;
+    padding: 0.55rem 1.75rem !important;
+    font-size: 0.88rem !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12) !important;
+    font-weight: 600;
+
+    &:hover:not(:disabled) {
+      background: #1e293b !important;
+      border-color: #1e293b !important;
+    }
+  }
+}
