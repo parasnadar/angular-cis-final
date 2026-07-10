@@ -11,6 +11,10 @@ import { InterBenchComponent } from '../Shared/menus/listing/inter-bench/inter-b
 import { MisReportComponent } from '../Shared/menus/report/mis-report/mis-report.component';
 import { EfiledCasesComponent } from '../Shared/menus/report/efiled-cases/efiled-cases.component';
 import { CaseStatusComponent } from '../Shared/menus/report/case-status/case-status.component';
+import { TransferActionTakenComponent } from '../Shared/menus/transfer-case/transfer-action-taken/transfer-action-taken.component';
+import { TransferRequestComponent } from '../Shared/menus/transfer-case/transfer-request/transfer-request.component';
+import { RecuseJudgesFromCaseComponent } from '../Shared/menus/recuse/recuse-judges-from-case/recuse-judges-from-case.component';
+import { RecusedCasesComponent } from '../Shared/menus/recuse/recused-cases/recused-cases.component';
 export const MENU_REGISTRY: Record<string, Type<any>> = {
   final_causelist: FinalCauselistComponent,
   defect_notices: DefectNoticesComponent,
@@ -24,5 +28,9 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   mis_report: MisReportComponent,
   efiled_cases: EfiledCasesComponent,
   case_status: CaseStatusComponent,
+  transfer_action_taken: TransferActionTakenComponent,
+  transfer_request: TransferRequestComponent,
+  recuse_judge_from_case: RecuseJudgesFromCaseComponent,
+  recused_cases: RecusedCasesComponent,
   // Add more mappings here as you create more screens
 };

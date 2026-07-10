@@ -1,0 +1,66 @@
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Recuse Judge(s) from Case</h2>
+  </div>
+</div>
+
+<form
+  [formGroup]="caseDetailsForm"
+  class="workspace-form-layout"
+  (ngSubmit)="onCaseSearch()"
+>
+  <div class="filter-criteria-row">
+    <div class="inline-filter-field dropdown-wrapper">
+      <label class="filter-label">Case Type:</label>
+      <p-select
+        formControlName="caseType"
+        [options]="caseTypeOption"
+        optionLabel="label"
+        optionValue="value"
+        styleClass="w-full white-bg-select"
+      ></p-select>
+    </div>
+
+    <div class="inline-filter-field text-input-wrapper">
+      <label class="filter-label">Case No:</label>
+      <input
+        pInputText
+        type="text"
+        formControlName="caseNo"
+        class="w-full plain-text-input"
+        (keypress)="blockNonNumbers($event)"
+        placeholder="Enter Case Number"
+      />
+    </div>
+
+    <div class="inline-filter-field dropdown-wrapper">
+      <label class="filter-label">Case Year:</label>
+      <p-select
+        formControlName="caseYear"
+        [options]="caseYearOptions"
+        optionLabel="label"
+        optionValue="value"
+        styleClass="w-full white-bg-select"
+        [filter]="true"
+        filterPlaceholder="Search year..."
+      ></p-select>
+    </div>
+
+    <div class="filter-actions-group">
+      <button
+        pButton
+        type="submit"
+        label="Search"
+        class="filter-search-btn"
+        [disabled]="caseDetailsForm.invalid"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Reset"
+        (click)="resetForms()"
+        class="filter-reset-btn"
+      ></button>
+    </div>
+  </div>
+</form>

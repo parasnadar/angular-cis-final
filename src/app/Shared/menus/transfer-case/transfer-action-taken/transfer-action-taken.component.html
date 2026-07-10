@@ -1,0 +1,27 @@
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Transfer Action Taken</h2>
+  </div>
+</div>
+<div class="fade-in-container">
+  <form [formGroup]="form" class="workspace-form-layout">
+    <div>
+      <app-dynamic-radio-group
+        formControlName="TransferCategory"
+        [options]="transferActionOptions"
+        groupName="scrutinyCategories"
+        [minWidthPx]="220"
+      ></app-dynamic-radio-group>
+    </div>
+  </form>
+  <div class="pending-metrics-banner">
+    <div class="alert-icon-circle">
+      <i class="pi pi-exclamation-circle"></i>
+    </div>
+
+    <h2 class="metrics-title">
+      <span class="title-text">Total Transferred cases:</span>
+    </h2>
+    <span class="metrics-count-badge">240</span>
+  </div>
+</div>

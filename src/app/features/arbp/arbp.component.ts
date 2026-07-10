@@ -87,8 +87,8 @@ export class ARBPComponent {
         label: 'Report',
         icon: 'pi pi-file',
         children: [
-          { id: 'amis_report', label: 'Mis Reports' },
-          { id: 'asearch_cases', label: 'Search Case' },
+          { id: 'mis_report', label: 'Mis Reports' },
+          { id: 'search_cases', label: 'Search Case' },
           { id: 'defect_notices', label: 'Defect Notices' },
           { id: 'scrutinized_notices', label: 'Scrutinized Cases' },
         ],
@@ -105,8 +105,8 @@ export class ARBPComponent {
         label: 'Causelist',
         icon: 'pi pi-calendar',
         children: [
-          { id: 'adraft_causelist', label: 'Draft Causelist' },
-          { id: 'afinal_causelist', label: 'Final Causelist' },
+          { id: 'draft_causelist', label: 'Draft Causelist' },
+          { id: 'final_causelist', label: 'Final Causelist' },
         ],
       },
       {
@@ -120,8 +120,8 @@ export class ARBPComponent {
         label: 'Notice',
         icon: 'pi pi-megaphone',
         children: [
-          { id: 'acreate_notice', label: 'Create Notice' },
-          { id: 'anotice_lists', label: 'Notice Lists' },
+          { id: 'create_notice', label: 'Create Notice' },
+          { id: 'notice_lists', label: 'Notice Lists' },
         ],
       },
     ];
