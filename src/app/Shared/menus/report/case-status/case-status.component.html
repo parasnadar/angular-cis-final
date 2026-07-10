@@ -1,1 +1,140 @@
-<p>case-status works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Case Status</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form
+    [formGroup]="searchForm"
+    class="workspace-form-layout"
+    (ngSubmit)="onSubmitSearch()"
+  >
+    <div class="filter-criteria-grid">
+      <!-- Field 1: Master Jurisdiction Location Dropdown -->
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label"
+          ><i class="pi pi-map-marker"></i> Case Location</label
+        >
+        <p-select
+          formControlName="caseLocation"
+          [options]="caseLocationOption"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select modern-inset-dropdown locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Select Location"
+        ></p-select>
+      </div>
+
+      <!-- Field 2: Search Categorization Target Parameters -->
+      <div class="inline-filter-field dropdown-wrapper nexus-field-accent">
+        <label class="filter-label">Search By</label>
+        <p-select
+          formControlName="searchBy"
+          [options]="searchByOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select modern-inset-dropdown locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Search criteria"
+        ></p-select>
+      </div>
+
+      <!-- Field 3: Case Core Category Classification Drops -->
+      <div class="inline-filter-field dropdown-wrapper nexus-field-accent">
+        <label class="filter-label">Case Type</label>
+        <p-select
+          formControlName="caseType"
+          [options]="caseTypeOption"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select modern-inset-dropdown locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Case type"
+        ></p-select>
+      </div>
+
+      <!-- Field 4: Numerical Record Serial Entry Text Input -->
+      <div class="inline-filter-field text-input-wrapper nexus-field-accent">
+        <label class="filter-label">Case Number</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="caseNo"
+          class="w-full plain-text-input modern-inset-input"
+          (keypress)="blockNonNumbers($event)"
+          placeholder="Numbers only"
+        />
+      </div>
+
+      <!-- Field 5: Calendar Fiscal Year Assignment Drops -->
+      <div class="inline-filter-field dropdown-wrapper nexus-field-accent">
+        <label class="filter-label">Case Year</label>
+        <p-select
+          formControlName="caseYear"
+          [options]="caseYearOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select modern-inset-dropdown locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          [filter]="true"
+          filterPlaceholder="Filter year..."
+        ></p-select>
+      </div>
+
+      <!-- Field 6: Secure Interactive Captcha Verification Cluster -->
+      <div class="inline-filter-field captcha-wrapper nexus-field-accent">
+        <label class="filter-label">Security Verification</label>
+        <div class="captcha-control-deck">
+          <!-- Graphic Block Render Simulation -->
+          <div
+            class="captcha-display-canvas"
+            title="Click to refresh captcha validation code"
+            (click)="regenerateCaptchaChallenge()"
+          >
+            <span class="captcha-text-distort">{{ captchaChallengeText }}</span>
+            <div class="captcha-noise-line"></div>
+          </div>
+
+          <button
+            type="button"
+            class="captcha-refresh-btn"
+            (click)="regenerateCaptchaChallenge()"
+            title="Generate new security captcha code"
+          >
+            <i class="pi pi-refresh"></i>
+          </button>
+
+          <input
+            pInputText
+            type="text"
+            maxlength="5"
+            formControlName="captchaCode"
+            class="plain-text-input modern-inset-input captcha-input-box"
+            placeholder="Enter Code"
+            style="text-transform: uppercase"
+          />
+        </div>
+        @if (
+          captchaValidationFailed && searchForm.get("captchaCode")?.touched
+        ) {
+          <small class="captcha-error-alert"
+            ><i class="pi pi-times-circle"></i> Code mismatch. Try again.</small
+          >
+        }
+      </div>
+    </div>
+
+    <!-- Symmetrical Operations Execution Pivot Dock -->
+    <div class="filter-actions-group nexus-buttons-pivot">
+      <button
+        pButton
+        type="submit"
+        label="Run System Query"
+        class="filter-search-btn action-search-luxury"
+        [disabled]="searchForm.invalid"
+      ></button>
+    </div>
+  </form>
+</div>

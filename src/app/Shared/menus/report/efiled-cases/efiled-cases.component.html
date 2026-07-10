@@ -1,1 +1,172 @@
-<p>efiled-cases works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Efiled Cases Reports</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form [formGroup]="efiledform" class="workspace-form-layout">
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">From Date:</label>
+        <p-datepicker
+          formControlName="fromFilingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">To Date:</label>
+        <p-datepicker
+          formControlName="toFilingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Bench:</label>
+        <p-select
+          formControlName="bench"
+          [options]="benchOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Please Select Bench"
+        ></p-select>
+      </div>
+
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Case Types:</label>
+        <p-select
+          formControlName="caseType"
+          [options]="caseTypeOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Select option"
+        ></p-select>
+      </div>
+
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Search"
+          (click)="onSearch()"
+          class="filter-search-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+  <div class="pending-metrics-banner-general">
+    <h2 class="metrics-title-general">
+      <span class="title-text">Total Efiled Cases:</span>
+    </h2>
+    <span class="metrics-count-badge">604</span>
+  </div>
+
+  <div class="table-nexus-container fade-in-container">
+    <p-table
+      #dt
+      [value]="cases"
+      [rows]="selectedRowsCount"
+      [paginator]="true"
+      [globalFilterFields]="['diaryNo', 'caseDetails', 'location', 'status']"
+      styleClass="p-datatable-striped custom-modern-grid"
+      [rowsPerPageOptions]="[5, 10, 25]"
+    >
+      <!-- 1. Upper Table Command Caption Deck -->
+      <ng-template pTemplate="caption">
+        <div class="table-header-toolbar">
+          <!-- Entries Page Limiter Selection -->
+          <div class="toolbar-left-pane">
+            <p-select
+              [(ngModel)]="selectedRowsCount"
+              [options]="rowsOptions"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="compact-entries-select"
+            ></p-select>
+          </div>
+
+          <!-- Instant Global Search Filter Anchor Box -->
+          <div class="toolbar-right-pane p-input-icon-left">
+            <i class="pi pi-search search-lens-node"></i>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="globalSearchText"
+              (input)="dt.filterGlobal(globalSearchText, 'contains')"
+              placeholder="Quick search tables items..."
+              class="grid-global-search-input"
+            />
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- 2. Grid Column Headers Declarations Mapping -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 15%">Filing / Diary No</th>
+          <th style="width: 35%">Subject / Case Details</th>
+          <th style="width: 25%">Jurisdiction Location</th>
+          <th style="width: 13%">Status</th>
+          <th style="text-align: center; width: 12%">Actions</th>
+        </tr>
+      </ng-template>
+
+      <!-- 3. Dynamic Row Cells Render Engine Iterator -->
+      <ng-template pTemplate="body" let-item>
+        <tr class="hoverable-grid-row">
+          <td class="font-bold-slate">{{ item.diaryNo }}</td>
+          <td class="truncated-cell-text" [title]="item.caseDetails">
+            {{ item.caseDetails }}
+          </td>
+          <td>{{ item.location }}</td>
+          <td>
+            <span
+              class="status-pill-badge"
+              [ngClass]="item.status.toLowerCase()"
+            >
+              {{ item.status }}
+            </span>
+          </td>
+          <td style="text-align: center">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-eye"
+              label="View"
+              class="p-button-sm grid-action-view-btn"
+              (click)="onViewRecord(item)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <!-- Empty State Callback Template Fallback -->
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="grid-empty-state-cell">
+            <i class="pi pi-filter-slash empty-icon-node"></i>
+            <p>
+              No matching legal records matched your search parameters criteria.
+            </p>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
