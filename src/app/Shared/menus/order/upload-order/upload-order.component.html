@@ -1,1 +1,92 @@
-<p>upload-order works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Daily Order Report</h2>
+  </div>
+</div>
+<div class="table-nexus-container fade-in-container">
+  <p-table
+    #dt
+    [value]="cases"
+    [rows]="selectedRowsCount"
+    [paginator]="true"
+    [globalFilterFields]="['diaryNo', 'caseDetails', 'location', 'status']"
+    styleClass="p-datatable-striped custom-modern-grid"
+    [rowsPerPageOptions]="[5, 10, 25]"
+  >
+    <!-- 1. Upper Table Command Caption Deck -->
+    <ng-template pTemplate="caption">
+      <div class="table-header-toolbar">
+        <!-- Entries Page Limiter Selection -->
+        <div class="toolbar-left-pane">
+          <p-select
+            [(ngModel)]="selectedRowsCount"
+            [options]="rowsOptions"
+            optionLabel="label"
+            optionValue="value"
+            styleClass="compact-entries-select"
+          ></p-select>
+        </div>
+
+        <!-- Instant Global Search Filter Anchor Box -->
+        <div class="toolbar-right-pane p-input-icon-left">
+          <i class="pi pi-search search-lens-node"></i>
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="globalSearchText"
+            (input)="dt.filterGlobal(globalSearchText, 'contains')"
+            placeholder="Quick search tables items..."
+            class="grid-global-search-input"
+          />
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- 2. Grid Column Headers Declarations Mapping -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 8%">Sr. No.</th>
+        <th style="width: 15%">Case No.</th>
+        <th style="width: 35%">Party Detail.</th>
+        <th style="width: 15%">Order Date</th>
+
+        <th style="text-align: center; width: 12%">Actions</th>
+      </tr>
+    </ng-template>
+
+    <!-- 3. Dynamic Row Cells Render Engine Iterator -->
+    <ng-template pTemplate="body" let-item>
+      <tr class="hoverable-grid-row">
+        <td class="truncated-cell-text">{{ item.sNo }}</td>
+        <td class="font-bold-slate">{{ item.diaryNo }}</td>
+        <td class="truncated-cell-text" [title]="item.caseDetails">
+          {{ item.caseDetails }}
+        </td>
+        <td>{{ item.date }}</td>
+
+        <td style="text-align: center">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            label="View"
+            class="p-button-sm grid-action-view-btn"
+            (click)="onViewRecord(item)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <!-- Empty State Callback Template Fallback -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="grid-empty-state-cell">
+          <i class="pi pi-filter-slash empty-icon-node"></i>
+          <p>
+            No matching legal records matched your search parameters criteria.
+          </p>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
