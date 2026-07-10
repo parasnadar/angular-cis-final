@@ -1,7 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
+import { MENU_REGISTRY } from '../../core/menu-registry';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { InputTextModule } from 'primeng/inputtext';
+
+import { ButtonModule } from 'primeng/button';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -11,7 +18,16 @@ export interface BarOptionItem {
 }
 @Component({
   selector: 'app-registrar',
-  imports: [UtilityBarComponent, ChangePasswordModalComponent],
+  standalone: true,
+  imports: [
+    CommonModule,
+    UtilityBarComponent,
+    ChangePasswordModalComponent,
+    ReactiveFormsModule,
+    DatePickerModule,
+    ButtonModule,
+    InputTextModule,
+  ],
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.scss',
 })
@@ -23,7 +39,8 @@ export class REGISTRARComponent {
     name: 'Registrar',
     initials: 'R',
   };
-
+  activeView: string = 'registrarhome';
+  activeComponentType: Type<any> | null = null;
   gstatViewOptions: BarOptionItem[] = [
     { id: 'rhome', label: 'Home', icon: 'pi pi-home' },
     {
@@ -36,8 +53,8 @@ export class REGISTRARComponent {
       label: 'Bench',
       icon: 'pi pi-hammer',
       children: [
-        { id: 'rcreate_bench', label: 'Create Bench' },
-        { id: 'rview_bench', label: 'View Bench' },
+        { id: 'create_bench', label: 'Create Bench' },
+        { id: 'view_bench', label: 'View Bench' },
       ],
     },
     {
@@ -45,8 +62,8 @@ export class REGISTRARComponent {
       label: 'Listing',
       icon: 'pi pi-list',
       children: [
-        { id: 'rcreate_bench  ', label: 'Create Bench' },
-        { id: 'rview_bench', label: 'View Bench' },
+        { id: 'create_bench  ', label: 'Create Bench' },
+        { id: 'view_bench', label: 'View Bench' },
       ],
     },
     {
@@ -54,17 +71,17 @@ export class REGISTRARComponent {
       label: 'Report',
       icon: 'pi pi-file',
       children: [
-        { id: 'roder_report', label: 'Case Docs' },
-        { id: 'rmis_report', label: 'Mis Reports' },
-        { id: 'refiled_cases', label: 'Efiled Cases' },
-        { id: 'rfinilized_cause', label: 'Finalized Causelist Reports' },
-        { id: 'raccepted', label: 'APL 02A Part B Accepted' },
-        { id: 'rrejected', label: 'APL 02A Part B Rejected' },
-        { id: 'rproceeding_calender', label: 'Proceeding Calender' },
-        { id: 'rcourt_wise_pendency', label: 'Court-wise pendency' },
-        { id: 'rdate_wise_pendency', label: 'Date-wise pendency' },
-        { id: 'rcase_status', label: 'Case Status' },
-        { id: 'rnotification_report', label: 'Notification Report' },
+        { id: 'oder_report', label: 'Case Docs' },
+        { id: 'mis_report', label: 'Mis Reports' },
+        { id: 'efiled_cases', label: 'Efiled Cases' },
+        { id: 'finilized_cause', label: 'Finalized Causelist Reports' },
+        { id: 'accepted', label: 'APL 02A Part B Accepted' },
+        { id: 'rejected', label: 'APL 02A Part B Rejected' },
+        { id: 'proceeding_calender', label: 'Proceeding Calender' },
+        { id: 'court_wise_pendency', label: 'Court-wise pendency' },
+        { id: 'date_wise_pendency', label: 'Date-wise pendency' },
+        { id: 'case_status', label: 'Case Status' },
+        { id: 'notification_report', label: 'Notification Report' },
       ],
     },
 
@@ -73,8 +90,8 @@ export class REGISTRARComponent {
       label: 'Proceeding',
       icon: 'pi pi-history',
       children: [
-        { id: 'rcase_proceeding', label: 'Case Proceeding' },
-        { id: 'runscheduled_listing', label: 'Unscheduled Listing' },
+        { id: 'case_proceeding', label: 'Case Proceeding' },
+        { id: 'unscheduled_listing', label: 'Unscheduled Listing' },
       ],
     },
     {
@@ -82,8 +99,8 @@ export class REGISTRARComponent {
       label: 'Causelist',
       icon: 'pi pi-calendar',
       children: [
-        { id: 'rdraft_causelist', label: 'Draft Causelist' },
-        { id: 'rfinal_causelist', label: 'Final Causelist' },
+        { id: 'draft_causelist', label: 'Draft Causelist' },
+        { id: 'final_causelist', label: 'Final Causelist' },
       ],
     },
     {
@@ -91,8 +108,8 @@ export class REGISTRARComponent {
       label: 'Order',
       icon: 'pi pi-book',
       children: [
-        { id: 'rgenerate_order', label: 'Generate Order' },
-        { id: 'rupload_order', label: 'Upload Order' },
+        { id: 'generate_order', label: 'Generate Order' },
+        { id: 'upload_order', label: 'Upload Order' },
       ],
     },
     {
@@ -100,8 +117,8 @@ export class REGISTRARComponent {
       label: 'Notice',
       icon: 'pi pi-megaphone',
       children: [
-        { id: 'rcreate_notice', label: 'Create Notice' },
-        { id: 'rnotice_lists', label: 'Notice Lists' },
+        { id: 'create_notice', label: 'Create Notice' },
+        { id: 'notice_lists', label: 'Notice Lists' },
       ],
     },
   ];
@@ -126,12 +143,16 @@ export class REGISTRARComponent {
     parent: BarOptionItem;
     child?: BarOptionItem;
   }): void {
-    if (event.child) {
-      console.log(
-        `Triggering Sub-Option Endpoint: ${event.child.id} under parent ${event.parent.id}`,
-      );
+    const selectedId = event.child
+      ? (event.child.id as string)
+      : (event.parent.id as string);
+    this.activeView = selectedId;
+
+    // Dynamically look up the component type using the string ID from MENU_REGISTRY
+    if (selectedId === 'registrarhome') {
+      this.activeComponentType = null;
     } else {
-      console.log(`Triggering Standard Option Endpoint: ${event.parent.id}`);
+      this.activeComponentType = MENU_REGISTRY[selectedId] || null;
     }
   }
 }
