@@ -120,7 +120,13 @@
             class="plain-text-input modern-inset-input captcha-input-box"
             placeholder="Enter Code"
             style="text-transform: uppercase"
+            [ngClass]="{ 'field-error-border': isFieldInvalid('captchaCode') }"
           />
+        </div>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('captchaCode')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Captcha is required.</small
+          >
         </div>
         @if (
           captchaValidationFailed && searchForm.get("captchaCode")?.touched
@@ -137,7 +143,7 @@
       <button
         pButton
         type="submit"
-        label="Run System Query"
+        label="Search"
         class="filter-search-btn action-search-luxury"
         [disabled]="searchForm.invalid"
       ></button>
