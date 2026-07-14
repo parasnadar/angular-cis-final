@@ -105,7 +105,7 @@ export class SCRUNITYComponent {
         icon: 'pi pi-file',
         children: [
           { id: 'defect_notices', label: 'Defect Notices' },
-          { id: 'scrutinized_notices', label: 'Scrutinized Notices' },
+          { id: 'scrutinized_cases', label: 'Scrutinized Notices' },
         ],
       },
       {

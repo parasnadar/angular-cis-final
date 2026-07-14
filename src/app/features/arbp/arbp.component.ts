@@ -81,27 +81,51 @@ export class ARBPComponent {
   loadAssignedMenus() {
     this.gstatViewOptions = [
       { id: 'arbphome', label: 'Home', icon: 'pi pi-home' },
-
       {
-        id: 'areport',
-        label: 'Report',
-        icon: 'pi pi-file',
+        id: 'bench',
+        label: 'Bench',
+        icon: 'pi pi-hammer',
         children: [
-          { id: 'mis_report', label: 'Mis Reports' },
-          { id: 'search_cases', label: 'Search Case' },
-          { id: 'defect_notices', label: 'Defect Notices' },
-          { id: 'scrutinized_notices', label: 'Scrutinized Cases' },
+          { id: 'create_bench', label: 'Create Bench' },
+          { id: 'view_bench', label: 'View Bench' },
         ],
       },
 
       {
-        id: 'aproceeding',
+        id: 'listing',
+        label: 'Listing',
+        icon: 'pi pi-list',
+        children: [
+          { id: 'fresh_case_listing', label: 'Fresh Case Listing' },
+          { id: 'transfer_cases', label: 'Transfer Cases' },
+          { id: 'connect_cases', label: 'Connect Cases' },
+          { id: 'disconnect_cases', label: 'Disconnect Cases' },
+        ],
+      },
+
+      {
+        id: 'report',
+        label: 'Report',
+        icon: 'pi pi-file',
+        children: [
+          { id: 'mis_report', label: 'Mis Reports' },
+          { id: 'search_case', label: 'Search Case' },
+          { id: 'defect_notices', label: 'Defect Notices' },
+          { id: 'scrutinized_cases', label: 'Scrutinized Cases' },
+        ],
+      },
+
+      {
+        id: 'proceeding',
         label: 'Proceeding',
         icon: 'pi pi-history',
-        children: [{ id: 'acase_proceeding', label: 'Case Proceeding' }],
+        children: [
+          { id: 'case_proceeding', label: 'Case Proceeding' },
+          { id: 'case_proceeding_report', label: 'Case Proceeding Report' },
+        ],
       },
       {
-        id: 'acause_list',
+        id: 'cause_list',
         label: 'Causelist',
         icon: 'pi pi-calendar',
         children: [
@@ -110,13 +134,30 @@ export class ARBPComponent {
         ],
       },
       {
-        id: 'adocument_scrutiny',
+        id: 'document_scrutiny',
         label: 'Document Scrutiny',
         icon: 'pi pi-file-check',
         children: [{ id: 'scrutiny', label: 'Scrutiny' }],
       },
       {
-        id: 'anotice',
+        id: 'order',
+        label: 'Order',
+        icon: 'pi pi-book',
+        children: [
+          { id: 'generate_order', label: 'Generate Order' },
+          { id: 'upload_order', label: 'Upload Order' },
+        ],
+      },
+      {
+        id: 'recuse',
+        label: 'Recuse',
+        icon: 'pi pi-user-minus',
+        children: [
+          { id: 'recuse_judge_from_case', label: 'Recuse Judge(s) From Case' },
+        ],
+      },
+      {
+        id: 'notice',
         label: 'Notice',
         icon: 'pi pi-megaphone',
         children: [

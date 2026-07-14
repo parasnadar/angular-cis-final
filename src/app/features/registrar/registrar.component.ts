@@ -44,12 +44,12 @@ export class REGISTRARComponent {
   gstatViewOptions: BarOptionItem[] = [
     { id: 'rhome', label: 'Home', icon: 'pi pi-home' },
     {
-      id: 'rdashboard',
+      id: 'dashboard',
       label: 'Dashboard',
       icon: 'pi pi-objects-column',
     },
     {
-      id: 'rbench',
+      id: 'bench',
       label: 'Bench',
       icon: 'pi pi-hammer',
       children: [
@@ -58,7 +58,7 @@ export class REGISTRARComponent {
       ],
     },
     {
-      id: 'rlisting',
+      id: 'listing',
       label: 'Listing',
       icon: 'pi pi-list',
       children: [
@@ -67,7 +67,7 @@ export class REGISTRARComponent {
       ],
     },
     {
-      id: 'rreport',
+      id: 'report',
       label: 'Report',
       icon: 'pi pi-file',
       children: [
@@ -86,7 +86,7 @@ export class REGISTRARComponent {
     },
 
     {
-      id: 'rproceeding',
+      id: 'proceeding',
       label: 'Proceeding',
       icon: 'pi pi-history',
       children: [
@@ -95,7 +95,7 @@ export class REGISTRARComponent {
       ],
     },
     {
-      id: 'rcause_list',
+      id: 'cause_list',
       label: 'Causelist',
       icon: 'pi pi-calendar',
       children: [
@@ -104,7 +104,7 @@ export class REGISTRARComponent {
       ],
     },
     {
-      id: 'rorder',
+      id: 'order',
       label: 'Order',
       icon: 'pi pi-book',
       children: [
@@ -113,7 +113,7 @@ export class REGISTRARComponent {
       ],
     },
     {
-      id: 'rnotice',
+      id: 'notice',
       label: 'Notice',
       icon: 'pi pi-megaphone',
       children: [
