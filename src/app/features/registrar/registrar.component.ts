@@ -42,7 +42,7 @@ export class REGISTRARComponent {
   activeView: string = 'registrarhome';
   activeComponentType: Type<any> | null = null;
   gstatViewOptions: BarOptionItem[] = [
-    { id: 'rhome', label: 'Home', icon: 'pi pi-home' },
+    { id: 'registrarhome', label: 'Home', icon: 'pi pi-home' },
     {
       id: 'dashboard',
       label: 'Dashboard',
@@ -62,8 +62,9 @@ export class REGISTRARComponent {
       label: 'Listing',
       icon: 'pi pi-list',
       children: [
-        { id: 'create_bench  ', label: 'Create Bench' },
-        { id: 'view_bench', label: 'View Bench' },
+        { id: 'fresh_case_listing', label: 'Fresh Case Listing' },
+        { id: 'old_case_listing', label: 'Old Case Listing' },
+        { id: 'inter_bench', label: 'Inter Bench' },
       ],
     },
     {
@@ -71,15 +72,15 @@ export class REGISTRARComponent {
       label: 'Report',
       icon: 'pi pi-file',
       children: [
-        { id: 'oder_report', label: 'Case Docs' },
+        { id: 'order_report', label: 'Order Report' },
         { id: 'mis_report', label: 'Mis Reports' },
+        { id: 'finilized_cause_list', label: 'Finalized Causelist Calendar' },
         { id: 'efiled_cases', label: 'Efiled Cases' },
-        { id: 'finilized_cause', label: 'Finalized Causelist Reports' },
         { id: 'accepted', label: 'APL 02A Part B Accepted' },
-        { id: 'rejected', label: 'APL 02A Part B Rejected' },
-        { id: 'proceeding_calender', label: 'Proceeding Calender' },
-        { id: 'court_wise_pendency', label: 'Court-wise pendency' },
         { id: 'date_wise_pendency', label: 'Date-wise pendency' },
+        { id: 'rejected', label: 'APL 02A Part B Rejected' },
+        { id: 'court_wise_pendency', label: 'Court-wise pendency' },
+        { id: 'proceeding_calender', label: 'Proceeding Calender' },
         { id: 'case_status', label: 'Case Status' },
         { id: 'notification_report', label: 'Notification Report' },
       ],

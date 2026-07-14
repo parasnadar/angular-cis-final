@@ -26,6 +26,14 @@ import { DisconnectCasesComponent } from '../Shared/menus/listing/disconnect-cas
 import { SearchCaseComponent } from '../Shared/menus/report/search-case/search-case.component';
 import { CaseProceedingComponent } from '../Shared/menus/proceeding/case-proceeding/case-proceeding.component';
 import { CaseProceedingReportComponent } from '../Shared/menus/proceeding/case-proceeding-report/case-proceeding-report.component';
+import { OldCaseListingComponent } from '../Shared/menus/listing/old-case-listing/old-case-listing.component';
+import { UnscheduledListingComponent } from '../Shared/menus/proceeding/unscheduled-listing/unscheduled-listing.component';
+import { OrderReportComponent } from '../Shared/menus/report/order-report/order-report.component';
+import { FinilizedCauseListComponent } from '../Shared/menus/report/finilized-cause-list/finilized-cause-list.component';
+import { DateWisePendencyComponent } from '../Shared/menus/report/date-wise-pendency/date-wise-pendency.component';
+import { CourtWisePendencyComponent } from '../Shared/menus/report/court-wise-pendency/court-wise-pendency.component';
+import { ProceedingCalenderComponent } from '../Shared/menus/report/proceeding-calender/proceeding-calender.component';
+import { NotificationReportComponent } from '../Shared/menus/report/notification-report/notification-report.component';
 
 export const MENU_REGISTRY: Record<string, Type<any>> = {
   //bench
@@ -39,6 +47,12 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   efiled_cases: EfiledCasesComponent,
   case_status: CaseStatusComponent,
   search_case: SearchCaseComponent,
+  order_report: OrderReportComponent,
+  finilized_cause_list: FinilizedCauseListComponent,
+  date_wise_pendency: DateWisePendencyComponent,
+  court_wise_pendency: CourtWisePendencyComponent,
+  proceeding_calender: ProceedingCalenderComponent,
+  notification_report: NotificationReportComponent,
   //causelist
   final_causelist: FinalCauselistComponent,
   draft_causelist: DraftCauselistComponent,
@@ -62,8 +76,10 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   transfer_cases: TransferCasesComponent,
   connect_cases: ConnectCasesComponent,
   disconnect_cases: DisconnectCasesComponent,
+  old_case_listing: OldCaseListingComponent,
   //Proceeding
   case_proceeding: CaseProceedingComponent,
   case_proceeding_report: CaseProceedingReportComponent,
+  unscheduled_listing: UnscheduledListingComponent,
   // Add more mappings here as you create more screens
 };
