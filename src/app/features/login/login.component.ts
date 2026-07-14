@@ -112,6 +112,12 @@ export class LoginComponent implements OnInit {
     this.displayForgotModal = true;
   }
 
+  regenerateCode(): void {
+    this.notify.showSuccess(
+      'Otp has been sent to xxx@gmail.com and 98xxx001xx succesfully',
+    );
+  }
+
   submitForgotPasswordRecovery(
     emailValue: string,
     captcha?: string,
