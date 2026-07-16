@@ -14,9 +14,15 @@ export interface ChromaMetricCard {
   id: string;
   tag: string;
   count: number;
-  delta: string;
+  delta: string[];
   secondaryText: string;
-  toneClass: 'tone-oceanic' | 'tone-sunburst' | 'tone-neon-emerald' | 'tone-electric-crimson';
+  toneClass:
+    | 'tone-oceanic'
+    | 'tone-sunburst'
+    | 'tone-neon-emerald'
+    | 'tone-electric-crimson'
+    | 'tone-deep-purple'
+    | 'tone-electric-cyan';
   iconClass: string;
   isCritical?: boolean;
 }
@@ -53,112 +59,108 @@ export class REGISTRARComponent implements OnInit {
   }
 
   fetchTribunalMetricsPayload(): void {
-    // Array configuration mapping values down securely from backend payload loops
     this.metricsDataList = [
       {
         id: 'c1',
-        tag: 'Case no generation',
+        tag: 'Case Number Generation',
         count: 1,
-        delta: '+12% Delta',
-        secondaryText: 'Awaiting Scrutiny Allocation',
+        delta: ['+12% Delta', 'Instant Run'],
+        secondaryText: 'Awaiting automatic indexing routine',
         toneClass: 'tone-oceanic',
-        iconClass: 'pi-folder-open'
+        iconClass: 'pi-cog',
       },
       {
         id: 'c2',
-        tag: 'Refiled Cases',
+        tag: 'Refiled Cases Log',
         count: 32,
-        delta: '+12% Delta',
-        secondaryText: 'Awaiting Scrutiny Allocation',
-        toneClass: 'tone-oceanic',
-        iconClass: 'pi-folder-open'
+        delta: ['+8% Growth', 'Checked'],
+        secondaryText: 'Resubmitted petitions pending verification',
+        toneClass: 'tone-electric-cyan',
+        iconClass: 'pi-replay',
       },
       {
         id: 'c3',
         tag: 'For Defect Notice',
         count: 41,
-        delta: '+12% Delta',
-        secondaryText: 'Awaiting Scrutiny Allocation',
-        toneClass: 'tone-oceanic',
-        iconClass: 'pi-folder-open'
+        delta: ['Action Required', 'High Priority'],
+        secondaryText: 'Validation failures flagged by system scrutiny',
+        toneClass: 'tone-sunburst',
+        iconClass: 'pi-file-excel',
       },
       {
         id: 'c4',
-        tag: 'Action Due',
+        tag: 'Action Due Ledgers',
         count: 142,
-        delta: '+12% Delta',
-        secondaryText: 'Awaiting Scrutiny Allocation',
-        toneClass: 'tone-oceanic',
-        iconClass: 'pi-folder-open'
+        delta: ['24h Deadline', 'Review Required'],
+        secondaryText: 'Statutory compliance limits approaching',
+        toneClass: 'tone-deep-purple',
+        iconClass: 'pi-list',
       },
       {
         id: 'c5',
-        tag: 'Appeal for first listing',
+        tag: 'Appeals for First Listing',
         count: 38,
-        delta: '14 Overdue',
-        secondaryText: 'Requires Rejection Sign-off',
+        delta: ['14 Overdue', 'Urgent Action'],
+        secondaryText: 'Requires definitive order bench assignments',
         toneClass: 'tone-sunburst',
-        iconClass: 'pi-exclamation-triangle'
+        iconClass: 'pi-sort-alt',
       },
       {
         id: 'c6',
-        tag: 'Application for first listing',
+        tag: 'Applications for First Listing',
         count: 604,
-        delta: 'Sync Ready',
-        secondaryText: 'Ready for Cause List Matrix',
+        delta: ['Sync Ready', 'Rosters Live'],
+        secondaryText: 'Verified records locked for automated rosters',
         toneClass: 'tone-neon-emerald',
-        iconClass: 'pi-verified'
+        iconClass: 'pi-check-square',
       },
       {
         id: 'c7',
-        tag: 'Unscheduled Listing',
+        tag: 'Unscheduled Listing Pool',
         count: 9,
-        delta: 'Critical Load',
-        secondaryText: 'Immediate Court Escalation',
+        delta: ['Critical Load', 'Escalated'],
+        secondaryText: 'Immediate court clearance sequence requested',
         toneClass: 'tone-electric-crimson',
         iconClass: 'pi-bolt',
-        isCritical: true
+        isCritical: true,
       },
       {
         id: 'c8',
-        tag: 'Draft Notices',
-        count: 9,
-        delta: 'Critical Load',
-        secondaryText: 'Immediate Court Escalation',
-        toneClass: 'tone-electric-crimson',
-        iconClass: 'pi-bolt',
-        isCritical: true
+        tag: 'Draft Notices Validation',
+        count: 18,
+        delta: ['Pending Release', '9 Drafts'],
+        secondaryText: 'Automated legal notices awaiting signature validation',
+        toneClass: 'tone-deep-purple',
+        iconClass: 'pi-envelope',
       },
       {
         id: 'c9',
-        tag: 'Pending Proceeding',
-        count: 9,
-        delta: 'Critical Load',
-        secondaryText: 'Immediate Court Escalation',
-        toneClass: 'tone-electric-crimson',
-        iconClass: 'pi-bolt',
-        isCritical: true
+        tag: 'Pending Proceeding Transcripts',
+        count: 7,
+        delta: ['Steno Syncing', 'In Review'],
+        secondaryText: 'Daily hearing notes awaiting final review log',
+        toneClass: 'tone-electric-cyan',
+        iconClass: 'pi-hourglass',
       },
       {
         id: 'c10',
-        tag: 'Draft Cause List',
-        count: 9,
-        delta: 'Critical Load',
-        secondaryText: 'Immediate Court Escalation',
-        toneClass: 'tone-electric-crimson',
-        iconClass: 'pi-bolt',
-        isCritical: true
+        tag: 'Draft Cause List Verification',
+        count: 11,
+        delta: ['Benches Ready', 'Locked'],
+        secondaryText: 'Proposed daily schedule matrix preview generated',
+        toneClass: 'tone-neon-emerald',
+        iconClass: 'pi-table',
       },
       {
         id: 'c11',
-        tag: 'Transfer Cases Request From Other Benches',
-        count: 9,
-        delta: 'Critical Load',
-        secondaryText: 'Immediate Court Escalation',
+        tag: 'Inter-Bench Case Transfers',
+        count: 4,
+        delta: ['External Sync', 'Approval Needed'],
+        secondaryText: 'Cross-bench transfer requests requiring authorization',
         toneClass: 'tone-electric-crimson',
-        iconClass: 'pi-bolt',
-        isCritical: true
-      }
+        iconClass: 'pi-arrow-h',
+        isCritical: true,
+      },
     ];
   }
 

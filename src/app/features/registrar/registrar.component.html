@@ -14,6 +14,7 @@
 <div class="workspace-main-viewport">
   @if (activeView === "registrarhome") {
     <div class="fade-in-container registrar-luxury-console">
+      <!-- ULTRA-MODERN NEOMORPHIC HERO DOCK -->
       <div class="luxury-hero-panel">
         <div class="hero-core-content">
           <div class="badge-status-glow">
@@ -27,254 +28,170 @@
             decrees instantly.
           </p>
         </div>
-        <div class="hero-quick-analytics">
-          <div class="mini-progress-ring-group">
-            <span class="progress-label">Daily Clearance Target</span>
-            <div class="custom-progress-bar-track">
-              <div class="progress-fill-gradient" style="width: 74%"></div>
-            </div>
-            <span class="progress-percentage">74% Complete</span>
+
+        <!-- HIGH-FIDELITY VIEW SEGMENT SWITCHER TRACK -->
+        <div class="luxury-view-switcher-dock">
+          <div class="switcher-capsule-track">
+            <button
+              type="button"
+              class="switch-mode-btn"
+              [class.is-active]="activeDisplayMode === 'grid'"
+              (click)="setDisplayMode('grid')"
+            >
+              <i class="pi pi-th-large"></i> Bento Dashboard
+            </button>
+            <button
+              type="button"
+              class="switch-mode-btn"
+              [class.is-active]="activeDisplayMode === 'visual'"
+              (click)="setDisplayMode('visual')"
+            >
+              <i class="pi pi-chart-pie"></i> Analytical Insights
+            </button>
           </div>
         </div>
       </div>
+
       <div class="dashboard-section-header view-header-nexus">
         <div class="title-accent-wrapper">
-          <h2 class="section-title">Efiled Cases Reports</h2>
+          <h2 class="section-title">
+            {{
+              activeDisplayMode === "grid"
+                ? "Efiled Cases Reports"
+                : "System Telemetry Visual Distribution"
+            }}
+          </h2>
         </div>
       </div>
 
-      <div class="chromatic-bento-grid">
-        <div class="interactive-chroma-card tone-oceanic" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Case no generation</span>
-            <div class="floating-avatar-icon">
-              <i class="pi pi-folder-open"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">1</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-good">
-              <i class="pi pi-arrow-up-right"></i> +12% Delta
-            </div>
-            <span class="telemetry-secondary-text"
-              >Awaiting Scrutiny Allocation</span
+      @if (activeDisplayMode === "grid") {
+        <div class="chromatic-bento-grid fade-in-element">
+          @for (card of metricsDataList; track card.id) {
+            <div
+              class="interactive-chroma-card"
+              [ngClass]="card.toneClass"
+              tabindex="0"
             >
-          </div>
-        </div>
+              <div class="card-mesh-bg"></div>
 
-        <div class="interactive-chroma-card tone-oceanic" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Refiled Cases</span>
-            <div class="floating-avatar-icon">
-              <i class="pi pi-folder-open"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">32</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-good">
-              <i class="pi pi-arrow-up-right"></i> +12% Delta
-            </div>
-            <span class="telemetry-secondary-text"
-              >Awaiting Scrutiny Allocation</span
-            >
-          </div>
-        </div>
-        <div class="interactive-chroma-card tone-oceanic" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">For Defect Notice </span>
-            <div class="floating-avatar-icon">
-              <i class="pi pi-folder-open"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">41</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-good">
-              <i class="pi pi-arrow-up-right"></i> +12% Delta
-            </div>
-            <span class="telemetry-secondary-text"
-              >Awaiting Scrutiny Allocation</span
-            >
-          </div>
-        </div>
-        <div class="interactive-chroma-card tone-oceanic" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Action Due</span>
-            <div class="floating-avatar-icon">
-              <i class="pi pi-folder-open"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">142</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-good">
-              <i class="pi pi-arrow-up-right"></i> +12% Delta
-            </div>
-            <span class="telemetry-secondary-text"
-              >Awaiting Scrutiny Allocation</span
-            >
-          </div>
-        </div>
+              <div class="card-top-action-bar">
+                <span class="panel-metric-tag">{{ card.tag }}</span>
+                <div
+                  class="floating-avatar-icon"
+                  [class.pulse-icon-wrapper]="card.isCritical"
+                >
+                  <i [class]="'pi ' + card.iconClass"></i>
+                </div>
+              </div>
 
-        <div class="interactive-chroma-card tone-sunburst" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Appeal for first listing</span>
-            <div class="floating-avatar-icon">
-              <i class="pi pi-exclamation-triangle"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">38</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-warn">
-              <i class="pi pi-history"></i> 14 Overdue
-            </div>
-            <span class="telemetry-secondary-text"
-              >Requires Rejection Sign-off</span
-            >
-          </div>
-        </div>
+              <div class="card-mid-display">
+                <h2 class="metric-huge-display">{{ card.count }}</h2>
+              </div>
 
-        <div class="interactive-chroma-card tone-neon-emerald" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Application for first listing</span>
-            <div class="floating-avatar-icon">
-              <i class="pi pi-verified"></i>
+              <!-- TELEMETRY AREA: Renders all items from your delta array seamlessly -->
+              <div class="card-bottom-telemetry-cluster">
+                <div class="delta-pills-row-wrap">
+                  @for (pillText of card.delta; track $index) {
+                    <span class="telemetry-badge-item">
+                      @if (card.isCritical && $index === 0) {
+                        <span class="live-blink-dot"></span>
+                      }
+                      {{ pillText }}
+                    </span>
+                  }
+                </div>
+                <span class="telemetry-secondary-text">{{
+                  card.secondaryText
+                }}</span>
+              </div>
             </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">604</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-success">
-              <i class="pi pi-check-circle"></i> Sync Ready
-            </div>
-            <span class="telemetry-secondary-text"
-              >Ready for Cause List Matrix</span
-            >
-          </div>
+          }
         </div>
+      }
 
-        <div class="interactive-chroma-card tone-electric-crimson" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Unscheduled Listing</span>
-            <div class="floating-avatar-icon pulse-icon-wrapper">
-              <i class="pi pi-bolt"></i>
+      <!-- VIEW 2: HIGH-FIDELITY ANALYTICS PRESENTATION COMPANION VIEW -->
+      @else if (activeDisplayMode === "visual") {
+        <div class="premium-analytics-dashboard-view fade-in-element">
+          <div class="analytics-bento-row">
+            <!-- Graphical Macro Metrics Track Panel Card -->
+            <div class="analytics-chart-canvas-card flex-grow-chart">
+              <div class="canvas-card-header">
+                <h3 class="canvas-main-title">
+                  Tribunal Filing Load Frequency Analysis
+                </h3>
+                <p class="canvas-sub-desc">
+                  Tracks volume fluctuations per judicial category branch.
+                </p>
+              </div>
+              <div class="mock-high-fidelity-graph-container">
+                <!-- Simulated High-End UI Analytics Dashboard Plot Layout Matrix -->
+                <div class="mock-bars-series-plot">
+                  @for (item of metricsDataList; track item.id) {
+                    <div
+                      class="plot-column-track"
+                      [title]="item.tag + ': ' + item.count"
+                    >
+                      <div
+                        class="dynamic-bar-fill-node"
+                        [ngClass]="item.toneClass"
+                        [style.height.%]="(item.count / 604) * 100 + 10"
+                      >
+                        <span class="floating-count-label">{{
+                          item.count
+                        }}</span>
+                      </div>
+                      <span class="bar-axis-label">{{ item.tag }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">09</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-danger">
-              <span class="live-blink-dot"></span> Critical Load
-            </div>
-            <span class="telemetry-secondary-text"
-              >Immediate Court Escalation</span
-            >
-          </div>
-        </div>
 
-        <div class="interactive-chroma-card tone-electric-crimson" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Draft Notices</span>
-            <div class="floating-avatar-icon pulse-icon-wrapper">
-              <i class="pi pi-bolt"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">09</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-danger">
-              <span class="live-blink-dot"></span> Critical Load
-            </div>
-            <span class="telemetry-secondary-text"
-              >Immediate Court Escalation</span
-            >
-          </div>
-        </div>
-        <div class="interactive-chroma-card tone-electric-crimson" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Pending Proceeding</span>
-            <div class="floating-avatar-icon pulse-icon-wrapper">
-              <i class="pi pi-bolt"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">09</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-danger">
-              <span class="live-blink-dot"></span> Critical Load
-            </div>
-            <span class="telemetry-secondary-text"
-              >Immediate Court Escalation</span
-            >
-          </div>
-        </div>
-        <div class="interactive-chroma-card tone-electric-crimson" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag">Draft Cause List</span>
-            <div class="floating-avatar-icon pulse-icon-wrapper">
-              <i class="pi pi-bolt"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">09</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-danger">
-              <span class="live-blink-dot"></span> Critical Load
-            </div>
-            <span class="telemetry-secondary-text"
-              >Immediate Court Escalation</span
-            >
-          </div>
-        </div>
-        <div class="interactive-chroma-card tone-electric-crimson" tabindex="0">
-          <div class="card-mesh-bg"></div>
-          <div class="card-top-action-bar">
-            <span class="panel-metric-tag"
-              >Transfer Cases Request From Other Benches</span
-            >
-            <div class="floating-avatar-icon pulse-icon-wrapper">
-              <i class="pi pi-bolt"></i>
-            </div>
-          </div>
-          <div class="card-mid-display">
-            <h2 class="metric-huge-display">09</h2>
-          </div>
-          <div class="card-bottom-telemetry">
-            <div class="telemetry-pill-danger">
-              <span class="live-blink-dot"></span> Critical Load
-            </div>
-            <span class="telemetry-secondary-text"
-              >Immediate Court Escalation</span
-            >
-          </div>
-        </div>
-      </div>
+            <!-- Pie Chart Distribution Telemetry Panel Card -->
+            <div class="analytics-chart-canvas-card fixed-pie-panel">
+              <div class="canvas-card-header">
+                <h3 class="canvas-main-title">Queue Proportions</h3>
+                <p class="canvas-sub-desc">
+                  Strategic volumetric breakdown metrics.
+                </p>
+              </div>
+              <div class="mock-pie-visual-holder">
+                <div class="luxury-donut-refraction-ring">
+                  <div class="donut-core-center">
+                    <span class="core-total-number">829</span>
+                    <span class="core-total-desc">Total Load</span>
+                  </div>
+                </div>
 
+                <!-- Context Legend Mapping Indicators -->
+                <div class="chart-legend-stack-list">
+                  <div class="legend-indicator-row">
+                    <span class="indicator-dot dot-oceanic"></span>
+                    <span class="lbl">Primary Queue</span>
+                  </div>
+                  <div class="legend-indicator-row">
+                    <span class="indicator-dot dot-sunburst"></span>
+                    <span class="lbl">First Listings</span>
+                  </div>
+                  <div class="legend-indicator-row">
+                    <span class="indicator-dot dot-emerald"></span>
+                    <span class="lbl">Rosters Ready</span>
+                  </div>
+                  <div class="legend-indicator-row">
+                    <span class="indicator-dot dot-crimson"></span>
+                    <span class="lbl">Critical Load</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- CORE OPERATIONS SPLIT DECKS WITH NEON INFUSED INTERACTION -->
       <div class="interactive-workspace-hub-split">
-        <!-- LEFT CONSOLE: INTERACTIVE WORKFLOW LAUNCHER PIPELINES -->
+        <!-- Operational pipelines and urgent mentioning panels map identically here... -->
+        <!-- (Kept exactly as provided in your prompt) -->
         <div class="premium-interactive-bento-card workflow-engine-box">
           <div class="bento-header-wrapper">
             <div class="chroma-strip-indicator strip-cyan"></div>
@@ -285,7 +202,6 @@
               </p>
             </div>
           </div>
-
           <div class="neon-pipeline-list">
             <button
               type="button"
@@ -309,7 +225,6 @@
                 ><i class="pi pi-chevron-right"></i
               ></span>
             </button>
-
             <button
               type="button"
               class="neon-pipeline-row-btn color-intent-purple"
@@ -332,7 +247,6 @@
                 ><i class="pi pi-chevron-right"></i
               ></span>
             </button>
-
             <button
               type="button"
               class="neon-pipeline-row-btn color-intent-amber"
@@ -358,7 +272,6 @@
           </div>
         </div>
 
-        <!-- RIGHT CONSOLE: REAL-TIME TICKER MATRIX GRID FEED -->
         <div class="premium-interactive-bento-card live-monitoring-box">
           <div class="bento-header-wrapper header-flex-row-space">
             <div class="header-title-left-group">
@@ -377,7 +290,6 @@
               class="p-button-rounded p-button-outlined chroma-outlined-btn-luxury"
             ></button>
           </div>
-
           <div class="luxury-neon-ticker-stream">
             <div class="interactive-ticker-item-card status-intent-danger">
               <div class="ticker-left-docket-pane">
@@ -401,7 +313,6 @@
                 >
               </div>
             </div>
-
             <div class="interactive-ticker-item-card status-intent-danger">
               <div class="ticker-left-docket-pane">
                 <span class="docket-id-string">DF 1039/2026</span>
