@@ -63,7 +63,7 @@ export class REGISTRARComponent implements OnInit {
       {
         id: 'c1',
         tag: 'Case Number Generation',
-        count: 1,
+        count: 100,
         delta: ['+12% Delta', 'Instant Run'],
         secondaryText: 'Awaiting automatic indexing routine',
         toneClass: 'tone-oceanic',
@@ -108,7 +108,7 @@ export class REGISTRARComponent implements OnInit {
       {
         id: 'c6',
         tag: 'Applications for First Listing',
-        count: 604,
+        count: 150,
         delta: ['Sync Ready', 'Rosters Live'],
         secondaryText: 'Verified records locked for automated rosters',
         toneClass: 'tone-neon-emerald',
@@ -158,7 +158,7 @@ export class REGISTRARComponent implements OnInit {
         delta: ['External Sync', 'Approval Needed'],
         secondaryText: 'Cross-bench transfer requests requiring authorization',
         toneClass: 'tone-electric-crimson',
-        iconClass: 'pi-arrow-h',
+        iconClass: 'pi-arrows-h',
         isCritical: true,
       },
     ];

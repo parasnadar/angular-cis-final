@@ -673,3 +673,60 @@ body {
 .custom-label-field {
   max-width: 450px;
 }
+.modern-compact-hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0.75rem 0.5rem; /* Significantly reduced padding for tight dashboard spaces */
+  margin: 0.5rem 0 1.25rem 0; /* Minimized margins to prevent pushing content down */
+  position: relative;
+  box-sizing: border-box;
+
+  .hero-dynamic-title-compact {
+    font-size: 1.4rem; /* Sleeker, more compact font size */
+    font-weight: 850; /* Extra bold punchy style */
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1.1;
+    background: linear-gradient(180deg, #0f172a 20%, #475569 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Metallic corporate sheen */
+
+    @media (max-width: 640px) {
+      font-size: 1.2rem; /* Scales perfectly on mobile views */
+    }
+  }
+
+  /* Ultra-compact horizontal divider engine */
+  .hero-header-chroma-bar {
+    position: relative;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #cbd5e1 20%,
+      #cbd5e1 80%,
+      transparent
+    );
+    margin-top: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* A vibrant neon center dot sitting perfectly inside the split axis line */
+    .chroma-dot-center {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(37, 99, 235, 0.8);
+    }
+  }
+}
