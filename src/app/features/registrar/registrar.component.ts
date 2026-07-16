@@ -1,4 +1,4 @@
-import { Component, Type } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
@@ -9,6 +9,17 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { ButtonModule } from 'primeng/button';
+
+export interface ChromaMetricCard {
+  id: string;
+  tag: string;
+  count: number;
+  delta: string;
+  secondaryText: string;
+  toneClass: 'tone-oceanic' | 'tone-sunburst' | 'tone-neon-emerald' | 'tone-electric-crimson';
+  iconClass: string;
+  isCritical?: boolean;
+}
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -31,7 +42,129 @@ export interface BarOptionItem {
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.scss',
 })
-export class REGISTRARComponent {
+export class REGISTRARComponent implements OnInit {
+  activeDisplayMode: 'grid' | 'visual' = 'grid';
+
+  // Master Data Stream Container Array
+  metricsDataList: ChromaMetricCard[] = [];
+
+  ngOnInit(): void {
+    this.fetchTribunalMetricsPayload();
+  }
+
+  fetchTribunalMetricsPayload(): void {
+    // Array configuration mapping values down securely from backend payload loops
+    this.metricsDataList = [
+      {
+        id: 'c1',
+        tag: 'Case no generation',
+        count: 1,
+        delta: '+12% Delta',
+        secondaryText: 'Awaiting Scrutiny Allocation',
+        toneClass: 'tone-oceanic',
+        iconClass: 'pi-folder-open'
+      },
+      {
+        id: 'c2',
+        tag: 'Refiled Cases',
+        count: 32,
+        delta: '+12% Delta',
+        secondaryText: 'Awaiting Scrutiny Allocation',
+        toneClass: 'tone-oceanic',
+        iconClass: 'pi-folder-open'
+      },
+      {
+        id: 'c3',
+        tag: 'For Defect Notice',
+        count: 41,
+        delta: '+12% Delta',
+        secondaryText: 'Awaiting Scrutiny Allocation',
+        toneClass: 'tone-oceanic',
+        iconClass: 'pi-folder-open'
+      },
+      {
+        id: 'c4',
+        tag: 'Action Due',
+        count: 142,
+        delta: '+12% Delta',
+        secondaryText: 'Awaiting Scrutiny Allocation',
+        toneClass: 'tone-oceanic',
+        iconClass: 'pi-folder-open'
+      },
+      {
+        id: 'c5',
+        tag: 'Appeal for first listing',
+        count: 38,
+        delta: '14 Overdue',
+        secondaryText: 'Requires Rejection Sign-off',
+        toneClass: 'tone-sunburst',
+        iconClass: 'pi-exclamation-triangle'
+      },
+      {
+        id: 'c6',
+        tag: 'Application for first listing',
+        count: 604,
+        delta: 'Sync Ready',
+        secondaryText: 'Ready for Cause List Matrix',
+        toneClass: 'tone-neon-emerald',
+        iconClass: 'pi-verified'
+      },
+      {
+        id: 'c7',
+        tag: 'Unscheduled Listing',
+        count: 9,
+        delta: 'Critical Load',
+        secondaryText: 'Immediate Court Escalation',
+        toneClass: 'tone-electric-crimson',
+        iconClass: 'pi-bolt',
+        isCritical: true
+      },
+      {
+        id: 'c8',
+        tag: 'Draft Notices',
+        count: 9,
+        delta: 'Critical Load',
+        secondaryText: 'Immediate Court Escalation',
+        toneClass: 'tone-electric-crimson',
+        iconClass: 'pi-bolt',
+        isCritical: true
+      },
+      {
+        id: 'c9',
+        tag: 'Pending Proceeding',
+        count: 9,
+        delta: 'Critical Load',
+        secondaryText: 'Immediate Court Escalation',
+        toneClass: 'tone-electric-crimson',
+        iconClass: 'pi-bolt',
+        isCritical: true
+      },
+      {
+        id: 'c10',
+        tag: 'Draft Cause List',
+        count: 9,
+        delta: 'Critical Load',
+        secondaryText: 'Immediate Court Escalation',
+        toneClass: 'tone-electric-crimson',
+        iconClass: 'pi-bolt',
+        isCritical: true
+      },
+      {
+        id: 'c11',
+        tag: 'Transfer Cases Request From Other Benches',
+        count: 9,
+        delta: 'Critical Load',
+        secondaryText: 'Immediate Court Escalation',
+        toneClass: 'tone-electric-crimson',
+        iconClass: 'pi-bolt',
+        isCritical: true
+      }
+    ];
+  }
+
+  setDisplayMode(mode: 'grid' | 'visual'): void {
+    this.activeDisplayMode = mode;
+  }
   constructor(private authService: AuthServiceService) {}
   isPasswordModalVisible: boolean = false;
   public visible: boolean = false;
