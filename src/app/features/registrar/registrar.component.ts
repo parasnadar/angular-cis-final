@@ -177,12 +177,12 @@ export class REGISTRARComponent implements OnInit {
   activeView: string = 'registrarhome';
   activeComponentType: Type<any> | null = null;
   gstatViewOptions: BarOptionItem[] = [
-    { id: 'registrarhome', label: 'Home', icon: 'pi pi-home' },
-    {
-      id: 'dashboard',
-      label: 'Dashboard',
-      icon: 'pi pi-objects-column',
-    },
+    { id: 'registrarhome', label: 'Dashboard', icon: 'pi pi-objects-column' },
+    // {
+    //   id: 'dashboard',
+    //   label: 'Dashboard',
+    //   icon: 'pi pi-objects-column',
+    // },
     {
       id: 'bench',
       label: 'Bench',

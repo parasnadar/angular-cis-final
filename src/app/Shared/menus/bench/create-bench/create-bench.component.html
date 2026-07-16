@@ -1,1 +1,210 @@
-<p>create-bench works!</p>
+<div class="fade-in-container">
+  <div class="form-card-header">
+    <h2>Bench Management</h2>
+    <p class="header-disclaimer">
+      Fields marked with an asterisk (<span class="required-star">*</span>) are
+      strictly mandatory.
+    </p>
+  </div>
+
+  <form
+    [formGroup]="benchManagementForm"
+    (ngSubmit)="onRegisterSubmit()"
+    class="workspace-form-layout"
+  >
+    <div class="form-grid-columns">
+      <!-- Field 1: Bench  Dropdown -->
+      <div class="form-field-group">
+        <label for="man_bench"
+          >Bench <span class="required-star">*</span></label
+        >
+        <p-select
+          id="man_bench"
+          formControlName="bench"
+          [options]="benchOption"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select bench"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('bench') }"
+        ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('bench')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Bench selection is
+            required.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 2: First Name Input -->
+      <div class="form-field-group">
+        <label for="bench_nature"
+          >Bench Nature <span class="required-star">*</span></label
+        >
+        <p-select
+          id="bench_nature"
+          formControlName="benchNature"
+          [options]="benchNatureOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select bench Nature"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('benchNature') }"
+        ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('benchNature')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Bench Nature selection is
+            required.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 3: Last Name Input -->
+      <div class="form-field-group">
+        <label for="reg_lastName"
+          >Last Name <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="reg_lastName"
+          type="text"
+          formControlName="lastName"
+          class="w-full form-input-field"
+          placeholder="Enter last name"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('lastName') }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('lastName')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Last name is required.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 4: User Name Input -->
+      <div class="form-field-group">
+        <label for="reg_username"
+          >User Name <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="reg_username"
+          type="text"
+          formControlName="username"
+          class="w-full form-input-field"
+          placeholder="Choose unique username"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('username') }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('username')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Username is required (min 4
+            characters).</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 5: Email ID Input -->
+      <div class="form-field-group">
+        <label for="reg_email"
+          >Email Id <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="reg_email"
+          type="email"
+          formControlName="email"
+          class="w-full form-input-field"
+          placeholder="name@organization.gov"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('email') }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('email')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Provide a valid email address
+            path.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 6: Gender Dropdown -->
+      <div class="form-field-group">
+        <label for="reg_gender"
+          >Gender <span class="required-star">*</span></label
+        >
+        <p-select
+          id="reg_gender"
+          formControlName="gender"
+          [options]="genderOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select gender"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('gender') }"
+        ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('gender')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Gender specification is
+            required.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 7: Court Assignment Dropdown -->
+      <div class="form-field-group">
+        <label for="reg_court"
+          >Court <span class="required-star">*</span></label
+        >
+        <p-select
+          id="reg_court"
+          formControlName="court"
+          [options]="courtOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select court room assignment"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('court') }"
+        ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('court')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Courtroom allocation target is
+            required.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 8: Mobile Number Input -->
+      <div class="form-field-group">
+        <label for="reg_mobileNumber"
+          >Mobile Number <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="reg_mobileNumber"
+          type="text"
+          formControlName="mobileNumber"
+          class="w-full form-input-field"
+          placeholder="10-digit phone number"
+          maxlength="10"
+          [ngClass]="{
+            'field-error-border': isFieldInvalid('mobileNumber'),
+          }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('mobileNumber')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Provide a valid 10-digit mobile
+            number.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button Row -->
+    <div class="form-actions-row">
+      <button
+        type="submit"
+        class="submit-registration-btn"
+        [disabled]="benchManagementForm.invalid && benchManagementForm.touched"
+      >
+        <i class="pi pi-user-plus btn-icon-gap"></i> Register Me
+      </button>
+    </div>
+  </form>
+</div>
