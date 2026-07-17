@@ -1,0 +1,115 @@
+/* ==========================================================================
+   MODERN COMPACT DYNAMIC FORM SEPARATOR & BADGE ENGINE
+   ========================================================================== */
+
+/* 1. Telemetry Display: Dynamic Member Badge */
+.telemetry-info-space {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+
+  .member-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(3, 105, 161, 0.04);
+    border: 1px solid transparent;
+    animation: badgeReveal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    i {
+      font-size: 0.78rem;
+    }
+
+    /* Premium Oceanic Theme Palette Overrides */
+    &.oceanic-badge {
+      background: #e0f2fe; /* Soft ambient light blue background */
+      color: #0369a1; /* High-contrast royal blue text */
+      border-color: #bae6fd; /* Clean boundary line frame */
+    }
+  }
+}
+
+/* 2. Absolute Centered Separator Block Container */
+.separator-block-dock {
+  width: 100%;
+  margin: 2.25rem 0 1.75rem 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The horizontal dividing separator */
+.horizontal-boundary-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #cbd5e1 15%,
+    #cbd5e1 85%,
+    transparent
+  );
+  border: none;
+
+  /* Shared margin utility for lower form breaks */
+  &.form-buffer-margin {
+    margin: 1.5rem 0 2rem 0;
+  }
+}
+
+/* 3. Centered Header Block (Quorum / Registrar) */
+.section-heading-centered {
+  position: absolute;
+  top: -12px;
+  background: #ffffff; /* Matches your master form card background */
+  padding: 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .centered-flow-title {
+    font-family:
+      -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    margin: 0;
+
+    /* Clean gradient font sheen overlay */
+    background: linear-gradient(180deg, #0f172a 20%, #475569 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Micro glow line element directly below title text */
+  .glow-indicator-bar {
+    width: 38px;
+    height: 2px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    margin-top: 0.3rem;
+    border-radius: 100px;
+    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.2);
+  }
+}
+
+/* Micro Animation Utilities */
+@keyframes badgeReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

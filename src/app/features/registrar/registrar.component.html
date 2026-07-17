@@ -72,6 +72,7 @@
               class="interactive-chroma-card"
               [ngClass]="card.toneClass"
               tabindex="0"
+              (click)="handleCardNavigation(card.actionTarget)"
             >
               <div class="card-mesh-bg"></div>
 
@@ -89,7 +90,6 @@
                 <h2 class="metric-huge-display">{{ card.count }}</h2>
               </div>
 
-              <!-- TELEMETRY AREA: Renders all items from your delta array seamlessly -->
               <div class="card-bottom-telemetry-cluster">
                 <div class="delta-pills-row-wrap">
                   @for (pillText of card.delta; track $index) {

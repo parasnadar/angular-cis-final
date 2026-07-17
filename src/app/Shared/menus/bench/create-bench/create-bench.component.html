@@ -13,7 +13,7 @@
     class="workspace-form-layout"
   >
     <div class="form-grid-columns">
-      <!-- Field 1: Bench  Dropdown -->
+      <!-- Field 1: Bench Dropdown -->
       <div class="form-field-group">
         <label for="man_bench"
           >Bench <span class="required-star">*</span></label
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <!-- Field 2: First Name Input -->
+      <!-- Field 2: Bench Nature Dropdown -->
       <div class="form-field-group">
         <label for="bench_nature"
           >Bench Nature <span class="required-star">*</span></label
@@ -51,6 +51,31 @@
           styleClass="w-full form-dropdown-field"
           [ngClass]="{ 'field-error-border': isFieldInvalid('benchNature') }"
         ></p-select>
+
+        <!-- Dynamic Member Count Display Badge -->
+        <div
+          class="telemetry-info-space"
+          *ngIf="benchManagementForm.get('benchNature')?.value"
+        >
+          <ng-container
+            [ngSwitch]="benchManagementForm.get('benchNature')?.value"
+          >
+            <span *ngSwitchCase="'1'" class="member-badge oceanic-badge">
+              <i class="pi pi-users"></i> Number of Members: 1
+            </span>
+            <span *ngSwitchCase="'2'" class="member-badge oceanic-badge">
+              <i class="pi pi-users"></i> Number of Members: 2
+            </span>
+            <span *ngSwitchCase="'4'" class="member-badge oceanic-badge">
+              <i class="pi pi-users"></i> Number of Members: 4
+            </span>
+            <span *ngSwitchCase="'5'" class="member-badge oceanic-badge">
+              <i class="pi pi-sliders-h"></i> Number of Members: Custom
+              (Special)
+            </span>
+          </ng-container>
+        </div>
+
         <div class="error-msg-space" *ngIf="isFieldInvalid('benchNature')">
           <small class="error-text"
             ><i class="pi pi-times-circle"></i> Bench Nature selection is
@@ -58,7 +83,139 @@
           >
         </div>
       </div>
+    </div>
 
+    <!-- SEPARATOR BLOCK WITH MODERN CENTERED HEADING (Renders on Selection) -->
+    <div
+      class="separator-block-dock"
+      *ngIf="benchManagementForm.get('benchNature')?.value"
+    >
+      <div class="horizontal-boundary-line"></div>
+      <div class="section-heading-centered">
+        <h3 class="centered-flow-title">
+          {{
+            benchManagementForm.get("benchNature")?.value === "3"
+              ? "Registrar"
+              : "Quorum"
+          }}
+        </h3>
+        <span class="glow-indicator-bar"></span>
+      </div>
+    </div>
+
+    <!-- DYNAMIC MEMBERS ASSIGNMENT FLOW -->
+    <div
+      class="dynamic-member-assignment-panel"
+      *ngIf="benchManagementForm.get('benchNature')?.value"
+    >
+      <!-- Special Bench Size Specification Input -->
+      <div
+        class="form-grid-columns"
+        style="margin-bottom: 1.5rem"
+        *ngIf="benchManagementForm.get('benchNature')?.value === '5'"
+      >
+        <div class="form-field-group">
+          <label for="special_member_count"
+            >Number of Members <span class="required-star">*</span></label
+          >
+          <input
+            pInputText
+            id="special_member_count"
+            type="number"
+            min="1"
+            formControlName="specialMemberCount"
+            class="w-full form-input-field"
+            placeholder="Enter custom count"
+            (input)="onSpecialCountInput($event)"
+            [ngClass]="{
+              'field-error-border': isFieldInvalid('specialMemberCount'),
+            }"
+          />
+          <div
+            class="error-msg-space"
+            *ngIf="isFieldInvalid('specialMemberCount')"
+          >
+            <small class="error-text"
+              ><i class="pi pi-times-circle"></i> Please specify a valid member
+              count.</small
+            >
+          </div>
+        </div>
+        <!-- Keep layout symmetry balanced by wrapping empty cell grid column -->
+        <div class="form-field-group"></div>
+      </div>
+
+      <!-- Dynamic Selection Dropdowns FormArray Loop -->
+      <div class="form-grid-columns" formArrayName="members">
+        <div
+          class="form-field-group"
+          *ngFor="let ctrl of membersArray.controls; let idx = index"
+        >
+          <label>
+            {{
+              benchManagementForm.get("benchNature")?.value === "3"
+                ? "Select Registrar"
+                : "Select Member " + (idx + 1)
+            }}
+            <span class="required-star">*</span>
+          </label>
+          <p-select
+            [formControlName]="idx"
+            [options]="memberListOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Select member"
+            styleClass="w-full form-dropdown-field"
+            [ngClass]="{
+              'field-error-border':
+                ctrl.invalid && (ctrl.dirty || ctrl.touched),
+            }"
+          ></p-select>
+          <div
+            class="error-msg-space"
+            *ngIf="ctrl.invalid && (ctrl.dirty || ctrl.touched)"
+          >
+            <small class="error-text"
+              ><i class="pi pi-times-circle"></i> Selection is required.</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Presiding Member Read-Only Segment Box -->
+      <div
+        class="form-grid-columns"
+        style="margin-top: 1.5rem"
+        *ngIf="
+          benchManagementForm.get('benchNature')?.value !== '3' &&
+          membersArray.length > 0
+        "
+      >
+        <div class="form-field-group">
+          <label for="presiding_member"
+            >Presiding Member
+            <span class="info-optional">(Auto-populated)</span></label
+          >
+          <input
+            pInputText
+            id="presiding_member"
+            type="text"
+            formControlName="presidingMember"
+            class="w-full form-input-field read-only-styled-input"
+            placeholder="Select first member above..."
+          />
+        </div>
+        <div class="form-field-group"></div>
+      </div>
+    </div>
+
+    <!-- EXTRA FORM SPLIT LINE PRIOR TO SECONDARY PROFILE FIELD CONFIGURATION -->
+    <div
+      class="horizontal-boundary-line form-buffer-margin"
+      *ngIf="benchManagementForm.get('benchNature')?.value"
+    ></div>
+
+    <div class="form-grid-columns">
       <!-- Field 3: Last Name Input -->
       <div class="form-field-group">
         <label for="reg_lastName"

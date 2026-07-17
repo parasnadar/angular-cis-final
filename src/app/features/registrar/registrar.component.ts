@@ -24,6 +24,7 @@ export interface ChromaMetricCard {
     | 'tone-deep-purple'
     | 'tone-electric-cyan';
   iconClass: string;
+  actionTarget: string;
   isCritical?: boolean;
 }
 export interface BarOptionItem {
@@ -68,6 +69,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Awaiting automatic indexing routine',
         toneClass: 'tone-oceanic',
         iconClass: 'pi-cog',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c2',
@@ -77,6 +79,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Resubmitted petitions pending verification',
         toneClass: 'tone-electric-cyan',
         iconClass: 'pi-replay',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c3',
@@ -86,6 +89,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Validation failures flagged by system scrutiny',
         toneClass: 'tone-sunburst',
         iconClass: 'pi-file-excel',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c4',
@@ -95,6 +99,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Statutory compliance limits approaching',
         toneClass: 'tone-deep-purple',
         iconClass: 'pi-list',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c5',
@@ -104,6 +109,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Requires definitive order bench assignments',
         toneClass: 'tone-sunburst',
         iconClass: 'pi-sort-alt',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c6',
@@ -113,6 +119,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Verified records locked for automated rosters',
         toneClass: 'tone-neon-emerald',
         iconClass: 'pi-check-square',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c7',
@@ -123,6 +130,7 @@ export class REGISTRARComponent implements OnInit {
         toneClass: 'tone-electric-crimson',
         iconClass: 'pi-bolt',
         isCritical: true,
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c8',
@@ -132,6 +140,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Automated legal notices awaiting signature validation',
         toneClass: 'tone-deep-purple',
         iconClass: 'pi-envelope',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c9',
@@ -141,6 +150,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Daily hearing notes awaiting final review log',
         toneClass: 'tone-electric-cyan',
         iconClass: 'pi-hourglass',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c10',
@@ -150,6 +160,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Proposed daily schedule matrix preview generated',
         toneClass: 'tone-neon-emerald',
         iconClass: 'pi-table',
+        actionTarget: 'fresh_cases',
       },
       {
         id: 'c11',
@@ -160,6 +171,7 @@ export class REGISTRARComponent implements OnInit {
         toneClass: 'tone-electric-crimson',
         iconClass: 'pi-arrows-h',
         isCritical: true,
+        actionTarget: 'fresh_cases',
       },
     ];
   }
@@ -290,5 +302,16 @@ export class REGISTRARComponent implements OnInit {
     } else {
       this.activeComponentType = MENU_REGISTRY[selectedId] || null;
     }
+  }
+
+  handleCardNavigation(targetView: string): void {
+    if (!targetView) return;
+
+    this.activeView = targetView;
+    console.log(
+      `Command Center moving pipeline layout stream to: ${targetView}`,
+    );
+
+    // Optional: Trigger a success notification banner drop here if needed
   }
 }
