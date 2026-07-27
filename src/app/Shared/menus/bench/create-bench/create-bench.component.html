@@ -410,22 +410,28 @@
     </div>
 
     <!-- SEPARATOR BLOCK FOR PURPOSE & PRIORITY MAPPING -->
-    <div class="separator-block-dock">
+    <div
+      *ngIf="benchManagementForm.get('benchNature')?.value"
+      class="separator-block-dock"
+    >
       <div class="horizontal-boundary-line"></div>
       <div class="section-heading-centered">
-        <h3 class="centered-flow-title">Listing Purpose & Priority Order</h3>
+        <h3 class="centered-flow-title">Purpose & Priority</h3>
         <span class="glow-indicator-bar"></span>
       </div>
     </div>
 
     <!-- PURPOSE & PRIORITY LISTING PANEL -->
-    <div class="purpose-priority-container">
+    <div
+      *ngIf="benchManagementForm.get('benchNature')?.value"
+      class="purpose-priority-container"
+    >
       <div class="purpose-priority-card">
         <!-- Table Header -->
         <div class="priority-table-header">
-          <div class="col-purpose">Listing Purpose</div>
+          <div class="col-purpose">Purpose</div>
           <div class="col-priority">
-            Priority Index <span class="required-star">*</span>
+            Priority <span class="required-star">*</span>
           </div>
         </div>
 
@@ -471,8 +477,8 @@
       </div>
     </div>
 
-    <!-- Separator Line before Action Button -->
-    <div class="horizontal-boundary-line form-buffer-margin"></div>
+    <!-- Separator Line before Action Button
+    <div class="horizontal-boundary-line form-buffer-margin"></div> -->
 
     <!-- Action Button Row -->
     <div class="form-actions-row">
