@@ -70,10 +70,50 @@ export class CreateBenchComponent implements OnInit {
     private fb: FormBuilder,
     private notify: NotificationService,
   ) {}
+  purposeMasterList = [
+    { id: 'p1', name: 'For Hearing (After Notice)' },
+    {
+      id: 'p2',
+      name: 'For Priority Hearing (on Priority)',
+    },
+    { id: 'p3', name: 'For Judgement (For Final orders)' },
+    { id: 'p4', name: 'For Direction' },
+    { id: 'p5', name: 'Order/Judgement Reserved' },
+    { id: 'p6', name: 'Date Not Fixed' },
+    { id: 'p7', name: 'For Admission (Contempt)' },
+    { id: 'p8', name: 'For Hearing (Part Heard)' },
+    { id: 'p9', name: 'For Hearing (Continuation)' },
+    { id: 'p10', name: 'For Hearing (Before Notice)' },
+    { id: 'p11', name: 'Final Hearing' },
+    { id: 'p12', name: 'For Admission' },
+    { id: 'p13', name: 'For admission (with defect)' },
+    { id: 'p14', name: 'Re-Hearing / Additional Argument' },
+    { id: 'p15', name: 'Delivery of Judgment' },
+    { id: 'p16', name: 'For Order' },
+  ];
+
+  get purposePrioritiesArray(): FormArray {
+    return this.benchManagementForm.get('purposePriorities') as FormArray;
+  }
 
   ngOnInit(): void {
     this.initializeRegistrationForm();
     this.watchBenchNatureChanges();
+  }
+
+  initPurposePriorities(): void {
+    const arrayControls = this.purposeMasterList.map((item) =>
+      this.fb.group({
+        purposeId: [item.id],
+        purposeName: [item.name],
+        priority: [[Validators.required, Validators.min(1)]],
+      }),
+    );
+
+    this.benchManagementForm.setControl(
+      'purposePriorities',
+      this.fb.array(arrayControls),
+    );
   }
 
   initializeRegistrationForm(): void {
@@ -94,6 +134,7 @@ export class CreateBenchComponent implements OnInit {
       members: this.fb.array([]),
       presidingMember: [{ value: '', disabled: true }],
     });
+    this.initPurposePriorities();
   }
 
   // Safe getter for dynamic FormArray members
@@ -197,5 +238,6 @@ export class CreateBenchComponent implements OnInit {
 
     this.resetDynamicControls();
     this.benchManagementForm.reset();
+    this.initPurposePriorities();
   }
 }

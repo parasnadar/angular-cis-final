@@ -406,6 +406,71 @@
       </div>
     </div>
 
+    <!-- SEPARATOR BLOCK FOR PURPOSE & PRIORITY MAPPING -->
+    <div class="separator-block-dock">
+      <div class="horizontal-boundary-line"></div>
+      <div class="section-heading-centered">
+        <h3 class="centered-flow-title">Listing Purpose & Priority Order</h3>
+        <span class="glow-indicator-bar"></span>
+      </div>
+    </div>
+
+    <!-- PURPOSE & PRIORITY LISTING PANEL -->
+    <div class="purpose-priority-container">
+      <div class="purpose-priority-card">
+        <!-- Table Header -->
+        <div class="priority-table-header">
+          <div class="col-purpose">Listing Purpose</div>
+          <div class="col-priority">
+            Priority Index <span class="required-star">*</span>
+          </div>
+        </div>
+
+        <!-- Table Rows (Driven by FormArray or Loop) -->
+        <div class="priority-table-body" formArrayName="purposePriorities">
+          <div
+            class="priority-table-row"
+            *ngFor="
+              let group of purposePrioritiesArray.controls;
+              let idx = index
+            "
+            [formGroupName]="idx"
+          >
+            <!-- Left Side: Read-Only Purpose Label -->
+            <div class="col-purpose">
+              <div class="purpose-badge">
+                <i class="pi pi-list-check purpose-icon"></i>
+                <span class="purpose-text">{{
+                  group.get("purposeName")?.value
+                }}</span>
+              </div>
+            </div>
+
+            <!-- Right Side: Numerical Priority Input -->
+            <div class="col-priority">
+              <input
+                pInputText
+                type="number"
+                min="1"
+                formControlName="priority"
+                class="priority-number-input"
+                placeholder="e.g. {{ idx + 1 }}"
+                [ngClass]="{
+                  'field-error-border':
+                    group.get('priority')?.invalid &&
+                    (group.get('priority')?.dirty ||
+                      group.get('priority')?.touched),
+                }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Separator Line before Action Button -->
+    <div class="horizontal-boundary-line form-buffer-margin"></div>
+
     <!-- Action Button Row -->
     <div class="form-actions-row">
       <button

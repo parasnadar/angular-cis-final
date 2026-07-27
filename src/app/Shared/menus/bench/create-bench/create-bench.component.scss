@@ -113,3 +113,131 @@
     transform: translateY(0);
   }
 }
+/* ==========================================================================
+   PURPOSE & PRIORITY LISTING TABLE CARD
+   ========================================================================== */
+
+.purpose-priority-container {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.purpose-priority-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+}
+
+/* Table Header Bar */
+.priority-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+
+  .col-purpose {
+    flex: 1;
+  }
+
+  .col-priority {
+    width: 140px;
+    text-align: center;
+  }
+}
+
+/* Table Body Rows */
+.priority-table-body {
+  display: flex;
+  flex-direction: column;
+
+  .priority-table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #f8fafc;
+    }
+
+    /* Left Side Purpose Label Badge */
+    .col-purpose {
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      .purpose-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+
+        .purpose-icon {
+          color: #2563eb;
+          font-size: 0.9rem;
+        }
+
+        .purpose-text {
+          font-size: 0.88rem;
+          font-weight: 650;
+          color: #0f172a;
+        }
+      }
+    }
+
+    /* Right Side Priority Input Box */
+    .col-priority {
+      width: 140px;
+      display: flex;
+      justify-content: center;
+
+      .priority-number-input {
+        width: 80px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 0.92rem;
+        color: #0f172a;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 0.45rem 0.5rem;
+        transition: all 0.2s ease;
+
+        &:focus {
+          background: #ffffff;
+          border-color: #2563eb;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        &.field-error-border {
+          border-color: #ef4444 !important;
+          background: #fff8f8;
+        }
+
+        /* Remove default number input spin arrows */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        &[type="number"] {
+          -moz-appearance: textfield;
+        }
+      }
+    }
+  }
+}
