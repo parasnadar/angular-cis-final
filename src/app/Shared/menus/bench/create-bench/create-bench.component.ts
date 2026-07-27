@@ -89,7 +89,7 @@ export class CreateBenchComponent implements OnInit {
     { id: 'p13', name: 'For admission (with defect)' },
     { id: 'p14', name: 'Re-Hearing / Additional Argument' },
     { id: 'p15', name: 'Delivery of Judgment' },
-    { id: 'p16', name: 'For Order' },
+    { id: 'p16', name: 'For Order', defaultPriority: 3 },
   ];
 
   get purposePrioritiesArray(): FormArray {
@@ -106,7 +106,10 @@ export class CreateBenchComponent implements OnInit {
       this.fb.group({
         purposeId: [item.id],
         purposeName: [item.name],
-        priority: [[Validators.required, Validators.min(1)]],
+        priority: [
+          item.defaultPriority,
+          [Validators.required, Validators.min(1)],
+        ],
       }),
     );
 
