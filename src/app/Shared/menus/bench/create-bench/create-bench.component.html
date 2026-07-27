@@ -188,6 +188,7 @@
         style="margin-top: 1.5rem"
         *ngIf="
           benchManagementForm.get('benchNature')?.value !== '3' &&
+          benchManagementForm.get('benchNature')?.value !== '1' &&
           membersArray.length > 0
         "
       >
@@ -216,112 +217,121 @@
     ></div>
 
     <div class="form-grid-columns">
-      <!-- Field 3: Last Name Input -->
+      <!-- Field 3: Listing Date Input -->
       <div class="form-field-group">
-        <label for="reg_lastName"
-          >Last Name <span class="required-star">*</span></label
+        <label for="listing_date"
+          >Listing Date <span class="required-star">*</span></label
         >
-        <input
-          pInputText
-          id="reg_lastName"
-          type="text"
-          formControlName="lastName"
-          class="w-full form-input-field"
-          placeholder="Enter last name"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('lastName') }"
-        />
-        <div class="error-msg-space" *ngIf="isFieldInvalid('lastName')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Last name is required.</small
-          >
-        </div>
-      </div>
 
-      <!-- Field 4: User Name Input -->
-      <div class="form-field-group">
-        <label for="reg_username"
-          >User Name <span class="required-star">*</span></label
-        >
-        <input
-          pInputText
-          id="reg_username"
-          type="text"
-          formControlName="username"
-          class="w-full form-input-field"
-          placeholder="Choose unique username"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('username') }"
-        />
-        <div class="error-msg-space" *ngIf="isFieldInvalid('username')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Username is required (min 4
-            characters).</small
-          >
-        </div>
-      </div>
+        <p-datepicker
+          id="listing_date"
+          formControlName="listingDate"
+          placeholder="Select Listing Date"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          dateFormat="dd/mm/yy"
+          styleClass="w-full form-calendar-field"
+          [inputStyleClass]="
+            isFieldInvalid('listingDate')
+              ? 'w-full form-input-field field-error-border'
+              : 'w-full form-input-field'
+          "
+        ></p-datepicker>
 
-      <!-- Field 5: Email ID Input -->
-      <div class="form-field-group">
-        <label for="reg_email"
-          >Email Id <span class="required-star">*</span></label
-        >
-        <input
-          pInputText
-          id="reg_email"
-          type="email"
-          formControlName="email"
-          class="w-full form-input-field"
-          placeholder="name@organization.gov"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('email') }"
-        />
-        <div class="error-msg-space" *ngIf="isFieldInvalid('email')">
+        <div class="error-msg-space" *ngIf="isFieldInvalid('listingDate')">
           <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Provide a valid email address
-            path.</small
-          >
-        </div>
-      </div>
-
-      <!-- Field 6: Gender Dropdown -->
-      <div class="form-field-group">
-        <label for="reg_gender"
-          >Gender <span class="required-star">*</span></label
-        >
-        <p-select
-          id="reg_gender"
-          formControlName="gender"
-          [options]="genderOptions"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Select gender"
-          styleClass="w-full form-dropdown-field"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('gender') }"
-        ></p-select>
-        <div class="error-msg-space" *ngIf="isFieldInvalid('gender')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Gender specification is
+            ><i class="pi pi-times-circle"></i> Selection of Listing Date is
             required.</small
           >
         </div>
       </div>
 
-      <!-- Field 7: Court Assignment Dropdown -->
+      <!-- Field 4: Time Input -->
       <div class="form-field-group">
-        <label for="reg_court"
-          >Court <span class="required-star">*</span></label
+        <label for="bench_cause_list_time">
+          Time (Display In Cause List): <span class="required-star">*</span>
+        </label>
+
+        <p-datepicker
+          id="bench_cause_list_time"
+          formControlName="benchCauseTime"
+          [timeOnly]="true"
+          [hourFormat]="'12'"
+          placeholder="Select Time (e.g., 10:30 AM)"
+          styleClass="w-full form-dropdown-field"
+          [inputStyleClass]="'w-full form-input-field'"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('benchCauseTime') }"
+        ></p-datepicker>
+
+        <div class="error-msg-space" *ngIf="isFieldInvalid('benchCauseTime')">
+          <small class="error-text">
+            <i class="pi pi-times-circle"></i> Time selection for Cause List is
+            required.
+          </small>
+        </div>
+      </div>
+
+      <!-- Field 5: Video Conference Input -->
+      <div class="form-field-group">
+        <label for="video_conf_link"
+          >Video Conference Link <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="video_conf_link"
+          type="text"
+          formControlName="conferenceLink"
+          class="w-full form-input-field"
+          placeholder="Enter Video Conference Link"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('conferenceLink') }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('conferenceLink')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Provide a valid Conference Link
+            path.</small
+          >
+        </div>
+      </div>
+
+      <!-- Field 6: Meeting Password Input -->
+      <div class="form-field-group">
+        <label for="meeting_password"
+          >Meeting Password <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="meeting_password"
+          type="text"
+          formControlName="meetingPass"
+          class="w-full form-input-field"
+          placeholder="Enter Meeting Password"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('meetingPass') }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('meetingPass')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Provide a valid Meeting
+            Password.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-field-group">
+        <label for="reg_court_no"
+          >Court No <span class="required-star">*</span></label
         >
         <p-select
-          id="reg_court"
-          formControlName="court"
-          [options]="courtOptions"
+          id="reg_court_no"
+          formControlName="courtNo"
+          [options]="courtNoOptions"
           optionLabel="label"
           optionValue="value"
-          placeholder="Select court room assignment"
+          placeholder="Select court no assignment"
           styleClass="w-full form-dropdown-field"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('court') }"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('courtNo') }"
         ></p-select>
-        <div class="error-msg-space" *ngIf="isFieldInvalid('court')">
+        <div class="error-msg-space" *ngIf="isFieldInvalid('courtNo')">
           <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Courtroom allocation target is
+            ><i class="pi pi-times-circle"></i> Court no allocation target is
             required.</small
           >
         </div>
@@ -329,25 +339,68 @@
 
       <!-- Field 8: Mobile Number Input -->
       <div class="form-field-group">
-        <label for="reg_mobileNumber"
-          >Mobile Number <span class="required-star">*</span></label
+        <label for="reg_limitOfCase"
+          >Limit of Case<span class="required-star">*</span></label
         >
         <input
           pInputText
-          id="reg_mobileNumber"
-          type="text"
-          formControlName="mobileNumber"
+          id="reg_limitOfCase"
+          type="number"
+          min="1"
+          formControlName="limitOFCase"
           class="w-full form-input-field"
-          placeholder="10-digit phone number"
-          maxlength="10"
+          placeholder="Enter custom count"
+          (input)="onSpecialCountInput($event)"
           [ngClass]="{
-            'field-error-border': isFieldInvalid('mobileNumber'),
+            'field-error-border': isFieldInvalid('limitOFCase'),
           }"
         />
-        <div class="error-msg-space" *ngIf="isFieldInvalid('mobileNumber')">
+        <div class="error-msg-space" *ngIf="isFieldInvalid('limitOFCase')">
           <small class="error-text"
             ><i class="pi pi-times-circle"></i> Provide a valid 10-digit mobile
             number.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-field-group">
+        <label for="custom_text">Custom Text</label>
+        <textarea
+          pTextarea
+          id="custom_text"
+          [autoResize]="true"
+          formControlName="customInput"
+          rows="3"
+          class="w-full form-input-field form-textarea-field"
+          placeholder="Enter custom text..."
+          [ngClass]="{ 'field-error-border': isFieldInvalid('customInput') }"
+        ></textarea>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('customInput')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Provide valid custom
+            text.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-field-group">
+        <label for="bench_header_remarks">Bench Header Remarks</label>
+        <textarea
+          pTextarea
+          [autoResize]="true"
+          id="bench_header_remarks"
+          formControlName="benchHeaderInput"
+          rows="3"
+          class="w-full form-input-field form-textarea-field"
+          placeholder="Enter Bench Header Remarks..."
+          [ngClass]="{
+            'field-error-border': isFieldInvalid('benchHeaderInput'),
+          }"
+        ></textarea>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('benchHeaderInput')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Provide valid Bench Header
+            Remarks.</small
           >
         </div>
       </div>

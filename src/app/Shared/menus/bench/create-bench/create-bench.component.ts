@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { DatePickerModule } from 'primeng/datepicker';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-create-bench',
@@ -24,6 +25,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
     Select,
     InputTextModule,
     DatePickerModule,
+    TextareaModule,
   ],
   templateUrl: './create-bench.component.html',
   styleUrl: './create-bench.component.scss',
@@ -48,10 +50,11 @@ export class CreateBenchComponent implements OnInit {
     { label: 'Special Bench', value: '5' },
   ];
 
-  courtOptions = [
-    { label: 'Court Room No. 1 (Division Bench)', value: 'court_01' },
-    { label: 'Court Room No. 2 (Single Bench)', value: 'court_02' },
-    { label: 'Court Room No. 3 (Registrar Court)', value: 'court_03' },
+  courtNoOptions = [
+    { label: 'Court I', value: 'court_01' },
+    { label: 'Court II', value: 'court_02' },
+    { label: 'Court III', value: 'court_03' },
+    { label: 'Court IV', value: 'court_04' },
   ];
 
   // Dummy pool for selecting bench members
@@ -77,15 +80,14 @@ export class CreateBenchComponent implements OnInit {
     this.benchManagementForm = this.fb.group({
       bench: [null, Validators.required],
       benchNature: [null, Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, Validators.email]],
-      gender: [null, Validators.required],
-      court: [null, Validators.required],
-      mobileNumber: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]{10}$')],
-      ],
+      listingDate: [null, Validators.required],
+      benchCauseTime: [null, [Validators.required]],
+      conferenceLink: ['', [Validators.required]],
+      meetingPass: ['', Validators.required],
+      customInput: [''],
+      courtNo: [null, Validators.required],
+      limitOFCase: [null, [Validators.required]],
+      benchHeaderInput: [''],
 
       // Dynamic Section Controls
       specialMemberCount: [null],
@@ -191,7 +193,7 @@ export class CreateBenchComponent implements OnInit {
     const formPayload = this.benchManagementForm.getRawValue();
 
     console.log('Form submission successful. Sending payload:', formPayload);
-    this.notify.showSuccess('Form submission successful.');
+    this.notify.showSuccess('Bench successful.');
 
     this.resetDynamicControls();
     this.benchManagementForm.reset();
