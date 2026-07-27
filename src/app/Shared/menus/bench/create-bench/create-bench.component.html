@@ -259,8 +259,11 @@
           [hourFormat]="'12'"
           placeholder="Select Time (e.g., 10:30 AM)"
           styleClass="w-full form-dropdown-field"
-          [inputStyleClass]="'w-full form-input-field'"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('benchCauseTime') }"
+          [inputStyleClass]="
+            isFieldInvalid('benchCauseTime')
+              ? 'w-full form-input-field field-error-border'
+              : 'w-full form-input-field'
+          "
         ></p-datepicker>
 
         <div class="error-msg-space" *ngIf="isFieldInvalid('benchCauseTime')">

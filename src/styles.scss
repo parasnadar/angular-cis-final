@@ -144,10 +144,19 @@ body {
 
   /* Core Error Borders Pipeline Intersections */
   .field-error-border {
-    border-color: #f87171 !important;
-    background: #fef2f2 !important;
+    border-color: #ef4444 !important;
+    background-color: #fff8f8 !important;
 
-    &:focus {
+    &.p-select,
+    &.p-dropdown,
+    .p-select,
+    .p-dropdown {
+      border-color: #ef4444 !important;
+      background-color: #fff8f8 !important;
+    }
+
+    &:focus,
+    &:focus-within {
       box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
     }
   }
