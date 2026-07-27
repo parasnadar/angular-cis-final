@@ -22,7 +22,9 @@
           [options]="courtOption"
           optionLabel="label"
           optionValue="value"
-          styleClass="w-full white-bg-select"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Search by"
         ></p-select>
       </div>
 
@@ -47,6 +49,8 @@
           optionLabel="label"
           optionValue="value"
           styleClass="w-full white-bg-select"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
         ></p-select>
       </div>
 

@@ -1,9 +1,52 @@
-<div class="dashboard-section-header view-header-nexus">
-  <div class="title-accent-wrapper">
-    <h2 class="section-title">Old Case Listing</h2>
+<div class="fade-in-container">
+  <div class="dashboard-section-header view-header-nexus">
+    <div class="title-accent-wrapper">
+      <h2 class="section-title">Old Case Listing</h2>
+    </div>
+    <p class="header-disclaimer">
+      Fields marked with an asterisk (<span class="required-star">*</span>) are
+      strictly mandatory.
+    </p>
   </div>
-  <p class="header-disclaimer">
-    Fields marked with an asterisk (<span class="required-star">*</span>) are
-    strictly mandatory.
-  </p>
+
+  <form
+    [formGroup]="oldCaseList"
+    class="workspace-form-layout"
+    (ngSubmit)="onFilingSearch()"
+  >
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field text-input-wrapper custom-label-field">
+        <label class="filter-label"
+          >Listing Date:<span class="required-star">*</span></label
+        >
+
+        <p-datepicker
+          id="listing_date"
+          formControlName="listingDate"
+          placeholder="Select Listing Date"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          dateFormat="dd/mm/yy"
+          styleClass="w-full form-calendar-field"
+        ></p-datepicker>
+      </div>
+
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="submit"
+          label="Search"
+          class="filter-search-btn"
+          [disabled]="oldCaseList.invalid"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Reset"
+          (click)="resetForms()"
+          class="filter-reset-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
 </div>
