@@ -10,7 +10,6 @@ import { Select } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-order-report',
@@ -21,7 +20,6 @@ import { TableModule } from 'primeng/table';
     DatePickerModule,
     ButtonModule,
     InputTextModule,
-    TableModule,
   ],
   templateUrl: './order-report.component.html',
   styleUrl: './order-report.component.scss',

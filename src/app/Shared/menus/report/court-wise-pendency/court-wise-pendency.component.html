@@ -1,1 +1,15 @@
-<p>court-wise-pendency works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">
+      Court wise listed pending appeal and napa report
+    </h2>
+  </div>
+</div>
+<app-custom-table
+  [cols]="tableColumns"
+  [data]="caseRecords"
+  (onView)="handleRecordView($event)"
+  [showActions]="false"
+>
+  ></app-custom-table
+>
