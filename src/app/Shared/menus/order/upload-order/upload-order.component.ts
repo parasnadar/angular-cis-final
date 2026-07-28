@@ -7,6 +7,10 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
+import {
+  CustomTableComponent,
+  ColumnDef,
+} from '../../../custom-table/custom-table.component';
 export interface CaseRecord {
   sNo: string;
   diaryNo: string;
@@ -25,6 +29,7 @@ export interface CaseRecord {
     Select,
     InputTextModule,
     ButtonModule,
+    CustomTableComponent,
   ],
   templateUrl: './upload-order.component.html',
   styleUrl: './upload-order.component.scss',
@@ -44,7 +49,17 @@ export class UploadOrderComponent {
   ];
 
   ngOnInit(): void {
-    this.cases = [
+    this.loadApiData();
+  }
+
+  loadApiData(): void {
+    // Example: Fetching from your API service
+    // this.apiService.getCases().subscribe((response) => {
+    //   this.caseRecords = response.data;
+    // });
+
+    // Dummy fallback for testing
+    this.caseRecords = [
       {
         sNo: '1',
         diaryNo: 'APL/49/PB/2026',
@@ -163,11 +178,17 @@ export class UploadOrderComponent {
     ];
   }
 
-  onViewRecord(record: CaseRecord): void {
-    console.log(
-      'Opening core workspace viewer channel for docket:',
-      record.diaryNo,
-    );
-    alert(`Viewing Details for Docket System: ${record.diaryNo}`);
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Sr. No.', width: '8%' },
+    { field: 'diaryNo', header: 'Case No.', width: '18%' },
+    { field: 'caseDetails', header: 'Party Detail', width: '35%' },
+    { field: 'location', header: 'Location', width: '22%' },
+    { field: 'date', header: 'Order Date', width: '17%' },
+  ];
+
+  caseRecords: any[] = [];
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
+    alert(`Opening details for case: ${selectedRow.diaryNo}`);
   }
 }
