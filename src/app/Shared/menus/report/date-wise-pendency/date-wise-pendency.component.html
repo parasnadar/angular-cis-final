@@ -1,1 +1,54 @@
-<p>date-wise-pendency works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Scrutiny Date Wise Pendency</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form [formGroup]="dateWisePendency" class="workspace-form-layout">
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Select Type:</label>
+        <p-select
+          formControlName="date_type"
+          [options]="date_type_Option"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Search by"
+        ></p-select>
+      </div>
+
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">User:</label>
+        <p-select
+          formControlName="user"
+          [options]="user_Option"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Search by"
+        ></p-select>
+      </div>
+
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Search"
+          (click)="onSearch()"
+          class="filter-search-btn"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Reset"
+          (click)="onReset()"
+          class="filter-reset-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
