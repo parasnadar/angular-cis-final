@@ -167,4 +167,7 @@
       <span class="glow-indicator-bar"></span>
     </div>
   </div>
+  <app-custom-table>
+    [data]="cases" (onView)="handleViewCase($event)">
+  </app-custom-table>
 </div>

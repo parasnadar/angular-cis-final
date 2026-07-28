@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,7 +11,10 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { DynamicRadioGroupComponent } from '../../../dynamic-radio-group/dynamic-radio-group.component';
-
+import {
+  CustomTableComponent,
+  CaseRecord,
+} from '../../../custom-table/custom-table.component';
 @Component({
   selector: 'app-inter-bench',
   imports: [
@@ -22,12 +25,14 @@ import { DynamicRadioGroupComponent } from '../../../dynamic-radio-group/dynamic
     InputTextModule,
     FormsModule,
     DynamicRadioGroupComponent,
+    CustomTableComponent,
   ],
   templateUrl: './inter-bench.component.html',
   styleUrl: './inter-bench.component.scss',
 })
-export class InterBenchComponent {
+export class InterBenchComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
+  cases: CaseRecord[] = [];
   selectedLocation: string = 'DL';
   // Separate form tracks
   filingForm!: FormGroup;
@@ -55,8 +60,20 @@ export class InterBenchComponent {
   ];
 
   caseLocationOption = [{ label: 'Delhi', value: '1' }];
+  handleViewCase(record: CaseRecord): void {
+    console.log('Viewing record from parent:', record);
+  }
 
   ngOnInit(): void {
+    this.cases = [
+      {
+        sNo: '1',
+        diaryNo: 'APL/49/PB/2026',
+        caseDetails: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
+        location: 'New Delhi (Principal Bench)',
+        date: '28-06-2026',
+      },
+    ];
     this.generateYearOptions();
     this.form = this.fb.group({
       caseCategory: ['1'],
