@@ -26,7 +26,6 @@ export interface CaseRecord {
     ReactiveFormsModule,
     FormsModule,
     TableModule,
-    Select,
     InputTextModule,
     ButtonModule,
     CustomTableComponent,

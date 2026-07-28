@@ -16,7 +16,6 @@ import { DatePickerModule } from 'primeng/datepicker';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    Select,
     ButtonModule,
     InputTextModule,
     DatePickerModule,

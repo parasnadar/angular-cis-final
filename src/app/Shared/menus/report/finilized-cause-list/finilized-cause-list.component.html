@@ -1,1 +1,13 @@
-<p>finilized-cause-list works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Finalized Causelist Reports</h2>
+  </div>
+</div>
+<app-custom-table
+  [cols]="tableColumns"
+  [data]="caseRecords"
+  (onView)="handleRecordView($event)"
+  [showActions]="false"
+>
+  ></app-custom-table
+>
