@@ -36,7 +36,11 @@ export class InterBenchComponent {
 
   caseCategoryOptions = [
     { label: 'Case Transfer', value: '1' },
-    { label: 'Inter State Transfer', value: '1' },
+    { label: 'Transfered Cases (Out)', value: '2' },
+    { label: 'Transfered In ', value: '3' },
+    { label: 'Transfer request from other benches', value: '4' },
+    { label: 'Transfer cases (other benches)', value: '5' },
+    { label: 'Sent Back Cases', value: '6' },
   ];
 
   // Track active panel option: 'filing' or 'case'

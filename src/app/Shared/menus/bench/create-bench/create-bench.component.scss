@@ -35,54 +35,6 @@
   }
 }
 
-/* 2. Absolute Centered Separator Block Container */
-.separator-block-dock {
-  width: 100%;
-  margin: 2.25rem 0 1.75rem 0;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 3. Centered Header Block (Quorum / Registrar) */
-.section-heading-centered {
-  position: absolute;
-  top: -12px;
-  background: #ffffff; /* Matches your master form card background */
-  padding: 0 1.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .centered-flow-title {
-    font-family:
-      -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
-    font-size: 1.15rem;
-    font-weight: 850;
-    letter-spacing: -0.02em;
-    margin: 0;
-
-    /* Clean gradient font sheen overlay */
-    background: linear-gradient(180deg, #0f172a 20%, #475569 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Micro glow line element directly below title text */
-  .glow-indicator-bar {
-    width: 38px;
-    height: 2px;
-    background: linear-gradient(90deg, #2563eb, #7c3aed);
-    margin-top: 0.3rem;
-    border-radius: 100px;
-    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.2);
-  }
-}
-
 /* Micro Animation Utilities */
 @keyframes badgeReveal {
   from {
