@@ -13,7 +13,7 @@ import { Select } from 'primeng/select';
 import { DynamicRadioGroupComponent } from '../../../dynamic-radio-group/dynamic-radio-group.component';
 import {
   CustomTableComponent,
-  CaseRecord,
+  ColumnDef,
 } from '../../../custom-table/custom-table.component';
 @Component({
   selector: 'app-inter-bench',
@@ -32,7 +32,8 @@ import {
 })
 export class InterBenchComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
-  cases: CaseRecord[] = [];
+
+  caseRecords: any[] = [];
   selectedLocation: string = 'DL';
   // Separate form tracks
   filingForm!: FormGroup;
@@ -60,20 +61,9 @@ export class InterBenchComponent implements OnInit {
   ];
 
   caseLocationOption = [{ label: 'Delhi', value: '1' }];
-  handleViewCase(record: CaseRecord): void {
-    console.log('Viewing record from parent:', record);
-  }
 
   ngOnInit(): void {
-    this.cases = [
-      {
-        sNo: '1',
-        diaryNo: 'APL/49/PB/2026',
-        caseDetails: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
-        location: 'New Delhi (Principal Bench)',
-        date: '28-06-2026',
-      },
-    ];
+    this.loadApiData();
     this.generateYearOptions();
     this.form = this.fb.group({
       caseCategory: ['1'],
@@ -89,6 +79,87 @@ export class InterBenchComponent implements OnInit {
       caseNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       caseYear: [new Date().getFullYear().toString()],
     });
+  }
+
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Sr. No.' },
+    { field: 'oldFiling', header: 'Old Filing No' },
+    { field: 'newFiling', header: 'New Filing No' },
+    { field: 'causeTitle', header: 'Cause Title' },
+    { field: 'from', header: 'From Bench' },
+    { field: 'to', header: 'To Bench' },
+    { field: 'request', header: 'Request Initiated' },
+    { field: 'last', header: 'Last Updated' },
+    { field: 'Transfer_date', header: 'Transfer Date' },
+    { field: 'stat', header: 'Status' },
+    { field: 'Transfernote', header: 'Transfer Note' },
+  ];
+
+  loadApiData(): void {
+    // Example: Fetching from your API service
+    // this.apiService.getCases().subscribe((response) => {
+    //   this.caseRecords = response.data;
+    // });
+
+    // Dummy fallback for testing
+    this.caseRecords = [
+      {
+        sNo: '1',
+        oldFiling: '2026251201000022',
+        newFiling: '2026110101000001',
+        causeTitle: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
+        from: 'Delhi (PB)',
+        to: 'Delhi',
+        request: '19/01/2026 11:23:15',
+        last: '',
+        Transfer_date: '',
+        stat: 'Transferred',
+        Transfernote: '',
+        diaryNo: 'APL/49/PB/2026',
+        caseDetails: '',
+        location: 'New Delhi (Principal Bench)',
+        date: '28-06-2026',
+      },
+      {
+        sNo: '1',
+        oldFiling: '2026251201000022',
+        newFiling: '2026110101000001',
+        causeTitle: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
+        from: 'Delhi (PB)',
+        to: 'Delhi',
+        request: '19/01/2026 11:23:15',
+        last: '',
+        Transfer_date: '',
+        stat: 'Transferred',
+        Transfernote: '',
+        diaryNo: 'APL/49/PB/2026',
+        caseDetails: '',
+        location: 'New Delhi (Principal Bench)',
+        date: '28-06-2026',
+      },
+      {
+        sNo: '1',
+        oldFiling: '2026251201000027',
+        newFiling: '2026107201000019',
+        causeTitle: 'RAKESH RANJAN PARIDA VS TO, Prakash Cbic & Ors.',
+        from: 'Delhi (PB)',
+        to: 'Delhi',
+        request: '11/03/2026 03:32:17',
+        last: '',
+        Transfer_date: '16/03/2026 03:24:22',
+        stat: 'Transferred',
+        Transfernote: 'NA',
+        diaryNo: 'APL/49/PB/2026',
+        caseDetails: '',
+        location: 'New Delhi (Principal Bench)',
+        date: '28-06-2026',
+      },
+    ];
+  }
+
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
+    alert(`Opening details for case: ${selectedRow.diaryNo}`);
   }
 
   generateYearOptions(): void {

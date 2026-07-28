@@ -159,15 +159,50 @@
   </div>
 </div>
 
-<div *ngIf="form.get('caseCategory')?.value === '2'">
+<div *ngIf="form.get('caseCategory')?.value !== '1'">
   <div class="separator-block-dock">
     <div class="horizontal-boundary-line"></div>
     <div class="section-heading-centered">
-      <h3 class="centered-flow-title">Transfered Cases (Out)</h3>
+      <h3
+        *ngIf="form.get('caseCategory')?.value === '2'"
+        class="centered-flow-title"
+      >
+        Transfered Cases (Out)
+      </h3>
+      <h3
+        *ngIf="form.get('caseCategory')?.value === '3'"
+        class="centered-flow-title"
+      >
+        Transfered In
+      </h3>
+      <h3
+        *ngIf="form.get('caseCategory')?.value === '4'"
+        class="centered-flow-title"
+      >
+        Transfer request from other benches
+      </h3>
+      <h3
+        *ngIf="form.get('caseCategory')?.value === '5'"
+        class="centered-flow-title"
+      >
+        Transfer cases (other benches)
+      </h3>
+      <h3
+        *ngIf="form.get('caseCategory')?.value === '6'"
+        class="centered-flow-title"
+      >
+        Sent Back Cases
+      </h3>
+
       <span class="glow-indicator-bar"></span>
     </div>
   </div>
-  <app-custom-table>
-    [data]="cases" (onView)="handleViewCase($event)">
-  </app-custom-table>
+  <app-custom-table
+    [cols]="tableColumns"
+    [data]="caseRecords"
+    (onView)="handleRecordView($event)"
+    [showActions]="false"
+  >
+    ></app-custom-table
+  >
 </div>

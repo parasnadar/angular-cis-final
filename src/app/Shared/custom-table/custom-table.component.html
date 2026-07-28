@@ -4,14 +4,13 @@
     [value]="data"
     [rows]="selectedRowsCount"
     [paginator]="true"
-    [globalFilterFields]="['diaryNo', 'caseDetails', 'location', 'date']"
+    [globalFilterFields]="globalFilterFields"
     styleClass="p-datatable-striped custom-modern-grid"
     [rowsPerPageOptions]="[5, 10, 25, 50]"
   >
-    <!-- 1. Upper Table Command Caption Deck -->
+    <!-- 1. Upper Toolbar -->
     <ng-template pTemplate="caption">
       <div class="table-header-toolbar">
-        <!-- Entries Page Limiter Selection -->
         <div class="toolbar-left-pane">
           <p-select
             [(ngModel)]="selectedRowsCount"
@@ -22,7 +21,6 @@
           ></p-select>
         </div>
 
-        <!-- Instant Global Search Filter Anchor Box -->
         <div class="toolbar-right-pane p-input-icon-left">
           <i class="pi pi-search search-lens-node"></i>
           <input
@@ -30,35 +28,48 @@
             type="text"
             [(ngModel)]="globalSearchText"
             (input)="dt.filterGlobal(globalSearchText, 'contains')"
-            placeholder="Quick search tables items..."
+            placeholder="Quick search table items..."
             class="grid-global-search-input"
           />
         </div>
       </div>
     </ng-template>
 
-    <!-- 2. Grid Column Headers Declarations Mapping -->
+    <!-- 2. Dynamic Column Headers (*ngFor Loop) -->
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 8%">Sr. No.</th>
-        <th style="width: 15%">Case No.</th>
-        <th style="width: 35%">Party Detail.</th>
-        <th style="width: 15%">Order Date</th>
-        <th style="text-align: center; width: 12%">Actions</th>
+        <th
+          *ngFor="let col of cols"
+          [style.width]="col.width || 'auto'"
+          [style.text-align]="col.align || 'left'"
+        >
+          {{ col.header }}
+        </th>
+
+        <!-- Optional Actions Header -->
+        <th *ngIf="showActions" style="text-align: center; width: 12%">
+          Actions
+        </th>
       </tr>
     </ng-template>
 
-    <!-- 3. Dynamic Row Cells Render Engine Iterator -->
+    <!-- 3. Dynamic Cell Value Iterator (*ngFor Loop) -->
     <ng-template pTemplate="body" let-item>
       <tr class="hoverable-grid-row">
-        <td class="truncated-cell-text">{{ item.sNo }}</td>
-        <td class="font-bold-slate">{{ item.diaryNo }}</td>
-        <td class="truncated-cell-text" [title]="item.caseDetails">
-          {{ item.caseDetails }}
+        <td
+          *ngFor="let col of cols"
+          [style.text-align]="col.align || 'left'"
+          [ngClass]="{
+            'font-bold-slate': col.field === 'diaryNo' || col.field === 'sNo',
+            'truncated-cell-text': col.field === 'caseDetails',
+          }"
+          [title]="getFieldValue(item, col.field)"
+        >
+          {{ getFieldValue(item, col.field) }}
         </td>
-        <td>{{ item.date }}</td>
 
-        <td style="text-align: center">
+        <!-- Actions Column -->
+        <td *ngIf="showActions" style="text-align: center">
           <button
             pButton
             type="button"
@@ -71,14 +82,15 @@
       </tr>
     </ng-template>
 
-    <!-- Empty State Callback Template Fallback -->
+    <!-- Empty State Fallback -->
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="5" class="grid-empty-state-cell">
+        <td
+          [attr.colspan]="cols.length + (showActions ? 1 : 0)"
+          class="grid-empty-state-cell"
+        >
           <i class="pi pi-filter-slash empty-icon-node"></i>
-          <p>
-            No matching legal records matched your search parameters criteria.
-          </p>
+          <p>No matching legal records matched your search parameters.</p>
         </td>
       </tr>
     </ng-template>
