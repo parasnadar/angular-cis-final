@@ -49,23 +49,15 @@
   </div>
 </div>
 
-<!-- Compact Modern Neon Loader State -->
-<div *ngIf="isLoading" class="compact-loader-card fade-in-up">
-  <div class="loader-visual-wrapper">
-    <div class="cyber-spinner"></div>
-    <div class="spinner-center-dot"></div>
+<!-- SIMPLE MODERN LOADER -->
+<!-- CENTERED SIMPLE MODERN LOADER -->
+<div *ngIf="isLoading" class="centered-loader-wrap fade-in">
+  <div class="loader-dots-row">
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
   </div>
-
-  <div class="loader-content-meta">
-    <div class="meta-headline">
-      <span class="pulse-indicator"></span>
-      <span class="status-heading">Searching Records</span>
-    </div>
-    <span class="status-subtext">
-      Querying filing identifier:
-      <strong>#{{ filingForm.get("filingNo")?.value }}</strong>
-    </span>
-  </div>
+  <p class="loader-label">Searching records...</p>
 </div>
 
 <!-- 2. Dynamic Table Display (Only shown after search completes) -->
