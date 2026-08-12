@@ -9,6 +9,10 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
+import {
+  CustomTableComponent,
+  ColumnDef,
+} from '../../../custom-table/custom-table.component';
 
 @Component({
   selector: 'app-create-notice',
@@ -18,6 +22,7 @@ import { Select } from 'primeng/select';
     Select,
     ButtonModule,
     InputTextModule,
+    CustomTableComponent,
   ],
   templateUrl: './create-notice.component.html',
   styleUrl: './create-notice.component.scss',
@@ -25,6 +30,37 @@ import { Select } from 'primeng/select';
 export class CreateNoticeComponent {
   constructor(private fb: FormBuilder) {}
 
+  isLoading: boolean = false;
+  hasSearched: boolean = false;
+
+  caseRecords: any[] = [];
+
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Sr. No.' },
+    { field: 'caseType', header: 'Case Type' },
+    { field: 'dateOfFiling', header: 'Date Of Filing' },
+    { field: 'caseTitle', header: 'Case Title' },
+    { field: 'location', header: 'Location' },
+    { field: 'caseStatus', header: 'Case Status' },
+  ];
+
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
+  }
+
+  loadApiData(): void {
+    // API response data mapping
+    this.caseRecords = [
+      {
+        sNo: '1',
+        caseType: '2026251201000022',
+        dateOfFiling: '2026110101000001',
+        caseTitle: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
+        caseStatus: 'Transferred',
+        location: 'New Delhi (Principal Bench)',
+      },
+    ];
+  }
   // Separate form tracks
   filingForm!: FormGroup;
   caseDetailsForm!: FormGroup;
@@ -76,13 +112,32 @@ export class CreateNoticeComponent {
   }
 
   onFilingSearch(): void {
-    if (this.filingForm.invalid) return;
-    console.log('Filing Search Payload:', this.filingForm.value);
+    if (this.filingForm.invalid || this.isLoading) return;
+
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.caseRecords = []; // Clear previous search results while loading
+
+    // Simulated API call (replace setTimeout with your actual API subscription)
+    setTimeout(() => {
+      this.loadApiData();
+      this.isLoading = false;
+    }, 1000);
   }
 
   onCaseSearch(): void {
     if (this.caseDetailsForm.invalid) return;
     console.log('Case Details Search Payload:', this.caseDetailsForm.value);
+
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.caseRecords = []; // Clear previous search results while loading
+
+    // Simulated API call (replace setTimeout with your actual API subscription)
+    setTimeout(() => {
+      this.loadApiData();
+      this.isLoading = false;
+    }, 1000);
   }
 
   resetForms(): void {
@@ -92,5 +147,8 @@ export class CreateNoticeComponent {
       caseNo: '',
       caseYear: new Date().getFullYear().toString(),
     });
+    this.hasSearched = false;
+    this.isLoading = false;
+    this.caseRecords = [];
   }
 }

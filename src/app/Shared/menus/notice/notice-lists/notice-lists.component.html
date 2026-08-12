@@ -1,1 +1,18 @@
-<p>notice-lists works!</p>
+<div class="view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Notice Listing</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form [formGroup]="form" class="workspace-form-layout">
+    <div>
+      <app-dynamic-radio-group
+        formControlName="caseCategory"
+        [options]="caseCategoryOptions"
+        groupName="scrutinyCategories"
+        [minWidthPx]="220"
+      ></app-dynamic-radio-group>
+    </div>
+  </form>
+</div>
