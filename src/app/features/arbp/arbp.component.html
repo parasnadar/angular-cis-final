@@ -17,6 +17,18 @@
     <div class="fade-in-container">
       <div class="form-content-card search-filter-card">
         <form [formGroup]="form" class="workspace-form-layout">
+          <div class="status-legend">
+            <div class="legend-item">
+              <span class="status-circle circle-yellow"></span>
+              <span class="status-label">With Defect</span>
+            </div>
+
+            <div class="legend-item">
+              <span class="status-circle circle-green"></span>
+              <span class="status-label">Defect Free</span>
+            </div>
+          </div>
+
           <div>
             <app-dynamic-radio-group
               formControlName="caseCategory"
