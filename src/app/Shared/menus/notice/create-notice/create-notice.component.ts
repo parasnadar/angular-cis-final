@@ -47,11 +47,10 @@ export class CreateNoticeComponent implements OnInit {
 
   tableColumns: ColumnDef[] = [
     { field: 'sNo', header: 'Sr. No.' },
-    { field: 'caseType', header: 'Case Type' },
-    { field: 'dateOfFiling', header: 'Date Of Filing' },
-    { field: 'caseTitle', header: 'Case Title' },
-    { field: 'location', header: 'Location' },
-    { field: 'caseStatus', header: 'Case Status' },
+    { field: 'noticeType', header: 'Case Type' },
+    { field: 'noticeId', header: 'Date Of Filing' },
+    { field: 'caseNo', header: 'Case Title' },
+    { field: 'dateOfNotice', header: 'Location' },
   ];
 
   filingForm!: FormGroup;
@@ -153,7 +152,7 @@ export class CreateNoticeComponent implements OnInit {
     this.caseSummary = {
       filingNo: '2026251201000040',
       caseNo: 'Appeal//PB/2026',
-      causeTitle: 'try Vs. SAURABH',
+      causeTitle: 'RAKESH RANJAN PARIDA vs RAMAN SINGH & Ors.',
       dateOfFiling: '20/01/2026',
     };
 
@@ -161,11 +160,10 @@ export class CreateNoticeComponent implements OnInit {
     this.caseRecords = [
       {
         sNo: '1',
-        caseType: '2026251201000022',
-        dateOfFiling: '2026110101000001',
-        caseTitle: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
-        caseStatus: 'Transferred',
-        location: 'New Delhi (Principal Bench)',
+        noticeType: 'First notice requiring presence',
+        noticeId: 'GSTAT/PB/00023/2026',
+        caseNo: 'Appeal///2026',
+        dateOfNotice: '20/01/2026',
       },
     ];
   }
