@@ -34,4 +34,8 @@ export class TransferCasesComponent {
       listingDate: [null],
     });
   }
+
+  onSearch(): void {
+    console.log('Executing query payload:', this.form.value);
+  }
 }

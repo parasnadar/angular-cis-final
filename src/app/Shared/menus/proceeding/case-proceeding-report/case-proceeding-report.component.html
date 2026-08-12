@@ -1,1 +1,35 @@
-<p>case-proceeding-report works!</p>
+<div class="view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Case Proceeding Reports</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form [formGroup]="form" class="workspace-form-layout-proceeding-case">
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">Listing Date:</label>
+        <p-datepicker
+          formControlName="listingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Search"
+          (click)="onSearch()"
+          label=" Search"
+          icon="pi pi-search"
+          class="filter-search-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
