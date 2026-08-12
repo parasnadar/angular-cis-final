@@ -1,1 +1,79 @@
-<p>search-case works!</p>
+<div class="view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Search Case</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <div>
+    <form
+      [formGroup]="filingForm"
+      class="workspace-form-layout"
+      (ngSubmit)="onFilingSearch()"
+    >
+      <div class="filter-criteria-row">
+        <div class="inline-filter-field text-input-wrapper custom-label-field">
+          <label class="filter-label">Enter Filing Number:</label>
+          <input
+            pInputText
+            type="text"
+            formControlName="filingNo"
+            class="w-full plain-text-input"
+            (keypress)="blockNonNumbers($event)"
+            placeholder="Enter Filing Number"
+          />
+        </div>
+
+        <div class="filter-actions-group">
+          <button
+            pButton
+            type="submit"
+            [label]="isLoading ? 'Searching...' : 'Search'"
+            [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
+            class="filter-search-btn"
+            [disabled]="filingForm.invalid || isLoading"
+          ></button>
+
+          <button
+            pButton
+            type="button"
+            label="Reset"
+            icon="pi pi-refresh"
+            (click)="resetForms()"
+            class="filter-reset-btn"
+            [disabled]="isLoading"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Compact Modern Neon Loader State -->
+<div *ngIf="isLoading" class="compact-loader-card fade-in-up">
+  <div class="loader-visual-wrapper">
+    <div class="cyber-spinner"></div>
+    <div class="spinner-center-dot"></div>
+  </div>
+
+  <div class="loader-content-meta">
+    <div class="meta-headline">
+      <span class="pulse-indicator"></span>
+      <span class="status-heading">Searching Records</span>
+    </div>
+    <span class="status-subtext">
+      Querying filing identifier:
+      <strong>#{{ filingForm.get("filingNo")?.value }}</strong>
+    </span>
+  </div>
+</div>
+
+<!-- 2. Dynamic Table Display (Only shown after search completes) -->
+<div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+  <app-custom-table
+    [cols]="tableColumns"
+    [data]="caseRecords"
+    (onView)="handleRecordView($event)"
+    [showActions]="false"
+  ></app-custom-table>
+</div>

@@ -32,6 +32,7 @@ import { TableModule } from 'primeng/table';
 export class FreshCaseListingComponent {
   constructor(private fb: FormBuilder) {}
   form!: FormGroup;
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.form = this.fb.group({

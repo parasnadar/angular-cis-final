@@ -1,0 +1,126 @@
+/* ==========================================================================
+   ULTRA-COMPACT MODERN SAAS LOADER
+   ========================================================================== */
+
+.compact-loader-card {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 1rem 1.4rem;
+  margin-top: 1.25rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow:
+    0 4px 20px -2px rgba(15, 23, 42, 0.04),
+    0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  width: 100%;
+}
+
+/* Dual Ring Cyber Spinner */
+.loader-visual-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .cyber-spinner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2.5px solid #e0e7ff;
+    border-top-color: #2563eb;
+    border-right-color: #38bdf8;
+    animation: cyberSpin 0.75s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.15);
+  }
+
+  .spinner-center-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #2563eb;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.6);
+  }
+}
+
+/* Metadata Text & Pulsing Tag */
+.loader-content-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  .meta-headline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    .pulse-indicator {
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseGlow 1.5s infinite ease-in-out;
+    }
+
+    .status-heading {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  .status-subtext {
+    font-size: 0.74rem;
+    color: #64748b;
+    font-weight: 500;
+
+    strong {
+      color: #1e40af;
+      font-weight: 700;
+    }
+  }
+}
+
+/* Animations */
+@keyframes cyberSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

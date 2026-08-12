@@ -70,12 +70,15 @@
           type="button"
           label="Search"
           (click)="onSearch()"
+          [label]="isLoading ? 'Searching...' : 'Search'"
+          [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
           class="filter-search-btn"
         ></button>
         <button
           pButton
           type="button"
           label="Reset"
+          icon="pi pi-refresh"
           (click)="onReset()"
           class="filter-reset-btn"
         ></button>
