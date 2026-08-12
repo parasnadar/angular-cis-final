@@ -136,3 +136,104 @@ main.flex-grow-1 {
     border-bottom-right-radius: 15px;
   }
 }
+/* --- COMPACT GOV FOOTER UPPER SECTION --- */
+.gov-footer {
+  background-color: #f8fafc;
+  color: #334155;
+  font-family: "Inter", sans-serif;
+  border-top: 3px solid #001d7e;
+
+  /* Tighter padding: 1.5rem top, 4rem bottom to clear your fixed glass footer */
+  padding: 1.5rem 2rem 4rem 2rem;
+  position: relative;
+}
+
+.footer-cols {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  /* Allocates more space to the address, less to links/sys info */
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* --- COLUMN 1: BRAND (Side-by-Side Layout) --- */
+.footer-col-brand {
+  display: flex;
+  align-items: center; /* Aligns logo and text horizontally */
+  gap: 1rem;
+}
+
+.footer-ashoka-logo {
+  width: 45px; /* Smaller, compact logo */
+  height: auto;
+  flex-shrink: 0;
+}
+
+.brand-info strong {
+  color: #001d7e;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.brand-info p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #475569;
+  max-width: 350px; /* Prevents address from stretching too far */
+}
+
+/* --- TYPOGRAPHY & TITLES --- */
+.gf-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem; /* Tighter margin */
+}
+
+/* --- LINKS SECTION --- */
+.footer-col-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-col-links a {
+  text-decoration: none;
+  color: #475569;
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
+
+.footer-col-links a:hover {
+  color: #001d7e;
+}
+
+/* --- SYSTEM INFO SECTION --- */
+.sys-text {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.sys-text b {
+  color: #001d7e;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  .footer-cols {
+    grid-template-columns: 1fr; /* Stacks columns on small screens */
+    gap: 1.5rem;
+  }
+
+  .gov-footer {
+    padding: 1.5rem 1.5rem 5rem 1.5rem;
+  }
+}
