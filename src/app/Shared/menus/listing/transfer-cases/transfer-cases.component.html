@@ -2,7 +2,25 @@
   <div class="title-accent-wrapper">
     <h2 class="section-title">Transfer case</h2>
   </div>
-  <p class="header-disclaimerI">
+  <p class="header-disclaimer-transfer-case">
     Transfer case from one court to another of same branch for same listing date
   </p>
+</div>
+<div class="fade-in-container">
+  <form [formGroup]="form" class="workspace-form-layout-transfer-case">
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">Listing Date:</label>
+        <p-datepicker
+          formControlName="listingDate"
+          placeholder="dd-mm-yyyy"
+          dateFormat="dd-mm-yy"
+          [showIcon]="true"
+          [iconDisplay]="'input'"
+          styleClass="w-full"
+          inputStyleClass="dense-calendar-input"
+        ></p-datepicker>
+      </div>
+    </div>
+  </form>
 </div>
