@@ -50,16 +50,19 @@
             <button
               pButton
               type="submit"
-              label="Search"
+              [label]="isLoading ? 'Searching...' : 'Search'"
+              [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
               class="filter-search-btn"
-              [disabled]="filingForm.invalid"
+              [disabled]="filingForm.invalid || isLoading"
             ></button>
             <button
               pButton
               type="button"
               label="Reset"
+              icon="pi pi-refresh"
               (click)="resetForms()"
               class="filter-reset-btn"
+              [disabled]="isLoading"
             ></button>
           </div>
         </div>
@@ -111,11 +114,10 @@
             <button
               pButton
               type="submit"
-              label="Search"
               class="filter-search-btn"
               [label]="isLoading ? 'Searching...' : 'Search'"
               [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
-              [disabled]="caseDetailsForm.invalid"
+              [disabled]="caseDetailsForm.invalid || isLoading"
             ></button>
             <button
               pButton
@@ -132,7 +134,7 @@
     }
   </div>
 </div>
-<!-- SIMPLE MODERN LOADER -->
+
 <!-- CENTERED SIMPLE MODERN LOADER -->
 <div *ngIf="isLoading" class="centered-loader-wrap fade-in">
   <div class="loader-dots-row">
@@ -143,8 +145,41 @@
   <p class="loader-label">Searching records...</p>
 </div>
 
-<!-- 2. Dynamic Table Display (Only shown after search completes) -->
-<div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+<!-- RESULTS SECTION: SUMMARY CARD + TABLE -->
+<div *ngIf="!isLoading && hasSearched" class="fade-in-up results-wrapper">
+  <!-- EXECUTIVE DOCKET SUMMARY CARD -->
+  <div *ngIf="caseSummary" class="executive-docket-card fade-in">
+    <!-- Centered Primary Litigant Header -->
+    <div class="docket-hero-section text-center">
+      <div class="cause-label-tag">CAUSE TITLE</div>
+      <div class="litigant-headline">{{ caseSummary.causeTitle }}</div>
+    </div>
+
+    <!-- Micro Separator Line -->
+    <div class="hairline-divider"></div>
+
+    <!-- 3-Segment Metrics Row (Larger Fonts) -->
+    <div class="docket-metrics-strip">
+      <div class="metric-segment">
+        <span class="segment-caption">Filing Number</span>
+        <span class="segment-data font-numeric">{{
+          caseSummary.filingNo
+        }}</span>
+      </div>
+
+      <div class="metric-segment text-center-segment">
+        <span class="segment-caption">Case Identifier</span>
+        <span class="segment-data">{{ caseSummary.caseNo }}</span>
+      </div>
+
+      <div class="metric-segment text-right-segment">
+        <span class="segment-caption">Registration Date</span>
+        <span class="segment-data">{{ caseSummary.dateOfFiling }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Dynamic Results Table -->
   <app-custom-table
     [cols]="tableColumns"
     [data]="caseRecords"

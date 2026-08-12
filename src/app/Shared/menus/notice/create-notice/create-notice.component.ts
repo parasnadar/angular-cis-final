@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,8 +14,16 @@ import {
   ColumnDef,
 } from '../../../custom-table/custom-table.component';
 
+export interface CaseSummaryCard {
+  filingNo: string;
+  caseNo: string;
+  causeTitle: string;
+  dateOfFiling: string;
+}
+
 @Component({
   selector: 'app-create-notice',
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,12 +35,14 @@ import {
   templateUrl: './create-notice.component.html',
   styleUrl: './create-notice.component.scss',
 })
-export class CreateNoticeComponent {
+export class CreateNoticeComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   isLoading: boolean = false;
   hasSearched: boolean = false;
 
+  // Summary Card details matching the banner layout
+  caseSummary: CaseSummaryCard | null = null;
   caseRecords: any[] = [];
 
   tableColumns: ColumnDef[] = [
@@ -44,28 +54,9 @@ export class CreateNoticeComponent {
     { field: 'caseStatus', header: 'Case Status' },
   ];
 
-  handleRecordView(selectedRow: any): void {
-    console.log('Selected case for viewing:', selectedRow);
-  }
-
-  loadApiData(): void {
-    // API response data mapping
-    this.caseRecords = [
-      {
-        sNo: '1',
-        caseType: '2026251201000022',
-        dateOfFiling: '2026110101000001',
-        caseTitle: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
-        caseStatus: 'Transferred',
-        location: 'New Delhi (Principal Bench)',
-      },
-    ];
-  }
-  // Separate form tracks
   filingForm!: FormGroup;
   caseDetailsForm!: FormGroup;
 
-  // Track active panel option: 'filing' or 'case'
   activeSearchTab: 'filing' | 'case' = 'filing';
   caseYearOptions: { label: string; value: string }[] = [];
 
@@ -116,9 +107,9 @@ export class CreateNoticeComponent {
 
     this.isLoading = true;
     this.hasSearched = true;
-    this.caseRecords = []; // Clear previous search results while loading
+    this.caseSummary = null;
+    this.caseRecords = [];
 
-    // Simulated API call (replace setTimeout with your actual API subscription)
     setTimeout(() => {
       this.loadApiData();
       this.isLoading = false;
@@ -126,14 +117,13 @@ export class CreateNoticeComponent {
   }
 
   onCaseSearch(): void {
-    if (this.caseDetailsForm.invalid) return;
-    console.log('Case Details Search Payload:', this.caseDetailsForm.value);
+    if (this.caseDetailsForm.invalid || this.isLoading) return;
 
     this.isLoading = true;
     this.hasSearched = true;
-    this.caseRecords = []; // Clear previous search results while loading
+    this.caseSummary = null;
+    this.caseRecords = [];
 
-    // Simulated API call (replace setTimeout with your actual API subscription)
     setTimeout(() => {
       this.loadApiData();
       this.isLoading = false;
@@ -142,6 +132,7 @@ export class CreateNoticeComponent {
 
   resetForms(): void {
     this.filingForm.reset();
+    this.caseDetailsForm.reset();
     this.caseDetailsForm.patchValue({
       caseType: '1',
       caseNo: '',
@@ -149,6 +140,33 @@ export class CreateNoticeComponent {
     });
     this.hasSearched = false;
     this.isLoading = false;
+    this.caseSummary = null;
     this.caseRecords = [];
+  }
+
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
+  }
+
+  loadApiData(): void {
+    // Summary Card Details
+    this.caseSummary = {
+      filingNo: '2026251201000040',
+      caseNo: 'Appeal//PB/2026',
+      causeTitle: 'try Vs. SAURABH',
+      dateOfFiling: '20/01/2026',
+    };
+
+    // Table Records
+    this.caseRecords = [
+      {
+        sNo: '1',
+        caseType: '2026251201000022',
+        dateOfFiling: '2026110101000001',
+        caseTitle: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
+        caseStatus: 'Transferred',
+        location: 'New Delhi (Principal Bench)',
+      },
+    ];
   }
 }
