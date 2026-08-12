@@ -1,133 +1,222 @@
 /* ==========================================================================
-   EXECUTIVE DOCKET SUMMARY CARD (CENTERED & LARGER FONTS)
+   SUMMARY & ACTION HUB (Compact Layout + Centered Title)
    ========================================================================== */
 
-.executive-docket-card {
-  width: 100%;
+.docket-action-hub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* 1. Compact Executive Card (Left Side) */
+.compact-executive-card {
+  flex: 1;
   background: #ffffff;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 1.6rem 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.15rem 1.6rem;
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.02),
-    0 12px 28px -4px rgba(0, 0, 0, 0.05);
+    0 1px 3px rgba(15, 23, 42, 0.03),
+    0 8px 24px -4px rgba(15, 23, 42, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 1.75rem;
-  margin-top: 1.75rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.85rem;
+  transition: all 0.25s ease;
 
   &:hover {
     box-shadow:
-      0 8px 12px -2px rgba(0, 0, 0, 0.03),
-      0 20px 38px -6px rgba(0, 0, 0, 0.07);
-    border-color: rgba(0, 0, 0, 0.12);
-  }
-}
-
-/* 1. Centered Cause Title & Litigant Section */
-.docket-hero-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 0.45rem;
-
-  .cause-label-tag {
-    font-size: 0.78rem; /* Increased size */
-    font-weight: 850;
-    letter-spacing: 0.1em;
-    color: #64748b;
-    text-transform: uppercase;
+      0 4px 10px rgba(15, 23, 42, 0.04),
+      0 14px 28px -4px rgba(15, 23, 42, 0.06);
+    border-color: #cbd5e1;
   }
 
-  .litigant-headline {
-    font-size: 1.35rem; /* Bold prominent headline */
-    font-weight: 800;
-    color: #dc2626; /* Prominent red color */
-    letter-spacing: -0.02em;
-    line-height: 1.4;
-  }
-}
-
-/* Hairline Divider */
-.hairline-divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.07);
-}
-
-/* 2. 3-Segment Data Layout (Larger Labels & Values) */
-.docket-metrics-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    text-align: left !important;
-
-    .text-center-segment,
-    .text-right-segment {
-      align-items: flex-start !important;
-      text-align: left !important;
-    }
-  }
-
-  .metric-segment {
+  /* Centered Cause Title Section */
+  .card-hero-centered {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.35rem;
 
-    &.text-center-segment {
-      align-items: center;
-      text-align: center;
-    }
-
-    &.text-right-segment {
-      align-items: flex-end;
-      text-align: right;
-    }
-
-    .segment-caption {
-      font-size: 0.82rem; /* Increased label size */
-      font-weight: 700;
-      color: #64748b;
-      letter-spacing: 0.01em;
+    .cause-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 0.15rem 0.55rem;
+      border-radius: 5px;
     }
 
-    .segment-data {
-      font-size: 1.1rem; /* Increased data value size */
-      font-weight: 700;
-      color: #0f172a;
-      letter-spacing: -0.01em;
+    .litigant-headline-red {
+      margin: 0;
+      font-size: 1.15rem; /* Scaled down for compact feel */
+      font-weight: 800;
+      color: #dc2626; /* Crimson Red */
+      letter-spacing: -0.015em;
+      line-height: 1.35;
+    }
+  }
 
-      &.font-numeric {
-        color: #1e3a8a;
-        font-family: inherit;
-        letter-spacing: 0.02em;
+  /* Hairline Divider */
+  .card-hairline-sep {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #e2e8f0 30%,
+      #e2e8f0 70%,
+      transparent 100%
+    );
+  }
+
+  /* 3-Segment Data Layout */
+  .card-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: center;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+
+      .text-center-segment,
+      .text-right-segment {
+        align-items: flex-start !important;
+        text-align: left !important;
+      }
+    }
+
+    .metric-segment {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      &.text-center-segment {
+        align-items: center;
+        text-align: center;
+      }
+
+      &.text-right-segment {
+        align-items: flex-end;
+        text-align: right;
+      }
+
+      .segment-label {
+        font-size: 0.72rem;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #64748b;
+      }
+
+      .segment-val {
+        font-size: 0.98rem;
+        font-weight: 700;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+
+        &.font-numeric {
+          color: #1e3a8a;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+        }
       }
     }
   }
 }
 
-/* Smooth Entrance Transition */
-.fade-in {
-  animation: smoothReveal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* 2. Right Generate Notice Action Panel */
+.action-panel-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+
+  .generate-notice-btn {
+    background: #1e3a8a !important;
+    border-color: #1e3a8a !important;
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    font-weight: 750 !important;
+    padding: 0.85rem 1.4rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 14px rgba(30, 58, 138, 0.22);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background: #172554 !important;
+      border-color: #172554 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(30, 58, 138, 0.3);
+    }
+  }
 }
 
-@keyframes smoothReveal {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+/* ==========================================================================
+   MODAL POPUP STYLING
+   ========================================================================== */
+
+.modal-form-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  gap: 0.5rem;
+
+  .placeholder-icon {
+    width: 48px;
+    height: 48px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .placeholder-title {
+    font-size: 1rem;
+    font-weight: 750;
+    color: #0f172a;
+    margin: 0;
   }
+
+  .placeholder-sub {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin: 0;
+  }
+}
+
+.modal-cancel-btn {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+.modal-submit-btn {
+  background: #1e3a8a !important;
+  border-color: #1e3a8a !important;
+  font-weight: 700 !important;
+  padding: 0.55rem 1.25rem !important;
+  border-radius: 8px !important;
 }

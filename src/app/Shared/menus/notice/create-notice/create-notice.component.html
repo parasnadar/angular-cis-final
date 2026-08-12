@@ -147,35 +147,50 @@
 
 <!-- RESULTS SECTION: SUMMARY CARD + TABLE -->
 <div *ngIf="!isLoading && hasSearched" class="fade-in-up results-wrapper">
-  <!-- EXECUTIVE DOCKET SUMMARY CARD -->
-  <div *ngIf="caseSummary" class="executive-docket-card fade-in">
-    <!-- Centered Primary Litigant Header -->
-    <div class="docket-hero-section text-center">
-      <div class="cause-label-tag">CAUSE TITLE</div>
-      <div class="litigant-headline">{{ caseSummary.causeTitle }}</div>
+  <!-- SUMMARY & ACTION HUB -->
+  <div *ngIf="caseSummary" class="docket-action-hub">
+    <!-- Left: Compact Executive Summary Card (Centered Cause Title) -->
+    <div class="compact-executive-card">
+      <!-- Centered Cause Title Block -->
+      <div class="card-hero-centered">
+        <span class="cause-tag">CAUSE TITLE</span>
+        <h4 class="litigant-headline-red">{{ caseSummary.causeTitle }}</h4>
+      </div>
+
+      <!-- Hairline Divider -->
+      <div class="card-hairline-sep"></div>
+
+      <!-- 3-Segment Data Matrix -->
+      <div class="card-metrics-grid">
+        <div class="metric-segment">
+          <span class="segment-label">Filing Number</span>
+          <span class="segment-val font-numeric">{{
+            caseSummary.filingNo
+          }}</span>
+        </div>
+
+        <div class="metric-segment text-center-segment">
+          <span class="segment-label">Case No</span>
+          <span class="segment-val">{{ caseSummary.caseNo }}</span>
+        </div>
+
+        <div class="metric-segment text-right-segment">
+          <span class="segment-label">Date of Filing</span>
+          <span class="segment-val">{{ caseSummary.dateOfFiling }}</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Micro Separator Line -->
-    <div class="hairline-divider"></div>
-
-    <!-- 3-Segment Metrics Row (Larger Fonts) -->
-    <div class="docket-metrics-strip">
-      <div class="metric-segment">
-        <span class="segment-caption">Filing Number</span>
-        <span class="segment-data font-numeric">{{
-          caseSummary.filingNo
-        }}</span>
-      </div>
-
-      <div class="metric-segment text-center-segment">
-        <span class="segment-caption">Case No</span>
-        <span class="segment-data">{{ caseSummary.caseNo }}</span>
-      </div>
-
-      <div class="metric-segment text-right-segment">
-        <span class="segment-caption">Date of Filing</span>
-        <span class="segment-data">{{ caseSummary.dateOfFiling }}</span>
-      </div>
+    <!-- Right: Generate Notice Button Panel -->
+    <div class="action-panel-right">
+      <button
+        pButton
+        type="button"
+        label="Generate Notice"
+        icon="pi pi-plus"
+        class="generate-notice-btn"
+        (click)="openGenerateNoticeModal()"
+      ></button>
     </div>
   </div>
 
@@ -187,3 +202,41 @@
     [showActions]="true"
   ></app-custom-table>
 </div>
+
+<!-- Pop-up Modal Dialog for Generating Notice -->
+<p-dialog
+  header="Generate Notice / Summons"
+  [(visible)]="displayNoticeModal"
+  [modal]="true"
+  [style]="{ width: '550px' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="custom-notice-modal"
+>
+  <div class="modal-form-placeholder">
+    <div class="placeholder-icon">
+      <i class="pi pi-file-edit"></i>
+    </div>
+    <p class="placeholder-title">Notice Generation Form</p>
+    <p class="placeholder-sub">
+      Modal ready for future inputs and form controls.
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="Cancel"
+      class="p-button-text modal-cancel-btn"
+      (click)="displayNoticeModal = false"
+    ></button>
+    <button
+      pButton
+      type="button"
+      label="Proceed"
+      class="modal-submit-btn"
+      (click)="displayNoticeModal = false"
+    ></button>
+  </ng-template>
+</p-dialog>

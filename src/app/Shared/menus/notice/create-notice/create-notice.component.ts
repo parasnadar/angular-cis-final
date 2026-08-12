@@ -1,14 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
+  ReactiveFormsModule,
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
+import { DialogModule } from 'primeng/dialog'; // Ensure DialogModule is imported
 import {
   CustomTableComponent,
   ColumnDef,
@@ -30,18 +31,19 @@ export interface CaseSummaryCard {
     Select,
     ButtonModule,
     InputTextModule,
+    DialogModule,
     CustomTableComponent,
   ],
   templateUrl: './create-notice.component.html',
   styleUrl: './create-notice.component.scss',
 })
 export class CreateNoticeComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
-
   isLoading: boolean = false;
   hasSearched: boolean = false;
 
-  // Summary Card details matching the banner layout
+  // Controls Pop-up Modal
+  displayNoticeModal: boolean = false;
+
   caseSummary: CaseSummaryCard | null = null;
   caseRecords: any[] = [];
 
@@ -58,21 +60,18 @@ export class CreateNoticeComponent implements OnInit {
 
   activeSearchTab: 'filing' | 'case' = 'filing';
   caseYearOptions: { label: string; value: string }[] = [];
-
   caseTypeOption = [
     { label: 'Appeal(APL)', value: '1' },
     { label: 'NAPA(NAPA)', value: '2' },
   ];
 
+  constructor(private fb: FormBuilder) {}
+
   ngOnInit(): void {
     this.generateYearOptions();
-
-    // Form 1: Filing Number Tracking Only
     this.filingForm = this.fb.group({
       filingNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
-
-    // Form 2: Detailed Case Criteria Tracking
     this.caseDetailsForm = this.fb.group({
       caseType: ['1'],
       caseNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -82,8 +81,7 @@ export class CreateNoticeComponent implements OnInit {
 
   generateYearOptions(): void {
     const currentYear = new Date().getFullYear();
-    const startYear = 1998;
-    for (let year = currentYear; year >= startYear; year--) {
+    for (let year = currentYear; year >= 1998; year--) {
       this.caseYearOptions.push({
         label: year.toString(),
         value: year.toString(),
@@ -103,21 +101,15 @@ export class CreateNoticeComponent implements OnInit {
 
   onFilingSearch(): void {
     if (this.filingForm.invalid || this.isLoading) return;
-
-    this.isLoading = true;
-    this.hasSearched = true;
-    this.caseSummary = null;
-    this.caseRecords = [];
-
-    setTimeout(() => {
-      this.loadApiData();
-      this.isLoading = false;
-    }, 1000);
+    this.executeSearch();
   }
 
   onCaseSearch(): void {
     if (this.caseDetailsForm.invalid || this.isLoading) return;
+    this.executeSearch();
+  }
 
+  private executeSearch(): void {
     this.isLoading = true;
     this.hasSearched = true;
     this.caseSummary = null;
@@ -126,7 +118,7 @@ export class CreateNoticeComponent implements OnInit {
     setTimeout(() => {
       this.loadApiData();
       this.isLoading = false;
-    }, 1000);
+    }, 800);
   }
 
   resetForms(): void {
@@ -143,6 +135,10 @@ export class CreateNoticeComponent implements OnInit {
     this.caseRecords = [];
   }
 
+  openGenerateNoticeModal(): void {
+    this.displayNoticeModal = true;
+  }
+
   handleRecordView(selectedRow: any): void {
     console.log('Selected case for viewing:', selectedRow);
   }
@@ -156,7 +152,6 @@ export class CreateNoticeComponent implements OnInit {
       dateOfFiling: '20/01/2026',
     };
 
-    // Table Records
     this.caseRecords = [
       {
         sNo: '1',
