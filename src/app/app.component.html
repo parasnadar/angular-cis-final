@@ -37,44 +37,67 @@
   </main>
 
   <footer class="gov-footer">
-    <div class="footer-cols">
-      <!-- Column 1: Brand & Location (Now side-by-side to save height) -->
-      <div class="footer-col footer-col-brand">
-        <img
-          src="assets/images/logo.png"
-          class="footer-ashoka-logo"
-          alt="State Emblem of India"
-        />
-        <div class="brand-info">
-          <strong>GSTAT</strong>
-          <p>
-            6th Floor, LIC Jeevan Bharati, Tower I, Janpath, Connaught Place,
-            New Delhi 110001
-          </p>
+    <div class="footer-container">
+      <div class="footer-cols">
+        <!-- Column 1: Brand & Location (Modernized Large Circular Logo Side-by-Side Layout) -->
+        <div class="footer-col footer-col-brand">
+          <!-- New Circle Logo Container -->
+          <div class="footer-logo-container">
+            <img
+              src="assets/images/logofooter.png"
+              class="footer-gov-logo"
+              alt="State Emblem of India"
+            />
+          </div>
+          <!-- Brand Text Next to Logo -->
+          <div class="brand-info">
+            <div class="brand-text-header">
+              <span class="brand-title">GSTAT</span>
+              <span class="brand-subtitle">&nbsp;GST Appellate Tribunal</span>
+            </div>
+            <p class="brand-address">
+              6th Floor, LIC Jeevan Bharati, Tower I,<br />
+              Janpath, Connaught Place, New Delhi 110001
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- Column 2: Links -->
-      <div class="footer-col footer-col-links">
-        <div class="gf-title">Links</div>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-        </ul>
-      </div>
+        <!-- Vertical Divider (Hidden on Mobile) -->
+        <div class="footer-divider"></div>
 
-      <!-- Column 3: System Info -->
-      <div class="footer-col footer-col-sys">
-        <div class="gf-title">System Information</div>
-        <p class="sys-text">Version: <b>2.0.0</b></p>
+        <!-- Column 2: Links -->
+        <div class="footer-col footer-col-links">
+          <div class="gf-title">Useful Links</div>
+          <ul class="link-list">
+            <li>
+              <a href="#"> <span class="link-arrow">→</span> Help Center </a>
+            </li>
+            <li>
+              <a href="#"> <span class="link-arrow">→</span> Contact Us </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 3: System Info with Actual Status -->
+        <div class="footer-col footer-col-sys">
+          <div class="gf-title">System & Service</div>
+
+          <div class="status-text">Systems is Under Development</div>
+
+          <div class="sys-item mt-2">
+            <span class="sys-label">App Version</span>
+            <span class="version-badge">v2.0.0</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Your exact glass footer structure -->
-    <div class="glass-footer-premium">
+    <!-- Your exact glass footer below - UNCHANGED -->
+    <footer class="glass-footer-premium">
       <div class="footer-glass-content">
         Designed & Developed by
         <span class="nic-brand">National Informatics Centre (NIC)</span>
       </div>
-    </div>
+    </footer>
   </footer>
 </div>
