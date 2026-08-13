@@ -147,54 +147,55 @@
 
 <!-- RESULTS SECTION: SUMMARY CARD + TABLE -->
 <div *ngIf="!isLoading && hasSearched" class="fade-in-up results-wrapper">
-  <!-- SUMMARY & ACTION HUB -->
-  <div *ngIf="caseSummary" class="docket-action-hub">
-    <!-- Left: Compact Executive Summary Card (Centered Cause Title) -->
-    <div class="compact-executive-card">
-      <!-- Centered Cause Title Block -->
-      <div class="card-hero-centered">
-        <span class="cause-tag">CAUSE TITLE</span>
-        <h4 class="litigant-headline-red">{{ caseSummary.causeTitle }}</h4>
+  <!-- 1. Top Action Strip: Generate Notice Button on Top-Right -->
+  <div class="top-action-deck">
+    <button
+      pButton
+      type="button"
+      label="Generate Notice"
+      icon="pi pi-plus"
+      class="top-generate-btn"
+      (click)="openGenerateNoticeModal()"
+    ></button>
+  </div>
+
+  <!-- 2. Vibrant Modern Square Summary Card -->
+  <div *ngIf="caseSummary" class="vibrant-summary-card">
+    <!-- Centered Cause Title Block -->
+    <div class="card-hero-center">
+      <div class="cause-badge">
+        <i class="pi pi-bookmark"></i>
+        <span>CAUSE TITLE</span>
       </div>
-
-      <!-- Hairline Divider -->
-      <div class="card-hairline-sep"></div>
-
-      <!-- 3-Segment Data Matrix -->
-      <div class="card-metrics-grid">
-        <div class="metric-segment">
-          <span class="segment-label">Filing Number</span>
-          <span class="segment-val font-numeric">{{
-            caseSummary.filingNo
-          }}</span>
-        </div>
-
-        <div class="metric-segment text-center-segment">
-          <span class="segment-label">Case No</span>
-          <span class="segment-val">{{ caseSummary.caseNo }}</span>
-        </div>
-
-        <div class="metric-segment text-right-segment">
-          <span class="segment-label">Date of Filing</span>
-          <span class="segment-val">{{ caseSummary.dateOfFiling }}</span>
-        </div>
-      </div>
+      <h3 class="cause-highlight-text">{{ caseSummary.causeTitle }}</h3>
     </div>
 
-    <!-- Right: Generate Notice Button Panel -->
-    <div class="action-panel-right">
-      <button
-        pButton
-        type="button"
-        label="Generate Notice"
-        icon="pi pi-plus"
-        class="generate-notice-btn"
-        (click)="openGenerateNoticeModal()"
-      ></button>
+    <!-- Micro Line Divider -->
+    <div class="accent-glow-line"></div>
+
+    <!-- 3-Column Interactive Metric Tiles -->
+    <div class="interactive-metrics-grid">
+      <!-- Filing No Tile (Cyan/Sky Glow) -->
+      <div class="metric-glass-tile sky-tile">
+        <span class="tile-label">Filing Number</span>
+        <span class="tile-val">{{ caseSummary.filingNo }}</span>
+      </div>
+
+      <!-- Case No Tile (Indigo Glow) -->
+      <div class="metric-glass-tile indigo-tile">
+        <span class="tile-label">Case Number</span>
+        <span class="tile-val">{{ caseSummary.caseNo }}</span>
+      </div>
+
+      <!-- Filing Date Tile (Emerald/Green Glow) -->
+      <div class="metric-glass-tile emerald-tile">
+        <span class="tile-label">Date of Filing</span>
+        <span class="tile-val">{{ caseSummary.dateOfFiling }}</span>
+      </div>
     </div>
   </div>
 
-  <!-- 2. Dynamic Results Table -->
+  <!-- 3. Dynamic Results Table Below -->
   <app-custom-table
     [cols]="tableColumns"
     [data]="caseRecords"

@@ -1,168 +1,196 @@
 /* ==========================================================================
-   SUMMARY & ACTION HUB (Compact Layout + Centered Title)
+   TOP ACTION DECK (Button on Top-Right)
    ========================================================================== */
 
-.docket-action-hub {
+.top-action-deck {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 
-  @media (max-width: 960px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-
-/* 1. Compact Executive Card (Left Side) */
-.compact-executive-card {
-  flex: 1;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.15rem 1.6rem;
-  box-shadow:
-    0 1px 3px rgba(15, 23, 42, 0.03),
-    0 8px 24px -4px rgba(15, 23, 42, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  transition: all 0.25s ease;
-
-  &:hover {
-    box-shadow:
-      0 4px 10px rgba(15, 23, 42, 0.04),
-      0 14px 28px -4px rgba(15, 23, 42, 0.06);
-    border-color: #cbd5e1;
-  }
-
-  /* Centered Cause Title Section */
-  .card-hero-centered {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 0.35rem;
-
-    .cause-tag {
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #64748b;
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      padding: 0.15rem 0.55rem;
-      border-radius: 5px;
-    }
-
-    .litigant-headline-red {
-      margin: 0;
-      font-size: 1.15rem; /* Scaled down for compact feel */
-      font-weight: 800;
-      color: #dc2626; /* Crimson Red */
-      letter-spacing: -0.015em;
-      line-height: 1.35;
-    }
-  }
-
-  /* Hairline Divider */
-  .card-hairline-sep {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      #e2e8f0 30%,
-      #e2e8f0 70%,
-      transparent 100%
-    );
-  }
-
-  /* 3-Segment Data Layout */
-  .card-metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    align-items: center;
-
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-      gap: 0.65rem;
-
-      .text-center-segment,
-      .text-right-segment {
-        align-items: flex-start !important;
-        text-align: left !important;
-      }
-    }
-
-    .metric-segment {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-
-      &.text-center-segment {
-        align-items: center;
-        text-align: center;
-      }
-
-      &.text-right-segment {
-        align-items: flex-end;
-        text-align: right;
-      }
-
-      .segment-label {
-        font-size: 0.72rem;
-        font-weight: 750;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        color: #64748b;
-      }
-
-      .segment-val {
-        font-size: 0.98rem;
-        font-weight: 700;
-        color: #0f172a;
-        letter-spacing: -0.01em;
-
-        &.font-numeric {
-          color: #1e3a8a;
-          font-weight: 800;
-          letter-spacing: 0.02em;
-        }
-      }
-    }
-  }
-}
-
-/* 2. Right Generate Notice Action Panel */
-.action-panel-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-shrink: 0;
-
-  .generate-notice-btn {
-    background: #1e3a8a !important;
-    border-color: #1e3a8a !important;
+  .top-generate-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    border: none !important;
     color: #ffffff !important;
-    font-size: 0.9rem !important;
-    font-weight: 750 !important;
-    padding: 0.85rem 1.4rem !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 14px rgba(30, 58, 138, 0.22);
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    font-size: 0.88rem !important;
+    font-weight: 800 !important;
+    padding: 0.65rem 1.4rem !important;
+    border-radius: 8px !important; /* Modern Square Corner */
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
     &:hover {
-      background: #172554 !important;
-      border-color: #172554 !important;
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(30, 58, 138, 0.3);
+    }
+  }
+}
+
+/* ==========================================================================
+   VIBRANT INTERACTIVE SQUARE SUMMARY CARD
+   ========================================================================== */
+
+.vibrant-summary-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px; /* Crisp Square Shape */
+  padding: 1.4rem 1.75rem;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1. Centered Cause Title Block */
+.card-hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.45rem;
+
+  .cause-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    color: #ef4444;
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  .cause-highlight-text {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 850;
+    color: #b91c1c; /* Bold Crimson */
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+  }
+}
+
+/* Accent Glowing Separator */
+.accent-glow-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #cbd5e1 30%,
+    #cbd5e1 70%,
+    transparent 100%
+  );
+}
+
+/* 2. Interactive Colorful Metric Tiles (Square Grid) */
+.interactive-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-glass-tile {
+    /* Flexbox centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontal Center */
+    justify-content: center; /* Vertical Center */
+    text-align: center; /* Multi-line text center */
+
+    gap: 0.35rem;
+    padding: 1rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    cursor: default;
+
+    .tile-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .tile-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    /* Sky/Blue Theme */
+    &.sky-tile {
+      background: #f0f9ff;
+      border-color: #bae6fd;
+
+      .tile-label {
+        color: #0284c7;
+      }
+      .tile-val {
+        color: #0369a1;
+      }
+
+      &:hover {
+        background: #e0f2fe;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+      }
+    }
+
+    /* Indigo Theme */
+    &.indigo-tile {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+
+      .tile-label {
+        color: #4f46e5;
+      }
+      .tile-val {
+        color: #3730a3;
+      }
+
+      &:hover {
+        background: #e0e7ff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+      }
+    }
+
+    /* Emerald Theme */
+    &.emerald-tile {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+
+      .tile-label {
+        color: #16a34a;
+      }
+      .tile-val {
+        color: #15803d;
+      }
+
+      &:hover {
+        background: #dcfce7;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+      }
     }
   }
 }
