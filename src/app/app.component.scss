@@ -88,7 +88,6 @@ main.flex-grow-1 {
   backdrop-filter: blur(15px) saturate(180%);
   -webkit-backdrop-filter: blur(15px) saturate(180%);
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
   border-bottom-left-radius: 24px;
@@ -232,7 +231,6 @@ main.flex-grow-1 {
 
 .brand-subtitle {
   font-size: 0.85rem;
-  color: #64748b;
   font-weight: 600;
   margin-bottom: 0; /* Remove old bottom margin */
 }
@@ -241,7 +239,7 @@ main.flex-grow-1 {
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
-  color: #475569;
+  color: #070707;
 }
 
 /* --- VERTICAL DIVIDER --- */
@@ -254,8 +252,8 @@ main.flex-grow-1 {
 /* --- COLUMN COMMON STYLING --- */
 .gf-title {
   font-size: 12px;
-  font-weight: 700;
-  color: #94a3b8; /* Muted title color */
+  font-weight: 800;
+  color: #001d7e;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 1.25rem;
@@ -274,7 +272,7 @@ main.flex-grow-1 {
 
 .link-list a {
   text-decoration: none;
-  color: #475569;
+
   font-size: 14px;
   font-weight: 500;
   display: flex;
@@ -317,7 +315,6 @@ main.flex-grow-1 {
 }
 
 .sys-label {
-  color: #64748b;
 }
 
 .version-badge {
