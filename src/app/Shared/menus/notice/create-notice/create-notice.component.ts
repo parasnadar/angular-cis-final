@@ -14,6 +14,7 @@ import {
   CustomTableComponent,
   ColumnDef,
 } from '../../../custom-table/custom-table.component';
+import { DatePickerModule } from 'primeng/datepicker';
 
 export interface CaseSummaryCard {
   filingNo: string;
@@ -33,11 +34,27 @@ export interface CaseSummaryCard {
     InputTextModule,
     DialogModule,
     CustomTableComponent,
+    DatePickerModule,
   ],
   templateUrl: './create-notice.component.html',
   styleUrl: './create-notice.component.scss',
 })
 export class CreateNoticeComponent implements OnInit {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.generateYearOptions();
+    this.initializeRegistrationForm();
+    this.filingForm = this.fb.group({
+      filingNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+    });
+    this.caseDetailsForm = this.fb.group({
+      caseType: ['1'],
+      caseNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      caseYear: [new Date().getFullYear().toString()],
+    });
+  }
+
   isLoading: boolean = false;
   hasSearched: boolean = false;
 
@@ -57,6 +74,7 @@ export class CreateNoticeComponent implements OnInit {
 
   filingForm!: FormGroup;
   caseDetailsForm!: FormGroup;
+  GenerateNoticeForm!: FormGroup;
 
   activeSearchTab: 'filing' | 'case' = 'filing';
   caseYearOptions: { label: string; value: string }[] = [];
@@ -64,20 +82,6 @@ export class CreateNoticeComponent implements OnInit {
     { label: 'Appeal(APL)', value: '1' },
     { label: 'NAPA(NAPA)', value: '2' },
   ];
-
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.generateYearOptions();
-    this.filingForm = this.fb.group({
-      filingNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-    });
-    this.caseDetailsForm = this.fb.group({
-      caseType: ['1'],
-      caseNo: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      caseYear: [new Date().getFullYear().toString()],
-    });
-  }
 
   generateYearOptions(): void {
     const currentYear = new Date().getFullYear();
@@ -161,5 +165,48 @@ export class CreateNoticeComponent implements OnInit {
         dateOfNotice: '20/01/2026',
       },
     ];
+  }
+
+  courtNoOptions = [
+    { label: 'Court I', value: 'court_01' },
+    { label: 'Court II', value: 'court_02' },
+    { label: 'Court III', value: 'court_03' },
+    { label: 'Court IV', value: 'court_04' },
+  ];
+
+  benchNatureOptions = [
+    { label: 'Single Bench', value: '1' },
+    { label: 'Division Bench', value: '2' },
+    { label: 'Registrar', value: '3' },
+    { label: 'Full Bench', value: '4' },
+    { label: 'Special Bench', value: '5' },
+  ];
+
+  benchOption = [{ label: 'Delhi(PB)', value: 'delhi_pb' }];
+
+  initializeRegistrationForm(): void {
+    this.GenerateNoticeForm = this.fb.group({
+      bench: [null, Validators.required],
+      benchNature: [null, Validators.required],
+      listingDate: [null, Validators.required],
+      benchCauseTime: [null, [Validators.required]],
+
+      courtNo: [null, Validators.required],
+    });
+  }
+  isFieldInvalid(fieldName: string): boolean {
+    const control = this.GenerateNoticeForm.get(fieldName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+  onRegisterSubmit(): void {
+    if (this.GenerateNoticeForm.invalid) {
+      this.GenerateNoticeForm.markAllAsTouched();
+      return;
+    }
+
+    // Capture the read-only presiding member control along with active raw values
+    const formPayload = this.GenerateNoticeForm.getRawValue();
+
+    console.log('Form submission successful. Sending payload:', formPayload);
   }
 }
