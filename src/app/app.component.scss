@@ -123,9 +123,29 @@ main.flex-grow-1 {
 }
 
 .vertical-divider {
-  width: 1.5px;
-  height: 40px;
-  background: rgba(0, 29, 126, 0.15); /* Using your brand blue tint */
+  position: relative;
+  width: 2px;
+  height: 42px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 29, 126, 0.3) 25%,
+    rgba(0, 29, 126, 0.3) 75%,
+    transparent
+  );
+}
+
+/* Center Diamond Shape */
+.vertical-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 29, 126, 0.4);
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 1px;
 }
 
 /* Hover effects for a premium feel */
@@ -242,11 +262,30 @@ main.flex-grow-1 {
   color: #070707;
 }
 
-/* --- VERTICAL DIVIDER --- */
 .footer-divider {
-  width: 1px;
-  background-color: #e2e8f0;
-  align-self: stretch; /* Fills height */
+  position: relative;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 29, 126, 0.3) 25%,
+    rgba(0, 29, 126, 0.3) 75%,
+    transparent
+  );
+}
+
+/* Center Diamond Shape */
+.footer-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 29, 126, 0.4);
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 1px;
 }
 
 /* --- COLUMN COMMON STYLING --- */
