@@ -505,19 +505,219 @@
       <!-- CONDITIONAL BLOCK 4: Specific Notice (WYSIWYG Rich Text Notice Editor) -->
       <div
         *ngIf="GenerateNoticeForm.get('type_notice')?.value === '4'"
-        class="editor-panel-section fade-in"
+        class="editor-enterprise-suite fade-in"
+        [class.editor-fullscreen-active]="isEditorFullscreen"
       >
         <div class="form-field-group full-span-group">
-          <label for="notice_editor">
-            Notice Data (Custom Draft Editor)
-            <span class="required-star">*</span>
-          </label>
+          <!-- Top Action Bar for Quick Legal Templates & Tags -->
+          <div class="editor-quick-toolbar">
+            <div class="quick-tools-left">
+              <span class="tools-title"
+                ><i class="pi pi-bolt"></i> Quick Actions:</span
+              >
+              <button
+                type="button"
+                class="tag-quick-btn load-template-btn"
+                (click)="loadOfficialTemplate()"
+                title="Load Official Legal Tribunal Notice Format"
+              >
+                <i class="pi pi-file-o"></i> Insert Official Notice Format
+              </button>
+            </div>
+
+            <div class="quick-tags-group">
+              <span class="tools-title">Insert Dynamic Tags:</span>
+              <button
+                type="button"
+                class="tag-quick-btn"
+                (click)="insertTag('Case_No')"
+              >
+                + Case No
+              </button>
+              <button
+                type="button"
+                class="tag-quick-btn"
+                (click)="insertTag('Hearing_Date')"
+              >
+                + Hearing Date
+              </button>
+              <button
+                type="button"
+                class="tag-quick-btn"
+                (click)="insertTag('Appellant_Name')"
+              >
+                + Appellant
+              </button>
+              <button
+                type="button"
+                class="tag-quick-btn"
+                (click)="insertTag('Respondent_Name')"
+              >
+                + Respondent
+              </button>
+            </div>
+
+            <button
+              type="button"
+              class="fullscreen-toggle-btn"
+              (click)="toggleEditorFullscreen()"
+              [title]="
+                isEditorFullscreen ? 'Exit Full Screen' : 'Expand Full Screen'
+              "
+            >
+              <i
+                [class]="
+                  isEditorFullscreen
+                    ? 'pi pi-window-minimize'
+                    : 'pi pi-window-maximize'
+                "
+              ></i>
+            </button>
+          </div>
+
+          <!-- Main PrimeNG Editor with Comprehensive Custom Header -->
           <p-editor
             id="notice_editor"
             formControlName="noticeEditorData"
-            [style]="{ height: '240px' }"
-            placeholder="Draft and style the notice content here..."
-          ></p-editor>
+            (onTextChange)="onEditorTextChange($event)"
+            [style]="{
+              height: isEditorFullscreen ? 'calc(100vh - 280px)' : '320px',
+            }"
+            placeholder="Type, format, style, or generate your custom legal notice here..."
+          >
+            <!-- COMPREHENSIVE ADVANCED TOOLBAR -->
+            <ng-template pTemplate="header">
+              <!-- Group 1: Typography & Headings -->
+              <span class="ql-formats">
+                <!-- Font Family Selector -->
+                <select class="ql-font" title="Font Family">
+                  <option value="roboto" selected>Roboto (Modern)</option>
+                  <option value="inter">Inter (UI Sans)</option>
+                  <option value="georgia">Georgia (Classic)</option>
+                  <option value="times">Times New Roman (Legal)</option>
+                  <option value="arial">Arial (Clean)</option>
+                  <option value="inconsolata">Monospace (Code)</option>
+                </select>
+
+                <!-- Headings -->
+                <select class="ql-header" title="Heading Level">
+                  <option value="1">Heading 1 (Main Title)</option>
+                  <option value="2">Heading 2 (Section)</option>
+                  <option value="3">Heading 3 (Sub-section)</option>
+                  <option value="4">Heading 4</option>
+                  <option selected>Normal Text</option>
+                </select>
+
+                <!-- Explicit Font Sizes -->
+                <select class="ql-size" title="Font Size">
+                  <option value="10px">10px</option>
+                  <option value="12px">12px</option>
+                  <option value="14px" selected>14px</option>
+                  <option value="16px">16px</option>
+                  <option value="18px">18px</option>
+                  <option value="22px">22px</option>
+                  <option value="28px">28px</option>
+                  <option value="36px">36px</option>
+                </select>
+              </span>
+
+              <!-- Group 2: Basic Text Formatting -->
+              <span class="ql-formats">
+                <button class="ql-bold" title="Bold (Ctrl+B)"></button>
+                <button class="ql-italic" title="Italic (Ctrl+I)"></button>
+                <button
+                  class="ql-underline"
+                  title="Underline (Ctrl+U)"
+                ></button>
+                <button class="ql-strike" title="Strikethrough"></button>
+              </span>
+
+              <!-- Group 3: Script & Code -->
+              <span class="ql-formats">
+                <button
+                  class="ql-script"
+                  value="sub"
+                  title="Subscript"
+                ></button>
+                <button
+                  class="ql-script"
+                  value="super"
+                  title="Superscript"
+                ></button>
+                <button class="ql-code" title="Inline Code"></button>
+                <button class="ql-code-block" title="Code Block"></button>
+              </span>
+
+              <!-- Group 4: Colors & Backgrounds -->
+              <span class="ql-formats">
+                <select class="ql-color" title="Font Color"></select>
+                <select class="ql-background" title="Highlight Color"></select>
+              </span>
+
+              <!-- Group 5: Alignments & Indentations -->
+              <span class="ql-formats">
+                <select class="ql-align" title="Text Alignment"></select>
+                <button
+                  class="ql-indent"
+                  value="-1"
+                  title="Decrease Indent"
+                ></button>
+                <button
+                  class="ql-indent"
+                  value="+1"
+                  title="Increase Indent"
+                ></button>
+              </span>
+
+              <!-- Group 6: Lists & Quotes -->
+              <span class="ql-formats">
+                <button
+                  class="ql-list"
+                  value="ordered"
+                  title="Numbered List"
+                ></button>
+                <button
+                  class="ql-list"
+                  value="bullet"
+                  title="Bullet List"
+                ></button>
+                <button
+                  class="ql-blockquote"
+                  title="Blockquote / Legal Citation"
+                ></button>
+              </span>
+
+              <!-- Group 7: Inserts & Media -->
+              <span class="ql-formats">
+                <button class="ql-link" title="Insert Hyperlink"></button>
+                <button class="ql-image" title="Insert Image / Seal"></button>
+              </span>
+
+              <!-- Group 8: Utility & Reset -->
+              <span class="ql-formats">
+                <button class="ql-clean" title="Clear Formatting"></button>
+              </span>
+            </ng-template>
+          </p-editor>
+
+          <!-- Bottom Status Bar: Word Count & Help Hint -->
+          <div class="editor-bottom-statusbar">
+            <div class="status-tip">
+              <i class="pi pi-info-circle"></i>
+              <span
+                >Use shortcuts: <b>Ctrl+B</b> for bold, <b>Ctrl+U</b> for
+                underline. Dynamic tags auto-replace at generation.</span
+              >
+            </div>
+            <div class="status-metrics">
+              <span class="metric-pill"
+                >Words: <strong>{{ editorWordCount }}</strong></span
+              >
+              <span class="metric-pill"
+                >Characters: <strong>{{ editorCharCount }}</strong></span
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>

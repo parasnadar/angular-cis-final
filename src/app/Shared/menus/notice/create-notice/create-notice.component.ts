@@ -19,7 +19,33 @@ import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { EditorModule } from 'primeng/editor';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TextareaModule } from 'primeng/textarea';
+import Quill from 'quill';
 
+// 1. Register Custom Font Families with Quill
+const Font = Quill.import('attributors/class/font') as any;
+Font.whitelist = [
+  'roboto',
+  'inter',
+  'georgia',
+  'times',
+  'arial',
+  'inconsolata',
+];
+Quill.register(Font, true);
+
+// 2. Register Custom Font Sizes
+const Size = Quill.import('attributors/style/size') as any;
+Size.whitelist = [
+  '10px',
+  '12px',
+  '14px',
+  '16px',
+  '18px',
+  '22px',
+  '28px',
+  '36px',
+];
+Quill.register(Size, true);
 export interface CaseSummaryCard {
   filingNo: string;
   caseNo: string;
@@ -177,6 +203,52 @@ export class CreateNoticeComponent implements OnInit {
   }
 
   // generate notice
+  isEditorFullscreen: boolean = false;
+
+  editorWordCount: number = 0;
+  editorCharCount: number = 0;
+  // --- ADVANCED EDITOR ACTIONS ---
+
+  /** Live Word and Character Counter */
+  onEditorTextChange(event: any): void {
+    const text = event.textValue || '';
+    const cleanText = text.trim();
+    this.editorCharCount = cleanText.length;
+    this.editorWordCount = cleanText ? cleanText.split(/\s+/).length : 0;
+  }
+
+  loadOfficialTemplate(): void {
+    const templateHtml = `
+      <h2 style="text-align: center;"><strong>BEFORE THE GOODS AND SERVICES TAX APPELLATE TRIBUNAL</strong></h2>
+      <p style="text-align: center;"><strong>PRINCIPAL BENCH, NEW DELHI</strong></p>
+      <p style="text-align: right;"><strong>Date:</strong> {{Notice_Date}}</p>
+      <p><strong>IN THE MATTER OF:</strong></p>
+      <p><strong>{{Appellant_Name}}</strong> ... <em>Appellant</em></p>
+      <p style="text-align: center;"><strong>VERSUS</strong></p>
+      <p><strong>{{Respondent_Name}}</strong> ... <em>Respondent</em></p>
+      <hr/>
+      <h3 style="text-align: center;"><strong>NOTICE OF HEARING</strong></h3>
+      <p>WHEREAS the above-titled appeal has been filed before this Tribunal and has been fixed for preliminary hearing/admission on <strong>{{Hearing_Date}}</strong> at <strong>{{Hearing_Time}}</strong>.</p>
+      <p>NOW THEREFORE, take notice that you are hereby required to appear in person or through a duly authorized representative on the date and time mentioned above.</p>
+      <br/>
+      <p style="text-align: right;"><strong>By Order of the Tribunal</strong><br/>Registrar / Authorized Officer</p>
+    `;
+    this.GenerateNoticeForm.patchValue({ noticeEditorData: templateHtml });
+  }
+
+  insertTag(tag: string): void {
+    const currentData =
+      this.GenerateNoticeForm.get('noticeEditorData')?.value || '';
+    this.GenerateNoticeForm.patchValue({
+      noticeEditorData:
+        currentData +
+        ` <span style="color: #2563eb; font-weight: bold;">{{${tag}}}</span> `,
+    });
+  }
+
+  toggleEditorFullscreen(): void {
+    this.isEditorFullscreen = !this.isEditorFullscreen;
+  }
   selectedFileName: string | null = null;
   responOptions = [
     { label: 'Assistant Commissioner, Zone-1', value: '1' },

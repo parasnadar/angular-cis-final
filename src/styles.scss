@@ -965,3 +965,104 @@ body {
     transform: translateY(0);
   }
 }
+/* ==========================================================================
+   ADVANCED QUILL TYPOGRAPHY, SIZES & DROPDOWN LABELS
+   ========================================================================== */
+
+/* Web Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap");
+
+/* Font Class Mappings */
+.ql-font-roboto {
+  font-family: "Roboto", sans-serif !important;
+}
+.ql-font-inter {
+  font-family: "Inter", sans-serif !important;
+}
+.ql-font-georgia {
+  font-family: Georgia, serif !important;
+}
+.ql-font-times {
+  font-family: "Times New Roman", Times, serif !important;
+}
+.ql-font-arial {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.ql-font-inconsolata {
+  font-family: "Inconsolata", monospace !important;
+}
+
+/* Custom Font Family Dropdown Labels in Quill Toolbar */
+.ql-snow .ql-picker.ql-font {
+  .ql-picker-label[data-value="roboto"]::before,
+  .ql-picker-item[data-value="roboto"]::before {
+    content: "Roboto" !important;
+    font-family: "Roboto", sans-serif !important;
+  }
+
+  .ql-picker-label[data-value="inter"]::before,
+  .ql-picker-item[data-value="inter"]::before {
+    content: "Inter" !important;
+    font-family: "Inter", sans-serif !important;
+  }
+
+  .ql-picker-label[data-value="georgia"]::before,
+  .ql-picker-item[data-value="georgia"]::before {
+    content: "Georgia" !important;
+    font-family: Georgia, serif !important;
+  }
+
+  .ql-picker-label[data-value="times"]::before,
+  .ql-picker-item[data-value="times"]::before {
+    content: "Times New Roman" !important;
+    font-family: "Times New Roman", serif !important;
+  }
+
+  .ql-picker-label[data-value="arial"]::before,
+  .ql-picker-item[data-value="arial"]::before {
+    content: "Arial" !important;
+    font-family: Arial, sans-serif !important;
+  }
+
+  .ql-picker-label[data-value="inconsolata"]::before,
+  .ql-picker-item[data-value="inconsolata"]::before {
+    content: "Monospace" !important;
+    font-family: "Inconsolata", monospace !important;
+  }
+}
+
+/* Custom Font Size Dropdown Labels in Quill Toolbar */
+.ql-snow .ql-picker.ql-size {
+  .ql-picker-label[data-value="10px"]::before,
+  .ql-picker-item[data-value="10px"]::before {
+    content: "10px" !important;
+  }
+  .ql-picker-label[data-value="12px"]::before,
+  .ql-picker-item[data-value="12px"]::before {
+    content: "12px" !important;
+  }
+  .ql-picker-label[data-value="14px"]::before,
+  .ql-picker-item[data-value="14px"]::before {
+    content: "14px" !important;
+  }
+  .ql-picker-label[data-value="16px"]::before,
+  .ql-picker-item[data-value="16px"]::before {
+    content: "16px" !important;
+  }
+  .ql-picker-label[data-value="18px"]::before,
+  .ql-picker-item[data-value="18px"]::before {
+    content: "18px" !important;
+  }
+  .ql-picker-label[data-value="22px"]::before,
+  .ql-picker-item[data-value="22px"]::before {
+    content: "22px" !important;
+  }
+  .ql-picker-label[data-value="28px"]::before,
+  .ql-picker-item[data-value="28px"]::before {
+    content: "28px" !important;
+  }
+  .ql-picker-label[data-value="36px"]::before,
+  .ql-picker-item[data-value="36px"]::before {
+    content: "36px" !important;
+  }
+}
