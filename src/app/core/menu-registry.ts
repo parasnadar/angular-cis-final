@@ -34,6 +34,19 @@ import { DateWisePendencyComponent } from '../Shared/menus/report/date-wise-pend
 import { CourtWisePendencyComponent } from '../Shared/menus/report/court-wise-pendency/court-wise-pendency.component';
 import { ProceedingCalenderComponent } from '../Shared/menus/report/proceeding-calender/proceeding-calender.component';
 import { NotificationReportComponent } from '../Shared/menus/report/notification-report/notification-report.component';
+import { ListWithDefectDocumentsComponent } from '../Shared/menus/listing/list-with-defect-documents/list-with-defect-documents.component';
+import { RecusedCasesListComponent } from '../Shared/menus/listing/recused-cases-list/recused-cases-list.component';
+import { DisplayBoardComponent } from '../Shared/menus/display-board/display-board/display-board.component';
+import { ConsolidatedDisplayBoardComponent } from '../Shared/menus/display-board/consolidated-display-board/consolidated-display-board.component';
+import { ActionsForStatusComponent } from '../Shared/menus/masters/actions-for-status/actions-for-status.component';
+import { DesignationMasterComponent } from '../Shared/menus/masters/designation-master/designation-master.component';
+import { PurposeMasterComponent } from '../Shared/menus/masters/purpose-master/purpose-master.component';
+import { UploadNapaDocComponent } from '../Shared/menus/masters/upload-napa-doc/upload-napa-doc.component';
+import { SmsReportComponent } from '../Shared/menus/report/sms-report/sms-report.component';
+import { RestoreCaseComponent } from '../Shared/menus/restore/restore-case/restore-case.component';
+import { RestoredCasesComponent } from '../Shared/menus/restore/restored-cases/restored-cases.component';
+import { PlacesOfSupplyAcceptedComponent } from '../Shared/menus/scrutiny/places-of-supply-accepted/places-of-supply-accepted.component';
+import { PlacesOfSupplyDefectListComponent } from '../Shared/menus/scrutiny/places-of-supply-defect-list/places-of-supply-defect-list.component';
 
 export const MENU_REGISTRY: Record<string, Type<any>> = {
   //bench
@@ -53,6 +66,7 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   court_wise_pendency: CourtWisePendencyComponent,
   proceeding_calender: ProceedingCalenderComponent,
   notification_report: NotificationReportComponent,
+  sms_report: SmsReportComponent,
   //causelist
   final_causelist: FinalCauselistComponent,
   draft_causelist: DraftCauselistComponent,
@@ -77,9 +91,28 @@ export const MENU_REGISTRY: Record<string, Type<any>> = {
   connect_cases: ConnectCasesComponent,
   disconnect_cases: DisconnectCasesComponent,
   old_case_listing: OldCaseListingComponent,
+  list_with_defect_documents: ListWithDefectDocumentsComponent,
+  recused_cases_list: RecusedCasesListComponent,
   //Proceeding
   case_proceeding: CaseProceedingComponent,
   case_proceeding_report: CaseProceedingReportComponent,
   unscheduled_listing: UnscheduledListingComponent,
+  //Display Board
+  consolidated_display_board: ConsolidatedDisplayBoardComponent,
+  display_board: DisplayBoardComponent,
+
+  //Masters
+  actions_for_status: ActionsForStatusComponent,
+  designation_master: DesignationMasterComponent,
+  purpose_master: PurposeMasterComponent,
+  upload_napa_doc: UploadNapaDocComponent,
+
+  //restore
+  restore_case: RestoreCaseComponent,
+  restored_cases: RestoredCasesComponent,
+
+  //scrutiny
+  places_of_supply_accepted: PlacesOfSupplyAcceptedComponent,
+  places_of_supply_defect_list: PlacesOfSupplyDefectListComponent,
   // Add more mappings here as you create more screens
 };
