@@ -7,6 +7,8 @@ import {
   HostListener,
   ElementRef,
   OnInit,
+  OnChanges,
+  SimpleChanges,
   input,
 } from '@angular/core';
 
@@ -25,11 +27,12 @@ export interface BarOptionItem {
   templateUrl: './utility-bar.component.html',
   styleUrl: './utility-bar.component.scss',
 })
-export class UtilityBarComponent implements OnInit {
+export class UtilityBarComponent implements OnInit, OnChanges {
   username = input<string>('GUEST');
   initials = input<string>('GS');
   @Input() menuOptions: BarOptionItem[] = [];
   @Input() defaultSelectId: string | number = 'cause_list';
+  @Input() maxVisibleItems: number = 8; // Single row me max visible items
 
   @Output() onOptionSelected = new EventEmitter<{
     parent: BarOptionItem;
@@ -37,16 +40,38 @@ export class UtilityBarComponent implements OnInit {
   }>();
   @Output() onAccountAction = new EventEmitter<string>();
 
+  visibleMenuOptions: BarOptionItem[] = [];
+  overflowMenuOptions: BarOptionItem[] = [];
+
   activeDropdownIndex: number | null = null;
+  isMoreMenuOpen: boolean = false;
   isProfileMenuOpen: boolean = false;
 
-  currentSelectedItem: BarOptionItem | null = null; // Precise choice (could be parent or child)
-  currentSelectedParent: BarOptionItem | null = null; // Stays locked onto the root parent tab
+  currentSelectedItem: BarOptionItem | null = null;
+  currentSelectedParent: BarOptionItem | null = null;
 
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
+    this.processMenuLayout();
     this.initializeDefaultSelection();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['menuOptions'] || changes['maxVisibleItems']) {
+      this.processMenuLayout();
+    }
+  }
+
+  processMenuLayout(): void {
+    if (!this.menuOptions) return;
+    if (this.menuOptions.length > this.maxVisibleItems) {
+      this.visibleMenuOptions = this.menuOptions.slice(0, this.maxVisibleItems);
+      this.overflowMenuOptions = this.menuOptions.slice(this.maxVisibleItems);
+    } else {
+      this.visibleMenuOptions = [...this.menuOptions];
+      this.overflowMenuOptions = [];
+    }
   }
 
   initializeDefaultSelection(): void {
@@ -63,12 +88,11 @@ export class UtilityBarComponent implements OnInit {
           );
           if (match) {
             this.currentSelectedItem = match;
-            this.currentSelectedParent = item; // Highlight this parent tab
+            this.currentSelectedParent = item;
             return;
           }
         }
       }
-      // Ultimate fallback to first row configuration item
       this.currentSelectedItem = this.menuOptions[0];
       this.currentSelectedParent = this.menuOptions[0];
     }
@@ -84,13 +108,22 @@ export class UtilityBarComponent implements OnInit {
   toggleDropdown(event: Event, index: number): void {
     event.stopPropagation();
     this.isProfileMenuOpen = false;
+    this.isMoreMenuOpen = false;
     this.activeDropdownIndex =
       this.activeDropdownIndex === index ? null : index;
+  }
+
+  toggleMoreMenu(event: Event): void {
+    event.stopPropagation();
+    this.isProfileMenuOpen = false;
+    this.activeDropdownIndex = null;
+    this.isMoreMenuOpen = !this.isMoreMenuOpen;
   }
 
   toggleProfileMenu(event: Event): void {
     event.stopPropagation();
     this.activeDropdownIndex = null;
+    this.isMoreMenuOpen = false;
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
   }
 
@@ -99,7 +132,7 @@ export class UtilityBarComponent implements OnInit {
       this.toggleDropdown(event, index);
     } else {
       this.currentSelectedItem = item;
-      this.currentSelectedParent = item; // Parent is itself
+      this.currentSelectedParent = item;
       this.closeAllMenus();
       this.onOptionSelected.emit({ parent: item });
     }
@@ -111,10 +144,17 @@ export class UtilityBarComponent implements OnInit {
     event: Event,
   ): void {
     event.stopPropagation();
-    this.currentSelectedItem = childItem; // Highlights specific child row
-    this.currentSelectedParent = parentItem; // Simultaneously flags and holds parent active styling
+    this.currentSelectedItem = childItem;
+    this.currentSelectedParent = parentItem;
     this.closeAllMenus();
     this.onOptionSelected.emit({ parent: parentItem, child: childItem });
+  }
+
+  isOverflowActive(): boolean {
+    if (!this.currentSelectedParent) return false;
+    return this.overflowMenuOptions.some(
+      (item) => item.id === this.currentSelectedParent?.id,
+    );
   }
 
   handleAccountAction(actionType: string): void {
@@ -125,5 +165,6 @@ export class UtilityBarComponent implements OnInit {
   closeAllMenus(): void {
     this.activeDropdownIndex = null;
     this.isProfileMenuOpen = false;
+    this.isMoreMenuOpen = false;
   }
 }

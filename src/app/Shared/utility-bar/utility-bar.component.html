@@ -1,8 +1,10 @@
 <div class="glass-utility-dock">
   <div class="dock-inner-flex">
+    <!-- Navigation Primary Single-Row Track -->
     <nav class="dock-nav-track">
+      <!-- Visible Normal Items -->
       <div
-        *ngFor="let item of menuOptions; let idx = index"
+        *ngFor="let item of visibleMenuOptions; let idx = index"
         class="dock-nav-item-group"
       >
         <button
@@ -22,6 +24,7 @@
           ></i>
         </button>
 
+        <!-- Flyout for visible item -->
         <div
           *ngIf="item.children && item.children.length > 0"
           class="dock-flyout-panel desktop-only-panel"
@@ -47,8 +50,87 @@
           </div>
         </div>
       </div>
+
+      <!-- SMART OVERFLOW "MORE" PILL (Rendered ONLY when items exceed limit) -->
+      <div *ngIf="overflowMenuOptions.length > 0" class="dock-nav-item-group">
+        <button
+          type="button"
+          class="dock-nav-pill more-trigger-pill"
+          [class.is-active]="isOverflowActive()"
+          [class.dropdown-active]="isMoreMenuOpen"
+          (click)="toggleMoreMenu($event)"
+        >
+          <span class="pill-title-flex">
+            <i class="pi pi-ellipsis-h core-pill-icon"></i>
+            <span class="pill-label-text">More</span>
+          </span>
+          <i class="pi pi-chevron-down dynamic-arrow-icon"></i>
+        </button>
+
+        <!-- More Options Flyout Grid -->
+        <div
+          class="dock-flyout-panel desktop-only-panel more-flyout-grid"
+          [class.is-expanded]="isMoreMenuOpen"
+        >
+          <div class="flyout-inner-container">
+            <ng-container *ngFor="let overItem of overflowMenuOptions">
+              <!-- If item has no subchildren -->
+              <button
+                *ngIf="!overItem.children || overItem.children.length === 0"
+                type="button"
+                class="flyout-action-node"
+                [class.is-node-selected]="currentSelectedParent === overItem"
+                (click)="handleParentClick(overItem, -1, $event)"
+              >
+                <span class="node-title-flex">
+                  <i
+                    *ngIf="overItem.icon"
+                    [class]="overItem.icon + ' node-icon'"
+                  ></i>
+                  <span class="node-label-text">{{ overItem.label }}</span>
+                </span>
+                <i
+                  *ngIf="currentSelectedParent === overItem"
+                  class="pi pi-check selection-check-ico"
+                ></i>
+              </button>
+
+              <!-- If item has children in More Menu -->
+              <div
+                *ngIf="overItem.children && overItem.children.length > 0"
+                class="nested-group-block"
+              >
+                <div class="nested-group-title">
+                  <i *ngIf="overItem.icon" [class]="overItem.icon"></i>
+                  <span>{{ overItem.label }}</span>
+                </div>
+                <button
+                  *ngFor="let child of overItem.children"
+                  type="button"
+                  class="flyout-action-node nested-child-node"
+                  [class.is-node-selected]="currentSelectedItem === child"
+                  (click)="handleChildClick(overItem, child, $event)"
+                >
+                  <span class="node-title-flex">
+                    <i
+                      *ngIf="child.icon"
+                      [class]="child.icon + ' node-icon'"
+                    ></i>
+                    <span class="node-label-text">{{ child.label }}</span>
+                  </span>
+                  <i
+                    *ngIf="currentSelectedItem === child"
+                    class="pi pi-check selection-check-ico"
+                  ></i>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </nav>
 
+    <!-- Right Profile Section -->
     <div class="dock-utilities-dock">
       <ng-content select="[actions]"></ng-content>
 
@@ -99,30 +181,4 @@
       </div>
     </div>
   </div>
-
-  <ng-container *ngFor="let item of menuOptions; let idx = index">
-    <div
-      *ngIf="
-        item.children && item.children.length > 0 && activeDropdownIndex === idx
-      "
-      class="mobile-upfront-submenu-panel"
-    >
-      <button
-        *ngFor="let child of item.children"
-        type="button"
-        class="flyout-action-node"
-        [class.is-node-selected]="currentSelectedItem === child"
-        (click)="handleChildClick(item, child, $event)"
-      >
-        <span class="node-title-flex">
-          <i *ngIf="child.icon" [class]="child.icon + ' node-icon'"></i>
-          <span class="node-label-text">{{ child.label }}</span>
-        </span>
-        <i
-          *ngIf="currentSelectedItem === child"
-          class="pi pi-check selection-check-ico"
-        ></i>
-      </button>
-    </div>
-  </ng-container>
 </div>
