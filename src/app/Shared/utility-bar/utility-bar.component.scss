@@ -11,25 +11,59 @@ $blue-vibrant: #2563eb;
 $blue-subtle: #eff6ff;
 $blue-glow: rgba(37, 99, 235, 0.28);
 
+/* ==========================================================================
+   VISION-OS / macOS ULTRA-FROSTED COMMAND DOCK
+   ========================================================================== */
+
 .glass-utility-dock {
+  position: relative;
   width: 100%;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid rgba(203, 213, 225, 0.75);
-  border-radius: 18px;
-  padding: 0.45rem 0.85rem;
   box-sizing: border-box;
-  margin-top: 0.4rem;
-  margin-bottom: 1.4rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.55rem 0.95rem;
   display: flex;
   flex-direction: column;
-  position: relative;
   z-index: 90;
+
+  /* Multi-Layered Frosted Substrate */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(248, 250, 252, 0.84) 100%
+  );
+  backdrop-filter: blur(32px) saturate(210%);
+  -webkit-backdrop-filter: blur(32px) saturate(210%);
+
+  /* Precision Hardware Border */
+  border-radius: 20px;
+
+  outline: 1px solid rgba(203, 213, 225, 0.55);
+
+  /* Deep Volumetric Floating Shadows */
   box-shadow:
-    0 12px 30px -4px rgba(15, 23, 42, 0.07),
-    0 4px 10px -2px rgba(15, 23, 42, 0.02),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+    0 20px 40px -12px rgba(15, 23, 42, 0.08),
+    0 8px 16px -6px rgba(15, 23, 42, 0.04),
+    0 1px 3px rgba(15, 23, 42, 0.02),
+    inset 0 1.5px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(226, 232, 240, 0.6);
+
+  transition:
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Ambient Glass Glow on Hover */
+  &:hover {
+    border-color: rgba(255, 255, 255, 1);
+    outline-color: rgba(148, 163, 184, 0.65);
+    box-shadow:
+      0 26px 48px -12px rgba(15, 23, 42, 0.11),
+      0 12px 24px -8px rgba(15, 23, 42, 0.05),
+      0 1px 3px rgba(15, 23, 42, 0.02),
+      inset 0 1.5px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(203, 213, 225, 0.8);
+  }
 }
 
 .dock-inner-flex {
