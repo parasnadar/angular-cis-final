@@ -729,7 +729,7 @@
       type="button"
       label="Cancel"
       class="p-button-text modal-cancel-btn"
-      (click)="displayNoticeModal = false"
+      (click)="onCancelModal()"
     ></button>
     <button
       pButton
@@ -737,7 +737,6 @@
       form="generateNoticeForm"
       label="Proceed"
       class="modal-submit-btn"
-      [disabled]="GenerateNoticeForm.invalid || isLoading"
     ></button>
   </ng-template>
 </p-dialog>

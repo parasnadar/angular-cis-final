@@ -20,6 +20,7 @@ import { EditorModule } from 'primeng/editor';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TextareaModule } from 'primeng/textarea';
 import Quill from 'quill';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 // 1. Register Custom Font Families with Quill
 const Font = Quill.import('attributors/class/font') as any;
@@ -75,7 +76,10 @@ export interface CaseSummaryCard {
 })
 export class CreateNoticeComponent implements OnInit {
   @ViewChild('fileUploadRef') fileUploadRef!: FileUpload;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private notify: NotificationService,
+  ) {}
 
   ngOnInit(): void {
     this.generateYearOptions();
@@ -321,9 +325,55 @@ export class CreateNoticeComponent implements OnInit {
       return;
     }
 
-    // Capture the read-only presiding member control along with active raw values
+    this.isLoading = true;
     const formPayload = this.GenerateNoticeForm.getRawValue();
 
     console.log('Form submission successful. Sending payload:', formPayload);
+
+    setTimeout(() => {
+      // 1. Success Toast Notification
+      this.notify.showSuccess('Notice Generation Successfully');
+
+      // 2. Refresh/Reset everything
+      this.resetModalState();
+
+      // 3. Close the Modal
+      this.displayNoticeModal = false;
+      this.isLoading = false;
+    }, 600);
+  }
+
+  /** Complete cleanup for forms, upload buffers, and editor state */
+  resetModalState(): void {
+    // Form reset to default values
+    this.GenerateNoticeForm.reset({
+      type_notice: '',
+      party_selection: '',
+      wasPersonPresentInFirstNotice: 'no',
+      wasCourtAbleToHear: 'no',
+      noticeEditorData: '',
+      submissionRequirement: '',
+      listOfDocuments: '',
+      respon_list: '',
+      hearingDate: null,
+      noticeTime: null,
+      additionalDoc: null,
+    });
+
+    // Clear file selection & PrimeNG internal upload buffer
+    this.selectedFileName = null;
+    if (this.fileUploadRef) {
+      this.fileUploadRef.clear();
+    }
+
+    // Reset editor stats
+    this.editorWordCount = 0;
+    this.editorCharCount = 0;
+    this.isEditorFullscreen = false;
+  }
+
+  onCancelModal(): void {
+    this.resetModalState();
+    this.displayNoticeModal = false;
   }
 }
