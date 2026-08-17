@@ -32,7 +32,7 @@ export class UtilityBarComponent implements OnInit, OnChanges {
   initials = input<string>('GS');
   @Input() menuOptions: BarOptionItem[] = [];
   @Input() defaultSelectId: string | number = 'cause_list';
-  @Input() maxVisibleItems: number = 8; // Single row me max visible items
+  @Input() maxVisibleItems: number = 8;
 
   @Output() onOptionSelected = new EventEmitter<{
     parent: BarOptionItem;
@@ -46,6 +46,10 @@ export class UtilityBarComponent implements OnInit, OnChanges {
   activeDropdownIndex: number | null = null;
   isMoreMenuOpen: boolean = false;
   isProfileMenuOpen: boolean = false;
+
+  // Mobile Drawer States
+  isMobileDrawerOpen: boolean = false;
+  activeMobileAccordionIndex: number | null = null;
 
   currentSelectedItem: BarOptionItem | null = null;
   currentSelectedParent: BarOptionItem | null = null;
@@ -127,6 +131,19 @@ export class UtilityBarComponent implements OnInit, OnChanges {
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
   }
 
+  // Mobile Drawer Triggers
+  toggleMobileDrawer(event: Event): void {
+    event.stopPropagation();
+    this.closeAllMenus();
+    this.isMobileDrawerOpen = !this.isMobileDrawerOpen;
+  }
+
+  toggleMobileAccordion(index: number, event: Event): void {
+    event.stopPropagation();
+    this.activeMobileAccordionIndex =
+      this.activeMobileAccordionIndex === index ? null : index;
+  }
+
   handleParentClick(item: BarOptionItem, index: number, event: Event): void {
     if (item.children && item.children.length > 0) {
       this.toggleDropdown(event, index);
@@ -152,9 +169,17 @@ export class UtilityBarComponent implements OnInit, OnChanges {
 
   isOverflowActive(): boolean {
     if (!this.currentSelectedParent) return false;
-    return this.overflowMenuOptions.some(
-      (item) => item.id === this.currentSelectedParent?.id,
-    );
+    return this.overflowMenuOptions.some((item) => {
+      if (item.id === this.currentSelectedParent?.id) return true;
+      if (item.children) {
+        return item.children.some(
+          (c) =>
+            c.id === this.currentSelectedItem?.id ||
+            c.id === this.currentSelectedParent?.id,
+        );
+      }
+      return false;
+    });
   }
 
   handleAccountAction(actionType: string): void {
@@ -166,5 +191,6 @@ export class UtilityBarComponent implements OnInit, OnChanges {
     this.activeDropdownIndex = null;
     this.isProfileMenuOpen = false;
     this.isMoreMenuOpen = false;
+    this.isMobileDrawerOpen = false;
   }
 }

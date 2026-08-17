@@ -1,7 +1,24 @@
+<!-- 1. TOP DOCK BAR -->
 <div class="glass-utility-dock">
   <div class="dock-inner-flex">
-    <!-- Navigation Primary Single-Row Track -->
-    <nav class="dock-nav-track">
+    <!-- Mobile Hamburger Trigger (Visible on <= 850px) -->
+    <button
+      type="button"
+      class="mobile-collapse-trigger"
+      [class.is-open]="isMobileDrawerOpen"
+      (click)="toggleMobileDrawer($event)"
+      title="Open Menu"
+    >
+      <div class="hamburger-box">
+        <span class="bar top-bar"></span>
+        <span class="bar mid-bar"></span>
+        <span class="bar btm-bar"></span>
+      </div>
+      <span class="mobile-trigger-label">Menu</span>
+    </button>
+
+    <!-- Desktop Navigation Track -->
+    <nav class="dock-nav-track desktop-nav-track">
       <!-- Visible Normal Items -->
       <div
         *ngFor="let item of visibleMenuOptions; let idx = index"
@@ -10,7 +27,7 @@
         <button
           type="button"
           class="dock-nav-pill"
-          [class.is-active]="currentSelectedParent === item"
+          [class.is-active]="currentSelectedParent?.id === item.id"
           [class.dropdown-active]="activeDropdownIndex === idx"
           (click)="handleParentClick(item, idx, $event)"
         >
@@ -24,7 +41,7 @@
           ></i>
         </button>
 
-        <!-- Flyout for visible item -->
+        <!-- Submenu Flyout -->
         <div
           *ngIf="item.children && item.children.length > 0"
           class="dock-flyout-panel desktop-only-panel"
@@ -35,7 +52,7 @@
               *ngFor="let child of item.children"
               type="button"
               class="flyout-action-node"
-              [class.is-node-selected]="currentSelectedItem === child"
+              [class.is-node-selected]="currentSelectedItem?.id === child.id"
               (click)="handleChildClick(item, child, $event)"
             >
               <span class="node-title-flex">
@@ -43,7 +60,7 @@
                 <span class="node-label-text">{{ child.label }}</span>
               </span>
               <i
-                *ngIf="currentSelectedItem === child"
+                *ngIf="currentSelectedItem?.id === child.id"
                 class="pi pi-check selection-check-ico"
               ></i>
             </button>
@@ -51,7 +68,7 @@
         </div>
       </div>
 
-      <!-- SMART OVERFLOW "MORE" PILL (Rendered ONLY when items exceed limit) -->
+      <!-- MORE OPTIONS OVERFLOW PILL -->
       <div *ngIf="overflowMenuOptions.length > 0" class="dock-nav-item-group">
         <button
           type="button"
@@ -67,19 +84,21 @@
           <i class="pi pi-chevron-down dynamic-arrow-icon"></i>
         </button>
 
-        <!-- More Options Flyout Grid -->
+        <!-- More Flyout Grid -->
         <div
           class="dock-flyout-panel desktop-only-panel more-flyout-grid"
           [class.is-expanded]="isMoreMenuOpen"
         >
           <div class="flyout-inner-container">
             <ng-container *ngFor="let overItem of overflowMenuOptions">
-              <!-- If item has no subchildren -->
+              <!-- Item without children -->
               <button
                 *ngIf="!overItem.children || overItem.children.length === 0"
                 type="button"
                 class="flyout-action-node"
-                [class.is-node-selected]="currentSelectedParent === overItem"
+                [class.is-node-selected]="
+                  currentSelectedParent?.id === overItem.id
+                "
                 (click)="handleParentClick(overItem, -1, $event)"
               >
                 <span class="node-title-flex">
@@ -90,12 +109,12 @@
                   <span class="node-label-text">{{ overItem.label }}</span>
                 </span>
                 <i
-                  *ngIf="currentSelectedParent === overItem"
+                  *ngIf="currentSelectedParent?.id === overItem.id"
                   class="pi pi-check selection-check-ico"
                 ></i>
               </button>
 
-              <!-- If item has children in More Menu -->
+              <!-- Item with children -->
               <div
                 *ngIf="overItem.children && overItem.children.length > 0"
                 class="nested-group-block"
@@ -108,7 +127,9 @@
                   *ngFor="let child of overItem.children"
                   type="button"
                   class="flyout-action-node nested-child-node"
-                  [class.is-node-selected]="currentSelectedItem === child"
+                  [class.is-node-selected]="
+                    currentSelectedItem?.id === child.id
+                  "
                   (click)="handleChildClick(overItem, child, $event)"
                 >
                   <span class="node-title-flex">
@@ -119,7 +140,7 @@
                     <span class="node-label-text">{{ child.label }}</span>
                   </span>
                   <i
-                    *ngIf="currentSelectedItem === child"
+                    *ngIf="currentSelectedItem?.id === child.id"
                     class="pi pi-check selection-check-ico"
                   ></i>
                 </button>
@@ -175,6 +196,102 @@
                 <i class="pi pi-power-off"></i>
               </div>
               <span class="row-label">Sign Out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. FULL SCREEN MOBILE DRAWER (PLACED OUTSIDE TO ESCAPE STACKING BOUNDS) -->
+<div
+  class="mobile-collapsed-drawer-panel"
+  [class.is-drawer-open]="isMobileDrawerOpen"
+>
+  <div
+    class="mobile-drawer-backdrop"
+    (click)="isMobileDrawerOpen = false"
+  ></div>
+
+  <div class="mobile-drawer-surface">
+    <div class="mobile-drawer-header">
+      <div class="drawer-header-left">
+        <span class="drawer-title">Navigation</span>
+        <span class="drawer-subtitle">All Services & Modules</span>
+      </div>
+      <button
+        type="button"
+        class="drawer-close-btn"
+        (click)="isMobileDrawerOpen = false"
+      >
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-scrollable">
+      <div
+        *ngFor="let item of menuOptions; let idx = index"
+        class="mobile-drawer-item"
+      >
+        <!-- Direct Item -->
+        <button
+          *ngIf="!item.children || item.children.length === 0"
+          type="button"
+          class="mobile-drawer-link"
+          [class.is-active-mobile]="currentSelectedParent?.id === item.id"
+          (click)="handleParentClick(item, idx, $event)"
+        >
+          <span class="link-label-group">
+            <i *ngIf="item.icon" [class]="item.icon + ' m-icon'"></i>
+            <span>{{ item.label }}</span>
+          </span>
+          <i
+            *ngIf="currentSelectedParent?.id === item.id"
+            class="pi pi-check m-check"
+          ></i>
+        </button>
+
+        <!-- Accordion Item with Children -->
+        <div
+          *ngIf="item.children && item.children.length > 0"
+          class="mobile-accordion-group"
+        >
+          <button
+            type="button"
+            class="mobile-drawer-link accordion-toggle"
+            [class.is-active-mobile]="currentSelectedParent?.id === item.id"
+            (click)="toggleMobileAccordion(idx, $event)"
+          >
+            <span class="link-label-group">
+              <i *ngIf="item.icon" [class]="item.icon + ' m-icon'"></i>
+              <span>{{ item.label }}</span>
+            </span>
+            <i
+              class="pi pi-chevron-down m-arrow"
+              [class.is-rotated]="activeMobileAccordionIndex === idx"
+            ></i>
+          </button>
+
+          <div
+            *ngIf="activeMobileAccordionIndex === idx"
+            class="mobile-accordion-body"
+          >
+            <button
+              *ngFor="let child of item.children"
+              type="button"
+              class="mobile-sublink"
+              [class.is-sub-active]="currentSelectedItem?.id === child.id"
+              (click)="handleChildClick(item, child, $event)"
+            >
+              <span class="sublink-text">
+                <i *ngIf="child.icon" [class]="child.icon + ' sub-icon'"></i>
+                <span>{{ child.label }}</span>
+              </span>
+              <i
+                *ngIf="currentSelectedItem?.id === child.id"
+                class="pi pi-check m-check"
+              ></i>
             </button>
           </div>
         </div>
