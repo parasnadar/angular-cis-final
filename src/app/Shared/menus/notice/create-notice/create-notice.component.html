@@ -221,7 +221,9 @@
     (ngSubmit)="onRegisterSubmit()"
     class="workspace-form-layout"
   >
+    <!-- ROW 1: Notice Type & Select Party -->
     <div class="form-grid-columns">
+      <!-- Notice Type Field -->
       <div class="form-field-group">
         <label for="notice_type">
           Notice Type <span class="required-star">*</span>
@@ -243,8 +245,69 @@
             required.
           </small>
         </div>
+
+        <!-- CONDITIONAL BLOCK 1: Second Notice Type Specific Question (Right Below Dropdown) -->
+        <div
+          *ngIf="GenerateNoticeForm.get('type_notice')?.value === '2'"
+          class="sub-question-card fade-in"
+        >
+          <span class="sub-question-label">
+            Was the person present in 1st notice hearing?
+          </span>
+          <div class="radio-choices-row">
+            <div class="radio-option">
+              <p-radiobutton
+                inputId="pres1_yes"
+                name="wasPersonPresentInFirstNotice"
+                value="yes"
+                formControlName="wasPersonPresentInFirstNotice"
+              ></p-radiobutton>
+              <label for="pres1_yes">Yes</label>
+            </div>
+            <div class="radio-option">
+              <p-radiobutton
+                inputId="pres1_no"
+                name="wasPersonPresentInFirstNotice"
+                value="no"
+                formControlName="wasPersonPresentInFirstNotice"
+              ></p-radiobutton>
+              <label for="pres1_no">No</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONDITIONAL BLOCK 2: Third Notice Type Specific Question (Right Below Dropdown) -->
+        <div
+          *ngIf="GenerateNoticeForm.get('type_notice')?.value === '3'"
+          class="sub-question-card fade-in"
+        >
+          <span class="sub-question-label">
+            Was the court able to hear the person?
+          </span>
+          <div class="radio-choices-row">
+            <div class="radio-option">
+              <p-radiobutton
+                inputId="hear_yes"
+                name="wasCourtAbleToHear"
+                value="yes"
+                formControlName="wasCourtAbleToHear"
+              ></p-radiobutton>
+              <label for="hear_yes">Yes</label>
+            </div>
+            <div class="radio-option">
+              <p-radiobutton
+                inputId="hear_no"
+                name="wasCourtAbleToHear"
+                value="no"
+                formControlName="wasCourtAbleToHear"
+              ></p-radiobutton>
+              <label for="hear_no">No</label>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Select Party Field -->
       <div class="form-field-group">
         <label for="party_select">
           Select Party <span class="required-star">*</span>
@@ -270,6 +333,7 @@
       </div>
     </div>
 
+    <!-- MAIN FORM BODY: Rendered when Notice Type is Selected -->
     <div
       *ngIf="GenerateNoticeForm.get('type_notice')?.value"
       class="fade-in-up"
@@ -352,7 +416,7 @@
           </div>
         </div>
 
-        <!-- Upload Additional Document Form Field -->
+        <!-- Upload Additional Document -->
         <div class="form-field-group">
           <label for="additional_doc">
             Upload Additional Document <span class="required-star">*</span>
@@ -397,6 +461,63 @@
               required.
             </small>
           </div>
+        </div>
+      </div>
+
+      <!-- CONDITIONAL BLOCK 3: Notice Requiring Submission of Documents (Dropdown + Free Textarea) -->
+      <div
+        *ngIf="GenerateNoticeForm.get('type_notice')?.value === '5'"
+        class="doc-submission-panel fade-in"
+      >
+        <div class="form-grid-columns">
+          <div class="form-field-group">
+            <label for="submission_options">
+              Submission Requirement <span class="required-star">*</span>
+            </label>
+            <p-select
+              id="submission_options"
+              formControlName="submissionRequirement"
+              [options]="docSubmissionOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select Requirement Option"
+              [appendTo]="'body'"
+              styleClass="w-full form-dropdown-field"
+            ></p-select>
+          </div>
+        </div>
+
+        <div class="form-field-group full-span-group mt-2">
+          <label for="list_of_docs">
+            List of Documents <span class="required-star">*</span>
+          </label>
+          <textarea
+            id="list_of_docs"
+            rows="3"
+            pTextarea
+            formControlName="listOfDocuments"
+            placeholder="Type / list the documents required for submission..."
+            class="w-full plain-text-input doc-textarea-field"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- CONDITIONAL BLOCK 4: Specific Notice (WYSIWYG Rich Text Notice Editor) -->
+      <div
+        *ngIf="GenerateNoticeForm.get('type_notice')?.value === '4'"
+        class="editor-panel-section fade-in"
+      >
+        <div class="form-field-group full-span-group">
+          <label for="notice_editor">
+            Notice Data (Custom Draft Editor)
+            <span class="required-star">*</span>
+          </label>
+          <p-editor
+            id="notice_editor"
+            formControlName="noticeEditorData"
+            [style]="{ height: '240px' }"
+            placeholder="Draft and style the notice content here..."
+          ></p-editor>
         </div>
       </div>
     </div>

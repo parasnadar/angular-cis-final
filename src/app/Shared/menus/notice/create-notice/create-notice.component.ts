@@ -16,6 +16,9 @@ import {
 } from '../../../custom-table/custom-table.component';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FileUpload, FileUploadModule } from 'primeng/fileupload';
+import { EditorModule } from 'primeng/editor';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TextareaModule } from 'primeng/textarea';
 
 export interface CaseSummaryCard {
   filingNo: string;
@@ -37,6 +40,9 @@ export interface CaseSummaryCard {
     CustomTableComponent,
     DatePickerModule,
     FileUploadModule,
+    EditorModule,
+    RadioButtonModule,
+    TextareaModule,
   ],
   templateUrl: './create-notice.component.html',
   styleUrl: './create-notice.component.scss',
@@ -172,7 +178,10 @@ export class CreateNoticeComponent implements OnInit {
 
   // generate notice
   selectedFileName: string | null = null;
-  responOptions = [{ label: 'Rkesh rajan', value: 'court_01' }];
+  responOptions = [
+    { label: 'Assistant Commissioner, Zone-1', value: '1' },
+    { label: 'Joint Commissioner (Appeals)', value: '2' },
+  ];
 
   partyOptions = [
     { label: 'Respondent', value: '1' },
@@ -180,11 +189,17 @@ export class CreateNoticeComponent implements OnInit {
   ];
 
   notice_type_options = [
-    { label: 'Specific Notice', value: '1' },
-    { label: 'First notice requiring presence', value: '2' },
-    { label: 'Second notice requiring presence', value: '3' },
-    { label: 'Third notice requiring presence', value: '4' },
+    { label: 'First notice Requiring presence', value: '1' },
+    { label: 'Second notice Requiring presence', value: '2' },
+    { label: 'Third notice Requiring presence', value: '3' },
+    { label: 'Specific notice', value: '4' },
     { label: 'Notice requiring submission of Documents', value: '5' },
+  ];
+
+  docSubmissionOptions = [
+    { label: 'Requiring only Document', value: 'DOC_ONLY' },
+    { label: 'Requiring only Person', value: 'PERSON_ONLY' },
+    { label: 'Requiring both document and person', value: 'BOTH' },
   ];
 
   initializeRegistrationForm(): void {
@@ -195,6 +210,13 @@ export class CreateNoticeComponent implements OnInit {
       noticeTime: [null, [Validators.required]],
       additionalDoc: [null, Validators.required],
       respon_list: [null, Validators.required],
+
+      // Conditional controls
+      wasPersonPresentInFirstNotice: ['no'], // For type 2
+      wasCourtAbleToHear: ['no'], // For type 3
+      noticeEditorData: [''], // For type 4 (Specific Notice)
+      submissionRequirement: [''], // For type 5
+      listOfDocuments: [''], // For type 5
     });
   }
 
