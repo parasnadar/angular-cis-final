@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -15,6 +15,7 @@ import {
   ColumnDef,
 } from '../../../custom-table/custom-table.component';
 import { DatePickerModule } from 'primeng/datepicker';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 
 export interface CaseSummaryCard {
   filingNo: string;
@@ -35,11 +36,13 @@ export interface CaseSummaryCard {
     DialogModule,
     CustomTableComponent,
     DatePickerModule,
+    FileUploadModule,
   ],
   templateUrl: './create-notice.component.html',
   styleUrl: './create-notice.component.scss',
 })
 export class CreateNoticeComponent implements OnInit {
+  @ViewChild('fileUploadRef') fileUploadRef!: FileUpload;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -168,7 +171,7 @@ export class CreateNoticeComponent implements OnInit {
   }
 
   // generate notice
-
+  selectedFileName: string | null = null;
   responOptions = [{ label: 'Rkesh rajan', value: 'court_01' }];
 
   partyOptions = [
@@ -190,9 +193,29 @@ export class CreateNoticeComponent implements OnInit {
       party_selection: [null, Validators.required],
       hearingDate: [null, Validators.required],
       noticeTime: [null, [Validators.required]],
-
+      additionalDoc: [null, Validators.required],
       respon_list: [null, Validators.required],
     });
+  }
+
+  onFileSelect(event: any): void {
+    if (event.files && event.files.length > 0) {
+      const file = event.files[0];
+      this.selectedFileName = file.name;
+      this.GenerateNoticeForm.patchValue({ additionalDoc: file });
+      this.GenerateNoticeForm.get('additionalDoc')?.markAsDirty();
+    }
+  }
+
+  removeSelectedFile(): void {
+    this.selectedFileName = null;
+    this.GenerateNoticeForm.patchValue({ additionalDoc: null });
+    this.GenerateNoticeForm.get('additionalDoc')?.markAsTouched();
+
+    // Clears PrimeNG internal file buffer and label
+    if (this.fileUploadRef) {
+      this.fileUploadRef.clear();
+    }
   }
   isFieldInvalid(fieldName: string): boolean {
     const control = this.GenerateNoticeForm.get(fieldName);
