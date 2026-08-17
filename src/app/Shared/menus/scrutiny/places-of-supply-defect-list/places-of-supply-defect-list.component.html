@@ -1,0 +1,17 @@
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Place Of Supply</h2>
+  </div>
+</div>
+<div>
+  <form [formGroup]="form" class="workspace-form-layout">
+    <div>
+      <app-dynamic-radio-group
+        formControlName="caseCategory"
+        [options]="caseCategoryOptions"
+        groupName="scrutinyCategories"
+        [minWidthPx]="220"
+      ></app-dynamic-radio-group>
+    </div>
+  </form>
+</div>

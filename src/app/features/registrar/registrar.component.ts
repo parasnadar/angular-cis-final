@@ -269,6 +269,69 @@ export class REGISTRARComponent implements OnInit {
         { id: 'notice_lists', label: 'Notice Lists' },
       ],
     },
+
+    {
+      id: 'report',
+      label: 'Report',
+      icon: 'pi pi-file',
+      children: [{ id: 'sms_report', label: 'SMS Report' }],
+    },
+    {
+      id: 'scrutiny',
+      label: 'Scrutiny',
+      icon: 'pi pi-megaphone',
+      children: [
+        { id: 'places_of_supply_accepted', label: 'Place of Supply Accepted' },
+        {
+          id: 'places_of_supply_defect_list',
+          label: 'Place of Supply Defect List',
+        },
+      ],
+    },
+    {
+      id: 'display_board',
+      label: 'Display Board',
+      icon: 'pi pi-megaphone',
+      children: [
+        {
+          id: 'consolidated_display_board',
+          label: 'Consolidated Display Board',
+        },
+        { id: 'display_board', label: 'Display Board' },
+      ],
+    },
+    {
+      id: 'restore_case',
+      label: 'Restore Case',
+      icon: 'pi pi-megaphone',
+      children: [
+        { id: 'restore_case', label: 'Restore Case' },
+        { id: 'restored_cases', label: 'Restored Cases' },
+      ],
+    },
+    {
+      id: 'listing',
+      label: 'Listing',
+      icon: 'pi pi-megaphone',
+      children: [
+        {
+          id: 'list_with_defect_documents',
+          label: 'List With Defect Documents',
+        },
+        { id: 'recused_cases_list', label: 'Recused Cases List' },
+      ],
+    },
+    {
+      id: 'masters',
+      label: 'Masters',
+      icon: 'pi pi-megaphone',
+      children: [
+        { id: 'actions_for_status', label: 'Actions For Status' },
+        { id: 'designation_master', label: 'Designation Master' },
+        { id: 'purpose_master', label: 'Purpose Master' },
+        { id: 'upload_napa_doc', label: 'Upload NAPA Doc' },
+      ],
+    },
   ];
 
   handleAccountActionEvent(actionType: string): void {
