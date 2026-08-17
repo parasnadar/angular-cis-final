@@ -21,7 +21,6 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    Select,
     ButtonModule,
     InputTextModule,
     ProgressSpinnerModule,

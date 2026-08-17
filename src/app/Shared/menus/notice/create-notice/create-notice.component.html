@@ -216,144 +216,137 @@
   styleClass="custom-notice-modal"
 >
   <form
+    id="generateNoticeForm"
     [formGroup]="GenerateNoticeForm"
     (ngSubmit)="onRegisterSubmit()"
     class="workspace-form-layout"
   >
     <div class="form-grid-columns">
-      <!-- Field 1: Bench Dropdown -->
-
       <div class="form-field-group">
-        <label for="man_bench"
-          >Notice Type <span class="required-star">*</span></label
-        >
-
+        <label for="notice_type">
+          Notice Type <span class="required-star">*</span>
+        </label>
         <p-select
-          id="man_bench"
-          formControlName="bench"
-          [options]="benchOption"
+          id="notice_type"
+          formControlName="type_notice"
+          [options]="notice_type_options"
           optionLabel="label"
           optionValue="value"
           placeholder="Select Notice Type"
           styleClass="w-full form-dropdown-field"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('bench') }"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('type_notice') }"
         ></p-select>
-
-        <div class="error-msg-space" *ngIf="isFieldInvalid('bench')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Notice Type selection is
-            required.</small
-          >
+        <div class="error-msg-space" *ngIf="isFieldInvalid('type_notice')">
+          <small class="error-text">
+            <i class="pi pi-times-circle"></i> Notice Type selection is
+            required.
+          </small>
         </div>
       </div>
 
-      <!-- Field 2: Bench Nature Dropdown -->
-
       <div class="form-field-group">
-        <label for="bench_nature"
-          >Select Party <span class="required-star">*</span></label
-        >
-
+        <label for="party_select">
+          Select Party <span class="required-star">*</span>
+        </label>
         <p-select
-          id="bench_nature"
-          formControlName="benchNature"
-          [options]="benchNatureOptions"
+          id="party_select"
+          formControlName="party_selection"
+          [options]="partyOptions"
           optionLabel="label"
           optionValue="value"
           placeholder="Select Party"
           styleClass="w-full form-dropdown-field"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('benchNature') }"
+          [ngClass]="{
+            'field-error-border': isFieldInvalid('party_selection'),
+          }"
         ></p-select>
-
-        <div class="error-msg-space" *ngIf="isFieldInvalid('benchNature')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Party selection is
-            required.</small
-          >
+        <div class="error-msg-space" *ngIf="isFieldInvalid('party_selection')">
+          <small class="error-text">
+            <i class="pi pi-times-circle"></i> Party selection is required.
+          </small>
         </div>
       </div>
     </div>
 
+    <!-- // same for any notice type selection ( open this div only when something is -->
+
     <div class="form-grid-columns">
-      <!-- Field 3: Listing Date Input -->
-
       <div class="form-field-group">
-        <label for="listing_date"
-          >Next hearing on <span class="required-star">*</span></label
-        >
-
+        <label for="respondent_list">
+          Select the Respondent <span class="required-star">*</span>
+        </label>
+        <p-select
+          id="respondent_list"
+          formControlName="respon_list"
+          [options]="responOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select court no assignment"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('respon_list') }"
+        ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('respon_list')">
+          <small class="error-text">
+            <i class="pi pi-times-circle"></i> Respondent is required.
+          </small>
+        </div>
+      </div>
+      <div class="form-field-group">
+        <label for="hearing_date">
+          Next hearing on <span class="required-star">*</span>
+        </label>
         <p-datepicker
-          id="listing_date"
-          formControlName="listingDate"
+          id="hearing_date"
+          formControlName="hearingDate"
           placeholder="Select Next Hearing Date"
           [showIcon]="true"
           [iconDisplay]="'input'"
           dateFormat="dd/mm/yy"
           styleClass="w-full form-calendar-field"
           [inputStyleClass]="
-            isFieldInvalid('listingDate')
+            isFieldInvalid('hearingDate')
               ? 'w-full form-input-field field-error-border'
               : 'w-full form-input-field'
           "
         ></p-datepicker>
-
-        <div class="error-msg-space" *ngIf="isFieldInvalid('listingDate')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Selection of Next Hearing is
-            required.</small
-          >
+        <div class="error-msg-space" *ngIf="isFieldInvalid('hearingDate')">
+          <small class="error-text">
+            <i class="pi pi-times-circle"></i> Selection of Next Hearing is
+            required.
+          </small>
         </div>
       </div>
 
-      <!-- Field 4: Time Input -->
-
       <div class="form-field-group">
-        <label for="bench_cause_list_time">
+        <label for="select_time">
           Select time <span class="required-star">*</span>
         </label>
-
         <p-datepicker
-          id="bench_cause_list_time"
-          formControlName="benchCauseTime"
+          id="select_time"
+          formControlName="noticeTime"
           [timeOnly]="true"
           [hourFormat]="'12'"
           placeholder="Select Time (e.g., 10:30 AM)"
           styleClass="w-full form-dropdown-field"
           [inputStyleClass]="
-            isFieldInvalid('benchCauseTime')
+            isFieldInvalid('noticeTime')
               ? 'w-full form-input-field field-error-border'
               : 'w-full form-input-field'
           "
         ></p-datepicker>
-
-        <div class="error-msg-space" *ngIf="isFieldInvalid('benchCauseTime')">
+        <div class="error-msg-space" *ngIf="isFieldInvalid('noticeTime')">
           <small class="error-text">
             <i class="pi pi-times-circle"></i> Time selection is required.
           </small>
         </div>
       </div>
 
+      <!-- Please complete this  -->
+
       <div class="form-field-group">
-        <label for="reg_court_no"
-          >Select the Respondent <span class="required-star">*</span></label
-        >
-
-        <p-select
-          id="reg_court_no"
-          formControlName="courtNo"
-          [options]="courtNoOptions"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Select court no assignment"
-          styleClass="w-full form-dropdown-field"
-          [ngClass]="{ 'field-error-border': isFieldInvalid('courtNo') }"
-        ></p-select>
-
-        <div class="error-msg-space" *ngIf="isFieldInvalid('courtNo')">
-          <small class="error-text"
-            ><i class="pi pi-times-circle"></i> Respondent is required.</small
-          >
-        </div>
+        <label for="party_select">
+          Upload Additional Document : <span class="required-star">*</span>
+        </label>
       </div>
     </div>
   </form>
@@ -366,13 +359,13 @@
       class="p-button-text modal-cancel-btn"
       (click)="displayNoticeModal = false"
     ></button>
-
     <button
       pButton
-      type="button"
+      type="submit"
+      form="generateNoticeForm"
       label="Proceed"
       class="modal-submit-btn"
-      (click)="displayNoticeModal = false"
+      [disabled]="GenerateNoticeForm.invalid || isLoading"
     ></button>
   </ng-template>
 </p-dialog>

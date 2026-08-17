@@ -167,31 +167,31 @@ export class CreateNoticeComponent implements OnInit {
     ];
   }
 
-  courtNoOptions = [
-    { label: 'Court I', value: 'court_01' },
-    { label: 'Court II', value: 'court_02' },
-    { label: 'Court III', value: 'court_03' },
-    { label: 'Court IV', value: 'court_04' },
+  // generate notice
+
+  responOptions = [{ label: 'Rkesh rajan', value: 'court_01' }];
+
+  partyOptions = [
+    { label: 'Respondent', value: '1' },
+    { label: "Applicant/Appeallant's", value: '2' },
   ];
 
-  benchNatureOptions = [
-    { label: 'Single Bench', value: '1' },
-    { label: 'Division Bench', value: '2' },
-    { label: 'Registrar', value: '3' },
-    { label: 'Full Bench', value: '4' },
-    { label: 'Special Bench', value: '5' },
+  notice_type_options = [
+    { label: 'Specific Notice', value: '1' },
+    { label: 'First notice requiring presence', value: '2' },
+    { label: 'Second notice requiring presence', value: '3' },
+    { label: 'Third notice requiring presence', value: '4' },
+    { label: 'Notice requiring submission of Documents', value: '5' },
   ];
-
-  benchOption = [{ label: 'Delhi(PB)', value: 'delhi_pb' }];
 
   initializeRegistrationForm(): void {
     this.GenerateNoticeForm = this.fb.group({
-      bench: [null, Validators.required],
-      benchNature: [null, Validators.required],
-      listingDate: [null, Validators.required],
-      benchCauseTime: [null, [Validators.required]],
+      type_notice: [null, Validators.required],
+      party_selection: [null, Validators.required],
+      hearingDate: [null, Validators.required],
+      noticeTime: [null, [Validators.required]],
 
-      courtNo: [null, Validators.required],
+      respon_list: [null, Validators.required],
     });
   }
   isFieldInvalid(fieldName: string): boolean {

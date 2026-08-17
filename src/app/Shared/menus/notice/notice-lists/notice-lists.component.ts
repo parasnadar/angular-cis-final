@@ -20,7 +20,7 @@ import { TableModule } from 'primeng/table';
     CommonModule,
     ReactiveFormsModule,
     DynamicRadioGroupComponent,
-    Select,
+
     DatePickerModule,
     ButtonModule,
     InputTextModule,
