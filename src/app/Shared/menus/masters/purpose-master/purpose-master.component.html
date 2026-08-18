@@ -1,1 +1,44 @@
-<p>purpose-master works!</p>
+<div class="fade-in-container">
+  <div class="form-card-header">
+    <h2>PURPOSE MASTER</h2>
+    <p class="header-disclaimer">
+      Fields marked with an asterisk (<span class="required-star">*</span>) are
+      strictly mandatory.
+    </p>
+  </div>
+
+  <form
+    [formGroup]="purposeMasterForm"
+    (ngSubmit)="onSubmit()"
+    class="workspace-form-layout"
+  >
+    <div class="form-grid-columns">
+      <div class="form-field-group">
+        <label for="purpose_name"
+          >Purpose Name <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="purpose_name"
+          type="text"
+          formControlName="nameOfPurpose"
+          class="w-full form-input-field"
+          placeholder="Enter Purpose Name"
+          [ngClass]="{
+            'field-error-border': isFieldInvalid('nameOfPurpose'),
+          }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('nameOfPurpose')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Purpose Name is required.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button Row -->
+    <div class="form-actions-row">
+      <button type="submit" class="submit-registration-btn">Submit</button>
+    </div>
+  </form>
+</div>

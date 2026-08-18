@@ -1,1 +1,51 @@
-<p>designation-master works!</p>
+<div class="fade-in-container">
+  <div class="form-card-header">
+    <h2>DESIGNATION MASTER</h2>
+    <p class="header-disclaimer">
+      Fields marked with an asterisk (<span class="required-star">*</span>) are
+      strictly mandatory.
+    </p>
+  </div>
+
+  <form
+    [formGroup]="designationMasterForm"
+    (ngSubmit)="onSubmit()"
+    class="workspace-form-layout"
+  >
+    <div class="form-grid-columns">
+      <div class="form-field-group">
+        <label for="designation_name"
+          >Designation Name <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="designation_name"
+          type="text"
+          formControlName="nameOfDesignation"
+          class="w-full form-input-field"
+          placeholder="Enter Designation Name"
+          [ngClass]="{
+            'field-error-border': isFieldInvalid('nameOfDesignation'),
+          }"
+        />
+        <div
+          class="error-msg-space"
+          *ngIf="isFieldInvalid('nameOfDesignation')"
+        >
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Designation Name is
+            required.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Separator Line before Action Button
+    <div class="horizontal-boundary-line form-buffer-margin"></div> -->
+
+    <!-- Action Button Row -->
+    <div class="form-actions-row">
+      <button type="submit" class="submit-registration-btn">Submit</button>
+    </div>
+  </form>
+</div>

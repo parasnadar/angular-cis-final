@@ -36,11 +36,11 @@ export class FreshCaseListingComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      caseCategory: ['1'],
-      courtNo: ['1'],
-      diaryFilingNo: [''],
-      listingDate: [null],
-      purpose: ['1'],
+      caseCategory: ['1', Validators.required],
+      courtNo: ['1', Validators.required],
+      diaryFilingNo: ['', Validators.required],
+      listingDate: [null, Validators.required],
+      purpose: ['1', Validators.required],
     });
   }
 
@@ -65,15 +65,28 @@ export class FreshCaseListingComponent {
 
   onSearch(): void {
     console.log('Executing query payload:', this.form.value);
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    // Execute backend posting operations here. Then reset gracefully:
+    this.form.reset();
   }
 
   onReset(): void {
-    this.form.patchValue({
-      caseCategory: ['1'],
+    this.form.reset({
+      caseCategory: '1',
       courtNo: '1',
       diaryFilingNo: '',
       listingDate: null,
       purpose: '1',
     });
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const control = this.form.get(fieldName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }

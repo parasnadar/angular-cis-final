@@ -1,1 +1,17 @@
-<p>list-with-defect-documents works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">List With Defect Document/Cross objection</h2>
+  </div>
+</div>
+<div>
+  <form [formGroup]="defectlistform" class="workspace-form-layout">
+    <div>
+      <app-dynamic-radio-group
+        formControlName="caseCategory"
+        [options]="caseCategoryOptions"
+        groupName="scrutinyCategories"
+        [minWidthPx]="220"
+      ></app-dynamic-radio-group>
+    </div>
+  </form>
+</div>

@@ -14,21 +14,29 @@
       ></app-dynamic-radio-group>
     </div>
 
-    <div class="filter-criteria-row">
-      <div class="inline-filter-field dropdown-wrapper">
-        <label class="filter-label">Court:</label>
+    <div class="form-grid-columns">
+      <div class="form-field-group">
+        <label for="reg_location"
+          >Court: <span class="required-star">*</span></label
+        >
         <p-select
           formControlName="courtNo"
           [options]="courtOption"
           optionLabel="label"
           optionValue="value"
-          styleClass="w-full white-bg-select locked-dropdown-frame"
-          [style]="{ width: '100%', 'min-width': '0' }"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('courtNo') }"
           placeholder="Search by"
         ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('courtNo')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Bench location selection is
+            required.</small
+          >
+        </div>
       </div>
 
-      <div class="inline-filter-field date-wrapper">
+      <div class="form-field-group">
         <label class="filter-label">Listing Date:</label>
         <p-datepicker
           formControlName="listingDate"
@@ -36,32 +44,55 @@
           dateFormat="dd-mm-yy"
           [showIcon]="true"
           [iconDisplay]="'input'"
-          styleClass="w-full"
-          inputStyleClass="dense-calendar-input"
+          styleClass="w-full form-calendar-field"
+          [inputStyleClass]="
+            isFieldInvalid('listingDate')
+              ? 'w-full form-input-field field-error-border'
+              : 'w-full form-input-field'
+          "
         ></p-datepicker>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('listingDate')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Official mandatory retirement
+            date target configuration is required.</small
+          >
+        </div>
       </div>
 
-      <div class="inline-filter-field dropdown-wrapper">
+      <div class="form-field-group">
         <label class="filter-label">Purpose:</label>
         <p-select
           formControlName="purpose"
           [options]="purposeOption"
           optionLabel="label"
           optionValue="value"
-          styleClass="w-full white-bg-select"
-          styleClass="w-full white-bg-select locked-dropdown-frame"
-          [style]="{ width: '100%', 'min-width': '0' }"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('purpose') }"
         ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('purpose')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> First name is required (min 2
+            characters).</small
+          >
+        </div>
       </div>
 
-      <div class="inline-filter-field text-input-wrapper">
+      <div class="form-field-group">
         <label class="filter-label">Filing No:</label>
         <input
           pInputText
           type="text"
           formControlName="diaryFilingNo"
           class="w-full plain-text-input"
+          placeholder="Enter Filing No"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('diaryFilingNo') }"
         />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('diaryFilingNo')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> First name is required (min 2
+            characters).</small
+          >
+        </div>
       </div>
 
       <div class="filter-actions-group">

@@ -1,1 +1,67 @@
-<p>actions-for-status works!</p>
+<div class="fade-in-container">
+  <div class="form-card-header">
+    <h2>Action Master</h2>
+    <p class="header-disclaimer">
+      Fields marked with an asterisk (<span class="required-star">*</span>) are
+      strictly mandatory.
+    </p>
+  </div>
+
+  <form
+    [formGroup]="actionMasterForm"
+    (ngSubmit)="onSubmit()"
+    class="workspace-form-layout"
+  >
+    <div class="form-grid-columns">
+      <div class="form-field-group">
+        <label for="action_name"
+          >Action Name <span class="required-star">*</span></label
+        >
+        <input
+          pInputText
+          id="action_name"
+          type="text"
+          formControlName="nameOfAction"
+          class="w-full form-input-field"
+          placeholder="Enter Action Name"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('nameOfAction') }"
+        />
+        <div class="error-msg-space" *ngIf="isFieldInvalid('nameOfAction')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Action Name is required.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-field-group">
+        <label for="action_for"
+          >Action For <span class="required-star">*</span></label
+        >
+        <p-select
+          id="action_for"
+          formControlName="for_action"
+          [options]="actionOption"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Action For"
+          styleClass="w-full form-dropdown-field"
+          [ngClass]="{ 'field-error-border': isFieldInvalid('for_action') }"
+        ></p-select>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('for_action')">
+          <small class="error-text"
+            ><i class="pi pi-times-circle"></i> Action selection is
+            required.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Separator Line before Action Button
+    <div class="horizontal-boundary-line form-buffer-margin"></div> -->
+
+    <!-- Action Button Row -->
+    <div class="form-actions-row">
+      <button type="submit" class="submit-registration-btn">Submit</button>
+    </div>
+  </form>
+</div>

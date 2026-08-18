@@ -1,1 +1,64 @@
-<p>display-board works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">Display Board</h2>
+  </div>
+</div>
+
+<div class="fade-in-container">
+  <form [formGroup]="orderReport" class="workspace-form-layout">
+    <div class="filter-criteria-row">
+      <div class="inline-filter-field dropdown-wrapper">
+        <label class="filter-label">Court:</label>
+        <p-select
+          formControlName="courtNo"
+          [options]="courtOption"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full white-bg-select locked-dropdown-frame"
+          [style]="{ width: '100%', 'min-width': '0' }"
+          placeholder="Search by"
+        ></p-select>
+      </div>
+
+      <div class="inline-filter-field date-wrapper">
+        <label class="filter-label">Bench Time:</label>
+        <p-datepicker
+          id="select_time"
+          formControlName="noticeTime"
+          [timeOnly]="true"
+          [hourFormat]="'12'"
+          placeholder="Select Time (e.g., 10:30 AM)"
+          [appendTo]="'body'"
+          styleClass="w-full form-dropdown-field"
+          [inputStyleClass]="
+            isFieldInvalid('noticeTime')
+              ? 'w-full form-input-field field-error-border'
+              : 'w-full form-input-field'
+          "
+        ></p-datepicker>
+        <div class="error-msg-space" *ngIf="isFieldInvalid('noticeTime')">
+          <small class="error-text">
+            <i class="pi pi-times-circle"></i> Time selection is required.
+          </small>
+        </div>
+      </div>
+
+      <div class="filter-actions-group">
+        <button
+          pButton
+          type="button"
+          label="Search"
+          (click)="onSearch()"
+          class="filter-search-btn"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Reset"
+          (click)="onReset()"
+          class="filter-reset-btn"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
