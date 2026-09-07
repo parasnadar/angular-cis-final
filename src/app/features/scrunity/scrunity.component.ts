@@ -21,6 +21,7 @@ import {
   TableAction,
 } from '../../Shared/custom-table/custom-table.component';
 import { Router } from '@angular/router';
+import { Action } from 'rxjs/internal/scheduler/Action';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -49,7 +50,16 @@ export class SCRUNITYComponent {
   private router = inject(Router);
 
   caseRecords: any[] = [];
-  tableColumns: ColumnDef[] = [];
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Sr. No.', width: '8%' },
+    { field: 'diaryNo', header: 'Date Of Filing.' },
+    { field: 'caseDetails', header: 'Case Type' },
+    { field: 'location', header: 'Diary/Filing No.' },
+    { field: 'date', header: 'Main Case Diary/Filing No.' },
+    { field: 'TITLE', header: 'Title Of Case' },
+    { field: 'CAT', header: 'Categories' },
+    { field: 'Action', header: 'Action' },
+  ];
 
   loadApiData(): void {
     // Example: Fetching from your API service
@@ -58,7 +68,19 @@ export class SCRUNITYComponent {
     // });
 
     // Dummy fallback for testing
-    this.caseRecords = [];
+    this.caseRecords = [
+      {
+        sNo: '1',
+        diaryNo: '03/10/2025 02:22 PM',
+        caseDetails: 'Appeal',
+        location: '2025257101000009',
+        date: 'NA',
+        TITLE:
+          'Abhi Shek Gstat VS RAKESH RANJAN PARIDA, Designation, 201 Neeladri EC TNMAD 625001',
+        CAT: '1. Incorrect determination of value of supply of goods or services or both',
+        Action: 'Self Assigned',
+      },
+    ];
   }
   handleRecordView(selectedRow: any): void {
     console.log('Selected case for viewing:', selectedRow);
