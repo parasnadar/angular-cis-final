@@ -25,6 +25,7 @@ import {
   ScrutinyTableComponent,
   ScrutinyColumnDef,
 } from '../../Shared/scrutiny-table/scrutiny-table.component';
+import { Dialog } from 'primeng/dialog';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -46,6 +47,7 @@ export interface BarOptionItem {
     DynamicRadioGroupComponent,
     CustomTableComponent,
     ScrutinyTableComponent,
+    Dialog,
   ],
   templateUrl: './arbp.component.html',
   styleUrl: './arbp.component.scss',
@@ -145,13 +147,24 @@ export class ARBPComponent {
     return '';
   };
 
+  displayScrunityCheckModal: boolean = false;
+  selectedCaseData: any = null;
+
+  // Table me click trigger hone par
   onScrutinyClick(row: any): void {
-    const urlTree = this.router.createUrlTree([
-      '/cases',
-      row.location,
-      'details',
-    ]);
-    window.open(this.router.serializeUrl(urlTree), '_blank');
+    this.selectedCaseData = row;
+    this.displayScrunityCheckModal = true;
+  }
+
+  onCloseModal(): void {
+    this.displayScrunityCheckModal = false;
+    this.selectedCaseData = null;
+  }
+
+  onProceedModal(): void {
+    console.log('Proceed clicked for case:', this.selectedCaseData);
+    // Proceed action logic...
+    this.displayScrunityCheckModal = false;
   }
   handleRecordView(selectedRow: any): void {
     console.log('Selected case for viewing:', selectedRow);

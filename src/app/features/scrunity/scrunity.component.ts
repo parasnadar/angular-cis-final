@@ -19,6 +19,7 @@ import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dyn
 import { ScrutinyTableComponent } from '../../Shared/scrutiny-table/scrutiny-table.component';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
+import { Dialog } from 'primeng/dialog';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -39,6 +40,7 @@ export interface BarOptionItem {
     InputTextModule,
     DynamicRadioGroupComponent,
     ScrutinyTableComponent,
+    Dialog,
   ],
   templateUrl: './scrunity.component.html',
   styleUrl: './scrunity.component.scss',
@@ -103,14 +105,24 @@ export class SCRUNITYComponent {
     this.notify.showSuccess('Diary number is self assigned ');
   }
 
-  // Scrutiny link click
+  displayScrunityCheckModal: boolean = false;
+  selectedCaseData: any = null;
+
+  // Table me click trigger hone par
   onScrutinyClick(row: any): void {
-    const urlTree = this.router.createUrlTree([
-      '/cases',
-      row.location,
-      'details',
-    ]);
-    window.open(this.router.serializeUrl(urlTree), '_blank');
+    this.selectedCaseData = row;
+    this.displayScrunityCheckModal = true;
+  }
+
+  onCloseModal(): void {
+    this.displayScrunityCheckModal = false;
+    this.selectedCaseData = null;
+  }
+
+  onProceedModal(): void {
+    console.log('Proceed clicked for case:', this.selectedCaseData);
+    // Proceed action logic...
+    this.displayScrunityCheckModal = false;
   }
 
   // Links click

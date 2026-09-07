@@ -199,3 +199,43 @@
     </div>
   }
 </div>
+<!-- Aapka Scrutiny Table -->
+<div class="arb-table-wrapper">
+  <!-- Table Code... -->
+</div>
+
+<p-dialog
+  header="Case Notice / Action"
+  [(visible)]="displayScrunityCheckModal"
+  [modal]="true"
+  [style]="{ width: '700px', maxWidth: '95vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+  styleClass="custom-action-modal"
+  (onHide)="onCloseModal()"
+>
+  <div class="modal-body-container py-3">
+    <!-- Future Content / Form will go here -->
+    <p class="text-slate-600 text-sm">
+      Selected Case: <strong>{{ selectedCaseData?.location }}</strong>
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="Cancel"
+      class="p-button-text p-button-secondary text-sm"
+      (click)="onCloseModal()"
+    ></button>
+    <button
+      pButton
+      type="button"
+      label="Proceed"
+      class="modal-proceed-btn text-sm"
+      (click)="onProceedModal()"
+    ></button>
+  </ng-template>
+</p-dialog>
