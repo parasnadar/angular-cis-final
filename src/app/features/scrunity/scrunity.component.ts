@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, inject, Inject, OnInit, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
@@ -15,7 +15,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dynamic-radio-group.component';
-
+import {
+  CustomTableComponent,
+  ColumnDef,
+  TableAction,
+} from '../../Shared/custom-table/custom-table.component';
+import { Router } from '@angular/router';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -35,11 +40,49 @@ export interface BarOptionItem {
     ButtonModule,
     InputTextModule,
     DynamicRadioGroupComponent,
+    CustomTableComponent,
   ],
   templateUrl: './scrunity.component.html',
   styleUrl: './scrunity.component.scss',
 })
 export class SCRUNITYComponent {
+  private router = inject(Router);
+
+  caseRecords: any[] = [];
+  tableColumns: ColumnDef[] = [];
+
+  loadApiData(): void {
+    // Example: Fetching from your API service
+    // this.apiService.getCases().subscribe((response) => {
+    //   this.caseRecords = response.data;
+    // });
+
+    // Dummy fallback for testing
+    this.caseRecords = [];
+  }
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
+    alert(`Opening details for case: ${selectedRow.diaryNo}`);
+  }
+
+  customActions: TableAction[] = [
+    {
+      label: 'Scrutiny',
+      icon: 'pi pi-external-link',
+      action: (row) => {
+        // 1. Angular route se dynamic URL path generate karein
+        const urlTree = this.router.createUrlTree([
+          '/cases',
+          row.location,
+          'details',
+        ]);
+        const url = this.router.serializeUrl(urlTree);
+
+        // 2. Naye tab me open karein
+        window.open(url, '_blank');
+      },
+    },
+  ];
   constructor(
     private authService: AuthServiceService,
     private fb: FormBuilder,
@@ -72,7 +115,7 @@ export class SCRUNITYComponent {
 
   ngOnInit(): void {
     this.loadAssignedMenus();
-
+    this.loadApiData();
     this.form = this.fb.group({
       caseCategory: ['fresh'],
       caseType: ['all'],

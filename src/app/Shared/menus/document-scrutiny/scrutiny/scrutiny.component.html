@@ -122,3 +122,26 @@
     }
   </div>
 </div>
+
+<!-- SIMPLE MODERN LOADER -->
+<!-- CENTERED SIMPLE MODERN LOADER -->
+<div *ngIf="isLoading" class="centered-loader-wrap fade-in">
+  <div class="loader-dots-row">
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+  </div>
+  <p class="loader-label">Searching records...</p>
+</div>
+
+<!-- 2. Dynamic Table Display (Only shown after search completes) -->
+<div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+  <app-custom-table
+    [cols]="tableColumns"
+    [data]="caseRecords"
+    (onView)="handleRecordView($event)"
+    [showActions]="false"
+    [showMoreActions]="true"
+    [moreActions]="customActions"
+  ></app-custom-table>
+</div>

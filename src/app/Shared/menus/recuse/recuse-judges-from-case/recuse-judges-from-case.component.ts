@@ -10,6 +10,11 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
+import { TableAction } from '../../../custom-table/custom-table.component';
+import {
+  CustomTableComponent,
+  ColumnDef,
+} from '../../../custom-table/custom-table.component';
 
 @Component({
   selector: 'app-recuse-judges-from-case',
@@ -20,6 +25,7 @@ import { Select } from 'primeng/select';
     ButtonModule,
     InputTextModule,
     FormsModule,
+    CustomTableComponent,
   ],
   templateUrl: './recuse-judges-from-case.component.html',
   styleUrl: './recuse-judges-from-case.component.scss',
@@ -75,6 +81,31 @@ export class RecuseJudgesFromCaseComponent {
       ...this.caseDetailsForm.value,
     };
     console.log('Executing Case Parameter Query Payload:', queryPayload);
+
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.caseRecords = []; // Clear previous search results while loading
+
+    // Simulated API call (replace setTimeout with your actual API subscription)
+    setTimeout(() => {
+      this.loadApiData();
+      this.isLoading = false;
+    }, 1000);
+  }
+
+  loadApiData(): void {
+    // API response data mapping
+    this.caseRecords = [
+      {
+        sNo: '2026251201000007	',
+        caseType: 'APL/1/PB/2026',
+        dateOfFiling:
+          '	RAKESH RANJAN PARIDA VS Manojd Dungriyal, cs, delhi & Ors.',
+        caseTitle: '05/01/2026',
+        location: '05/01/2026',
+        jud: 'Test',
+      },
+    ];
   }
 
   resetForms(): void {
@@ -83,5 +114,33 @@ export class RecuseJudgesFromCaseComponent {
       caseNo: '',
       caseYear: new Date().getFullYear().toString(),
     });
+
+    this.hasSearched = false;
+    this.isLoading = false;
+    this.caseRecords = [];
   }
+
+  // Search & Loading States
+  isLoading: boolean = false;
+  hasSearched: boolean = false;
+
+  caseRecords: any[] = [];
+
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Filing No' },
+    { field: 'caseType', header: 'Case No' },
+    { field: 'dateOfFiling', header: 'Cause Title' },
+    { field: 'caseTitle', header: 'Date of filing' },
+    { field: 'location', header: 'Registration Date' },
+    { field: 'jud', header: 'Judges' },
+  ];
+
+  customActions: TableAction[] = [
+    {
+      label: 'Recuse',
+      icon: 'pi pi-external-link',
+      url: (row) => `https://example.com/cases/${row.location}/pdf`,
+      target: '_blank',
+    },
+  ];
 }

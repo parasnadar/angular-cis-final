@@ -16,3 +16,13 @@
     </div>
   </form>
 </div>
+<app-custom-table
+  [cols]="tableColumns"
+  [data]="caseRecords"
+  (onView)="handleRecordView($event)"
+  [showActions]="false"
+  [showMoreActions]="true"
+  [moreActions]="customActions"
+>
+  ></app-custom-table
+>

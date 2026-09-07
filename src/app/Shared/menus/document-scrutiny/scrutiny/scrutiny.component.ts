@@ -9,6 +9,11 @@ import {
 import { Select } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import {
+  CustomTableComponent,
+  ColumnDef,
+  TableAction,
+} from '../../../custom-table/custom-table.component';
 
 @Component({
   selector: 'app-scrutiny',
@@ -19,6 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
     Select,
     ButtonModule,
     InputTextModule,
+    CustomTableComponent,
   ],
   templateUrl: './scrutiny.component.html',
   styleUrl: './scrutiny.component.scss',
@@ -78,14 +84,74 @@ export class ScrutinyComponent implements OnInit {
     return true;
   }
 
+  // Search & Loading States
+  isLoading: boolean = false;
+  hasSearched: boolean = false;
+
+  caseRecords: any[] = [];
+
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Sr. No.' },
+    { field: 'caseType', header: 'Diary No' },
+    { field: 'dateOfFiling', header: 'Date Of Filing' },
+    { field: 'caseTitle', header: 'Case No' },
+    { field: 'location', header: 'Title Of Case' },
+  ];
+
   onFilingSearch(): void {
     if (this.filingForm.invalid) return;
     console.log('Filing Search Payload:', this.filingForm.value);
+
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.caseRecords = []; // Clear previous search results while loading
+
+    // Simulated API call (replace setTimeout with your actual API subscription)
+    setTimeout(() => {
+      this.loadApiData();
+      this.isLoading = false;
+    }, 1000);
+  }
+
+  loadApiData(): void {
+    // API response data mapping
+    this.caseRecords = [
+      {
+        sNo: '1',
+        caseType: '2026251201000022',
+        dateOfFiling: '	29/09/2025',
+        caseTitle: 'APPEAL/2(PB)2025',
+        location: 'RAKESH RANJAN PARIDA  Vs. VINAY KUMAR SINGH & ORS.',
+      },
+    ];
+  }
+
+  customActions: TableAction[] = [
+    {
+      label: 'Verify Scrutiny',
+      icon: 'pi pi-download',
+      url: (row) => `https://example.com/cases/${row.location}/pdf`,
+      target: '_blank',
+    },
+  ];
+
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
   }
 
   onCaseSearch(): void {
     if (this.caseDetailsForm.invalid) return;
     console.log('Case Details Search Payload:', this.caseDetailsForm.value);
+
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.caseRecords = []; // Clear previous search results while loading
+
+    // Simulated API call (replace setTimeout with your actual API subscription)
+    setTimeout(() => {
+      this.loadApiData();
+      this.isLoading = false;
+    }, 1000);
   }
 
   resetForms(): void {
@@ -95,5 +161,9 @@ export class ScrutinyComponent implements OnInit {
       caseNo: '',
       caseYear: new Date().getFullYear().toString(),
     });
+
+    this.hasSearched = false;
+    this.isLoading = false;
+    this.caseRecords = [];
   }
 }
