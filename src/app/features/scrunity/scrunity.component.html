@@ -105,16 +105,83 @@
           <span class="metrics-count-badge">240</span>
         </div>
 
-        <app-custom-table
-          [cols]="tableColumns"
-          [data]="caseRecords"
-          (onView)="handleRecordView($event)"
-          [showActions]="false"
-          [showMoreActions]="false"
-          [moreActions]="customActions"
-        >
-          ></app-custom-table
-        >
+        <app-scrutiny-table [cols]="tableColumns" [data]="caseRecords">
+          <!-- 1. Custom Diary / Filing Column for Scrutiny -->
+          <ng-template #caseDetailsTemplate let-row>
+            <div class="case-type-cell">
+              <span>{{ row.caseDetails }}</span>
+              <span *ngIf="row.subTag" class="text-red-subtext"
+                >({{ row.subTag }})</span
+              >
+            </div>
+          </ng-template>
+          <ng-template #diaryTemplate let-row>
+            <div class="filing-meta-block">
+              <span class="font-medium text-slate-800">{{ row.location }}</span>
+              <span *ngIf="row.docCount" class="text-danger-link font-semibold">
+                (No.of Docs - {{ row.docCount }})
+              </span>
+              <div class="doc-links-stack">
+                <a
+                  href="javascript:void(0)"
+                  (click)="onDocLinkClick('Case Detail', row)"
+                  class="doc-link"
+                >
+                  <i class="pi pi-file"></i> Case Detail
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  (click)="onDocLinkClick('Case Documents', row)"
+                  class="doc-link"
+                >
+                  <i class="pi pi-file"></i> Case Documents
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  (click)="onDocLinkClick('Payment Details', row)"
+                  class="doc-link"
+                >
+                  <i class="pi pi-file"></i> Payment Details
+                </a>
+              </div>
+            </div>
+          </ng-template>
+
+          <!-- 2. Custom Action Column for Scrutiny -->
+          <ng-template #actionTemplate let-row>
+            <div class="action-cell-stack">
+              <!-- Days Badge -->
+              <div *ngIf="row.daysPending" class="badge-pill badge-cyan">
+                No. of days from filing date : {{ row.daysPending }}
+              </div>
+
+              <!-- BO Alert Badge -->
+              <div *ngIf="row.boNotAssigned" class="badge-pill badge-red">
+                BO not assigned for verification
+              </div>
+
+              <!-- Self Assign Button -->
+              <button
+                *ngIf="row.actionType === 'self_assign'"
+                type="button"
+                class="btn-dark-navy"
+                (click)="onSelfAssignClick(row)"
+              >
+                Self Assign
+              </button>
+
+              <!-- Scrutiny Button (State toggle hone ke baad ya direct scrutiny hone par) -->
+              <button
+                *ngIf="row.actionType === 'scrutiny'"
+                type="button"
+                class="btn-dark-navy"
+                (click)="onScrutinyClick(row)"
+              >
+                Scrutiny
+              </button>
+            </div>
+          </ng-template>
+        </app-scrutiny-table>
       </div>
     </div>
   } @else if (activeComponentType) {

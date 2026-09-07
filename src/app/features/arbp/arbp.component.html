@@ -117,16 +117,49 @@
           <span class="metrics-count-badge">240</span>
         </div>
 
-        <app-custom-table
-          [cols]="tableColumns"
-          [data]="caseRecords"
-          (onView)="handleRecordView($event)"
-          [showActions]="false"
-          [showMoreActions]="true"
-          [moreActions]="customActions"
-        >
-          ></app-custom-table
-        >
+        <div class="arb-table-wrapper">
+          <app-scrutiny-table
+            [cols]="arbColumns"
+            [data]="arbRecords"
+            [getRowClass]="getRowClass"
+          >
+            <!-- Slot 1: Case Type Column with Red Place of Supply -->
+            <ng-template #caseDetailsTemplate let-row>
+              <div class="case-type-cell">
+                <span>{{ row.caseDetails }}</span>
+                <span *ngIf="row.subTag" class="text-red-subtext"
+                  >({{ row.subTag }})</span
+                >
+              </div>
+            </ng-template>
+
+            <!-- Slot 2: Diary/Filing No Column (Sirf No of Docs, NO links) -->
+            <ng-template #diaryTemplate let-row>
+              <div class="arb-filing-cell">
+                <span class="filing-id">{{ row.location }}</span>
+                <span
+                  *ngIf="row.docCount"
+                  class="text-red-subtext docs-indicator"
+                >
+                  (No.of Docs - {{ row.docCount }})
+                </span>
+              </div>
+            </ng-template>
+
+            <!-- Slot 3: Action Column (Sirf direct Scrutiny Button) -->
+            <ng-template #actionTemplate let-row>
+              <div class="arb-action-cell">
+                <button
+                  type="button"
+                  class="arb-scrutiny-btn"
+                  (click)="onScrutinyClick(row)"
+                >
+                  Scrutiny
+                </button>
+              </div>
+            </ng-template>
+          </app-scrutiny-table>
+        </div>
       </div>
     </div>
   } @else if (activeComponentType) {

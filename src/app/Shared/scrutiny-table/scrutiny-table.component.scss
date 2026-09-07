@@ -1,0 +1,139 @@
+.table-container {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+
+  .toolbar-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .search-input {
+      padding-left: 32px;
+      font-size: 13px;
+      height: 34px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.filing-meta-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .filing-no {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .red-sub-text {
+    color: #c92a2a;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .red-links-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 3px;
+
+    .table-red-link {
+      color: #9c1c1c;
+      text-decoration: none;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+
+      i {
+        font-size: 11px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+        color: #721c24;
+      }
+    }
+  }
+}
+
+.red-sub-text {
+  color: #c92a2a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.action-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+
+  .badge-pill {
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+    line-height: 1.2;
+    box-sizing: border-box;
+
+    &.badge-sky {
+      background-color: #38bdf8;
+      color: #000000;
+    }
+
+    &.badge-danger {
+      background-color: #ef4444;
+      color: #ffffff;
+    }
+  }
+
+  .navy-action-button {
+    background-color: #1e1b4b; // Deep navy matching image
+    color: #ffffff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    min-width: 90px;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #312e81;
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: #64748b;
+
+  i {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+}

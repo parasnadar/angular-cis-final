@@ -1,0 +1,91 @@
+.filing-meta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .text-danger-link {
+    color: #c92a2a;
+    font-size: 12px;
+  }
+
+  .doc-links-stack {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+    gap: 3px;
+
+    .doc-link {
+      color: #9c1c1c;
+      text-decoration: none;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+
+      i {
+        font-size: 11px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.action-cell-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  .badge-pill {
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+    box-sizing: border-box;
+
+    &.badge-cyan {
+      background-color: #38bdf8;
+      color: #000000;
+    }
+
+    &.badge-red {
+      background-color: #ef4444;
+      color: #ffffff;
+    }
+  }
+
+  .btn-dark-navy {
+    background-color: #1e1b4b;
+    color: #ffffff;
+    border: none;
+    padding: 5px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    min-width: 95px;
+
+    &:hover {
+      background-color: #312e81;
+    }
+  }
+}
+.case-type-cell {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.text-red-subtext {
+  color: #dc2626; // Exact red text
+  font-size: 12px;
+  font-weight: 600;
+}

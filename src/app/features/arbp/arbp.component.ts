@@ -21,6 +21,10 @@ import {
   TableAction,
 } from '../../Shared/custom-table/custom-table.component';
 import { Router } from '@angular/router';
+import {
+  ScrutinyTableComponent,
+  ScrutinyColumnDef,
+} from '../../Shared/scrutiny-table/scrutiny-table.component';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -41,6 +45,7 @@ export interface BarOptionItem {
     InputTextModule,
     DynamicRadioGroupComponent,
     CustomTableComponent,
+    ScrutinyTableComponent,
   ],
   templateUrl: './arbp.component.html',
   styleUrl: './arbp.component.scss',
@@ -53,16 +58,100 @@ export class ARBPComponent {
   ) {}
 
   caseRecords: any[] = [];
+  arbRecords: any[] = [];
   tableColumns: ColumnDef[] = [];
+  arbColumns: ScrutinyColumnDef[] = [
+    { field: 'sNo', header: 'Sr No.', width: '5%' },
+    { field: 'diaryNo', header: 'Date Of Filing', width: '11%' },
+    { field: 'caseDetails', header: 'Case Type', width: '12%' },
+    { field: 'location', header: 'Diary/Filing No.', width: '15%' },
+    { field: 'date', header: 'Main Case Diary/Filing No.', width: '13%' },
+    { field: 'TITLE', header: 'Title Of Case', width: '22%' },
+    { field: 'CAT', header: 'Categories', width: '14%' },
+    { field: 'Action', header: 'Action', width: '8%', align: 'center' },
+  ];
 
-  loadApiData(): void {
-    // Example: Fetching from your API service
-    // this.apiService.getCases().subscribe((response) => {
-    //   this.caseRecords = response.data;
-    // });
+  loadArbData(): void {
+    this.arbRecords = [
+      {
+        sNo: '1',
+        diaryNo: '03/10/2025 02:22 PM',
+        caseDetails: 'Appeal',
+        subTag: 'Place of supply',
+        location: '2025257101000009',
+        docCount: 3,
+        date: 'NA',
+        TITLE:
+          'Abhi Shek Gstat VS RAKESH RANJAN PARIDA, Designation, 201 Neeladri EC TNMAD 625001',
+        CAT: '1. Incorrect determination of value of supply of goods or services or both',
+        statusBand: 'green',
+      },
+      {
+        sNo: '2',
+        diaryNo: '07/10/2025 01:13 PM',
+        caseDetails: 'Adjournment Application',
+        subTag: '',
+        location: '2025307212000184',
+        docCount: 2,
+        date: '2025307201000182',
+        TITLE:
+          'Prakash Cbic VS RAKESH RANJAN PARIDA, Designation, 201 Neeladri EC TNMAD 625001',
+        CAT: '',
+        statusBand: 'green',
+      },
+      {
+        sNo: '3',
+        diaryNo: '08/10/2025 04:23 PM',
+        caseDetails: 'Appeal',
+        subTag: 'Place of supply',
+        location: '2025251201000037',
+        docCount: 7,
+        date: 'NA',
+        TITLE: 'Sanjana S Hegde VS PERFTEST, PERFTEST, PERFTEST & Ors.',
+        CAT: '1. Misclassification of any goods or services or both',
+        statusBand: 'yellow',
+      },
+      {
+        sNo: '4',
+        diaryNo: '17/04/2026 02:52 PM',
+        caseDetails: 'Appeal',
+        subTag: 'Place of supply',
+        location: '2026251201000122',
+        docCount: 15,
+        date: 'NA',
+        TITLE: 'RAKESH RANJAN PARIDA VS SAURABH, BO, DELHI & Ors.',
+        CAT: '1. Suspension of registration',
+        statusBand: 'yellow',
+      },
+      {
+        sNo: '5',
+        diaryNo: '06/05/2026 02:41 PM',
+        caseDetails: 'Appeal',
+        subTag: 'Place of supply',
+        location: '2026251201000129',
+        docCount: 10,
+        date: 'NA',
+        TITLE: 'try VS Prakash Cbic, TO, DFSFSF & Ors.',
+        CAT: '1. Suspension of registration',
+        statusBand: 'yellow',
+      },
+    ];
+  }
 
-    // Dummy fallback for testing
-    this.caseRecords = [];
+  // Arrow function use karein
+  getRowClass = (row: any): string => {
+    if (row.statusBand === 'green') return 'row-tint-green';
+    if (row.statusBand === 'yellow') return 'row-tint-yellow';
+    return '';
+  };
+
+  onScrutinyClick(row: any): void {
+    const urlTree = this.router.createUrlTree([
+      '/cases',
+      row.location,
+      'details',
+    ]);
+    window.open(this.router.serializeUrl(urlTree), '_blank');
   }
   handleRecordView(selectedRow: any): void {
     console.log('Selected case for viewing:', selectedRow);
@@ -111,7 +200,7 @@ export class ARBPComponent {
 
   ngOnInit(): void {
     this.loadAssignedMenus();
-    this.loadApiData();
+    this.loadArbData();
     this.form = this.fb.group({
       caseCategory: ['fresh'],
       caseType: ['all'],

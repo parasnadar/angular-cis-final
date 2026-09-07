@@ -15,13 +15,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dynamic-radio-group.component';
-import {
-  CustomTableComponent,
-  ColumnDef,
-  TableAction,
-} from '../../Shared/custom-table/custom-table.component';
+
+import { ScrutinyTableComponent } from '../../Shared/scrutiny-table/scrutiny-table.component';
 import { Router } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
+import { NotificationService } from '../../core/services/notification.service';
 export interface BarOptionItem {
   id: string | number;
   label: string;
@@ -41,7 +38,7 @@ export interface BarOptionItem {
     ButtonModule,
     InputTextModule,
     DynamicRadioGroupComponent,
-    CustomTableComponent,
+    ScrutinyTableComponent,
   ],
   templateUrl: './scrunity.component.html',
   styleUrl: './scrunity.component.scss',
@@ -50,16 +47,7 @@ export class SCRUNITYComponent {
   private router = inject(Router);
 
   caseRecords: any[] = [];
-  tableColumns: ColumnDef[] = [
-    { field: 'sNo', header: 'Sr. No.', width: '8%' },
-    { field: 'diaryNo', header: 'Date Of Filing.' },
-    { field: 'caseDetails', header: 'Case Type' },
-    { field: 'location', header: 'Diary/Filing No.' },
-    { field: 'date', header: 'Main Case Diary/Filing No.' },
-    { field: 'TITLE', header: 'Title Of Case' },
-    { field: 'CAT', header: 'Categories' },
-    { field: 'Action', header: 'Action' },
-  ];
+  tableColumns: any[] = [];
 
   loadApiData(): void {
     // Example: Fetching from your API service
@@ -70,44 +58,74 @@ export class SCRUNITYComponent {
     // Dummy fallback for testing
     this.caseRecords = [
       {
-        sNo: '1',
-        diaryNo: '03/10/2025 02:22 PM',
+        sNo: '5',
+        diaryNo: '11/10/2025 12:37 PM',
         caseDetails: 'Appeal',
-        location: '2025257101000009',
+        subTag: 'Place of supply',
+        location: '2025257101000020',
+        docCount: 3,
         date: 'NA',
-        TITLE:
-          'Abhi Shek Gstat VS RAKESH RANJAN PARIDA, Designation, 201 Neeladri EC TNMAD 625001',
-        CAT: '1. Incorrect determination of value of supply of goods or services or both',
-        Action: 'Self Assigned',
+        TITLE: 'Abhi Shek Gstat VS RAKESH RANJAN PARIDA, Designation...',
+        CAT: '1. Incorrect determination of time of supply...',
+        actionType: 'scrutiny', // Direct Scrutiny button
+      },
+      {
+        sNo: '6',
+        diaryNo: '11/10/2025 01:22 PM',
+        caseDetails: 'Review Application',
+        location: '2025257106000022',
+        docCount: 3,
+        date: '2025257101000021',
+        TITLE: 'RAKESH RANJAN PARIDA VS RAJAT MISHRA...',
+        CAT: '',
+        actionType: 'self_assign', // Self Assign button
+      },
+      {
+        sNo: '7',
+        diaryNo: '11/10/2025 06:19 PM',
+        caseDetails: 'Appeal',
+        subTag: 'Place of supply',
+        location: '2025307201000190',
+        docCount: 8,
+        date: 'NA',
+        TITLE: 'Megha gupta VS Krishna, TO, Delhi & Ors.',
+        CAT: '1. Misclassification of any goods or services...',
+        daysPending: 330,
+        boNotAssigned: true,
+        actionType: 'self_assign', // With badges + Self assign
       },
     ];
+  }
+
+  onSelfAssignClick(row: any): void {
+    row.actionType = 'scrutiny';
+    console.log('Opening popup for row:', row);
+    this.notify.showSuccess('Diary number is self assigned ');
+  }
+
+  // Scrutiny link click
+  onScrutinyClick(row: any): void {
+    const urlTree = this.router.createUrlTree([
+      '/cases',
+      row.location,
+      'details',
+    ]);
+    window.open(this.router.serializeUrl(urlTree), '_blank');
+  }
+
+  // Links click
+  onDocLinkClick(type: string, row: any): void {
+    console.log(`Clicked ${type} for case: ${row.location}`);
   }
   handleRecordView(selectedRow: any): void {
     console.log('Selected case for viewing:', selectedRow);
     alert(`Opening details for case: ${selectedRow.diaryNo}`);
   }
 
-  customActions: TableAction[] = [
-    {
-      label: 'Scrutiny',
-      icon: 'pi pi-external-link',
-      action: (row) => {
-        // 1. Angular route se dynamic URL path generate karein
-        const urlTree = this.router.createUrlTree([
-          '/cases',
-          row.location,
-          'details',
-        ]);
-        const url = this.router.serializeUrl(urlTree);
-
-        // 2. Naye tab me open karein
-        window.open(url, '_blank');
-      },
-    },
-  ];
   constructor(
     private authService: AuthServiceService,
     private fb: FormBuilder,
+    private notify: NotificationService,
   ) {}
   form!: FormGroup;
 
