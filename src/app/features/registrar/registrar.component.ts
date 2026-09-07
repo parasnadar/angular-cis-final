@@ -160,7 +160,7 @@ export class REGISTRARComponent implements OnInit {
         secondaryText: 'Proposed daily schedule matrix preview generated',
         toneClass: 'tone-neon-emerald',
         iconClass: 'pi-table',
-        actionTarget: 'fresh_cases',
+        actionTarget: 'notice_lists',
       },
       {
         id: 'c11',
@@ -371,6 +371,7 @@ export class REGISTRARComponent implements OnInit {
     if (!targetView) return;
 
     this.activeView = targetView;
+    this.activeComponentType = MENU_REGISTRY[targetView] || null;
     console.log(
       `Command Center moving pipeline layout stream to: ${targetView}`,
     );
