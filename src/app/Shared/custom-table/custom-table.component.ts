@@ -9,10 +9,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
 export interface ColumnDef {
-  field: string; // Object property key in API (e.g., 'diaryNo', 'caseDetails')
-  header: string; // Column Title displayed in <th> (e.g., 'Case No.')
-  width?: string; // Optional column width (e.g., '15%', '250px')
-  align?: 'left' | 'center' | 'right'; // Optional alignment
+  field: string;
+  header: string;
+  width?: string;
+  align?: 'left' | 'center' | 'right';
+}
+
+// Action button / link config interface
+export interface TableAction {
+  label: string;
+  icon?: string;
+  url?: (row: any) => string; // External link ya dynamic URL ke liye
+  action?: (row: any) => void; // Click handler ke liye
+  target?: '_blank' | '_self';
 }
 
 @Component({
@@ -39,8 +48,17 @@ export class CustomTableComponent implements OnInit {
   /** Show/Hide Actions column */
   @Input() showActions: boolean = true;
 
+  /** Show/Hide More Actions column */
+  @Input() showMoreActions: boolean = false;
+
+  /** Dynamic buttons/hyperlinks passed from parent */
+  @Input() moreActions: TableAction[] = [];
+
   /** Action button event emitter */
   @Output() onView = new EventEmitter<any>();
+
+  /** Custom Action click emitter */
+  @Output() onCustomAction = new EventEmitter<{ action: string; row: any }>();
 
   globalSearchText: string = '';
   selectedRowsCount: number = 5;
@@ -74,6 +92,14 @@ export class CustomTableComponent implements OnInit {
     this.onView.emit(item);
   }
 
+  handleActionClick(action: TableAction, item: any, event: Event): void {
+    if (action.action) {
+      event.preventDefault();
+      action.action(item);
+    }
+    this.onCustomAction.emit({ action: action.label, row: item });
+  }
+
   /**
    * Safe property resolver to handle nested object keys (e.g., 'user.name')
    */
@@ -85,10 +111,12 @@ export class CustomTableComponent implements OnInit {
   private getDefaultColumns(): ColumnDef[] {
     return [
       { field: 'sNo', header: 'Sr. No.', width: '8%' },
-      { field: 'diaryNo', header: 'Case No.', width: '18%' },
-      { field: 'caseDetails', header: 'Party Detail', width: '35%' },
-      { field: 'location', header: 'Location', width: '22%' },
-      { field: 'date', header: 'Order Date', width: '17%' },
+      { field: 'diaryNo', header: 'Date Of Filing.' },
+      { field: 'caseDetails', header: 'Case Type' },
+      { field: 'location', header: 'Diary/Filing No.' },
+      { field: 'date', header: 'Main Case Diary/Filing No.' },
+      { field: 'TITLE', header: 'Title Of Case' },
+      { field: 'CAT', header: 'Categories' },
     ];
   }
 
@@ -96,17 +124,23 @@ export class CustomTableComponent implements OnInit {
     return [
       {
         sNo: '1',
-        diaryNo: 'APL/49/PB/2026',
-        caseDetails: 'RAKESH RANJAN PARIDA VS BM, BANGALORE',
-        location: 'New Delhi (Principal Bench)',
-        date: '28-06-2026',
+        diaryNo: '03/10/2025 02:22 PM',
+        caseDetails: 'Appeal',
+        location: '2025257101000009',
+        date: 'NA',
+        TITLE:
+          'Abhi Shek Gstat VS RAKESH RANJAN PARIDA, Designation, 201 Neeladri EC TNMAD 625001',
+        CAT: '1. Incorrect determination of value of supply of goods or services or both',
       },
       {
         sNo: '2',
         diaryNo: 'APL/50/PB/2026',
         caseDetails: 'Prakash Cbic VS Designation, 201 Neeladri EC',
         location: 'Mumbai (Western Bench)',
-        date: '25-06-2026',
+        date: '2025307201000182',
+        TITLE:
+          'Prakash Cbic VS RAKESH RANJAN PARIDA, Designation, 201 Neeladri EC TNMAD 625001  ',
+        CAT: '1. Incorrect determination of value of supply of goods or services or both',
       },
     ];
   }

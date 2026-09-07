@@ -5,7 +5,11 @@
 </div>
 
 <div class="fade-in-container">
-  <form [formGroup]="form" class="workspace-form-layout-proceeding-case">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSearch()"
+    class="workspace-form-layout-proceeding-case"
+  >
     <div class="filter-criteria-row">
       <div class="inline-filter-field date-wrapper">
         <label class="filter-label">Listing Date:</label>
@@ -22,14 +26,33 @@
       <div class="filter-actions-group">
         <button
           pButton
-          type="button"
-          label="Search"
-          (click)="onSearch()"
-          label=" Search"
-          icon="pi pi-search"
+          type="submit"
+          [label]="isLoading ? 'Searching...' : 'Search'"
+          [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
           class="filter-search-btn"
+          [disabled]="form.invalid || isLoading"
         ></button>
       </div>
     </div>
   </form>
+</div>
+
+<!-- SIMPLE MODERN LOADER -->
+<!-- CENTERED SIMPLE MODERN LOADER -->
+<div *ngIf="isLoading" class="centered-loader-wrap fade-in">
+  <div class="loader-dots-row">
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+  </div>
+  <p class="loader-label">Searching records...</p>
+</div>
+
+<!-- 2. Dynamic Table Display (Only shown after search completes) -->
+<div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+  <app-custom-table
+    [cols]="tableColumns"
+    [data]="caseRecords"
+    [showActions]="false"
+  ></app-custom-table>
 </div>

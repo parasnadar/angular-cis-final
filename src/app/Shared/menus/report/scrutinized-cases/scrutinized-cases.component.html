@@ -4,7 +4,11 @@
   </div>
 </div>
 <div class="fade-in-container">
-  <form [formGroup]="form" class="workspace-form-layout">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSearch()"
+    class="workspace-form-layout"
+  >
     <div>
       <app-dynamic-radio-group
         formControlName="caseCategory"
@@ -65,10 +69,11 @@
       <div class="filter-actions-group">
         <button
           pButton
-          type="button"
-          label="Search"
-          (click)="onSearch()"
+          type="submit"
+          [label]="isLoading ? 'Searching...' : 'Search'"
+          [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
           class="filter-search-btn"
+          [disabled]="form.invalid || isLoading"
         ></button>
         <button
           pButton
@@ -80,4 +85,23 @@
       </div>
     </div>
   </form>
+</div>
+
+<div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+  <app-custom-table
+    [cols]="tableColumns"
+    [data]="caseRecords"
+    (onView)="handleRecordView($event)"
+    [showActions]="false"
+    [showMoreActions]="false"
+  ></app-custom-table>
+</div>
+
+<div *ngIf="isLoading" class="centered-loader-wrap fade-in">
+  <div class="loader-dots-row">
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+  </div>
+  <p class="loader-label">Searching records...</p>
 </div>

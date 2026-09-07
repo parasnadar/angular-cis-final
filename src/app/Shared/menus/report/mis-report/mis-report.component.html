@@ -5,7 +5,11 @@
 </div>
 
 <div class="fade-in-container">
-  <form [formGroup]="misform" class="workspace-form-layout">
+  <form
+    [formGroup]="misform"
+    (ngSubmit)="onSearch()"
+    class="workspace-form-layout"
+  >
     <div class="filter-criteria-row">
       <!-- Fixed Parameter 1: Search By Category Selection -->
       <div class="inline-filter-field dropdown-wrapper">
@@ -81,12 +85,31 @@
       <div class="filter-actions-group">
         <button
           pButton
-          type="button"
-          label="Search"
-          (click)="onSearch()"
+          type="submit"
+          [label]="isLoading ? 'Searching...' : 'Search'"
+          [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
           class="filter-search-btn"
+          [disabled]="misform.invalid || isLoading"
         ></button>
       </div>
     </div>
   </form>
+
+  <div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+    <app-custom-table
+      [cols]="tableColumns"
+      [data]="caseRecords"
+      (onView)="handleRecordView($event)"
+      [showActions]="false"
+      [showMoreActions]="false"
+    ></app-custom-table>
+  </div>
+</div>
+<div *ngIf="isLoading" class="centered-loader-wrap fade-in">
+  <div class="loader-dots-row">
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+  </div>
+  <p class="loader-label">Searching records...</p>
 </div>

@@ -11,12 +11,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
+import {
+  CustomTableComponent,
+  ColumnDef,
+} from '../../../custom-table/custom-table.component';
 @Component({
   selector: 'app-mis-report',
   imports: [
     CommonModule,
-
+    CustomTableComponent,
     ReactiveFormsModule,
     Select,
     DatePickerModule,
@@ -27,6 +30,44 @@ import {
   styleUrl: './mis-report.component.scss',
 })
 export class MisReportComponent {
+  isLoading: boolean = false;
+  hasSearched: boolean = false;
+  caseRecords: any[] = [];
+  tableColumns: ColumnDef[] = [
+    { field: 'sNo', header: 'Sr. No.' },
+    { field: 'oldFiling', header: 'Case Type' },
+    { field: 'newFiling', header: 'Date Of Filing' },
+    { field: 'causeTitle', header: 'Case Title' },
+    { field: 'to', header: 'Location' },
+    { field: 'request', header: 'Case Status' },
+  ];
+
+  loadApiData(): void {
+    this.caseRecords = [
+      {
+        sNo: '-',
+        oldFiling: '-',
+        newFiling: '-',
+        causeTitle: '-',
+        from: '-',
+        to: '-',
+        request: '-',
+        last: '',
+        Transfer_date: '',
+        stat: '-',
+        Transfernote: '-',
+        diaryNo: '-',
+        caseDetails: '-',
+        location: '-',
+        date: '-',
+      },
+    ];
+  }
+  handleRecordView(selectedRow: any): void {
+    console.log('Selected case for viewing:', selectedRow);
+    alert(`Opening details for case: ${selectedRow.diaryNo}`);
+  }
+
   constructor(private fb: FormBuilder) {}
   misform!: FormGroup;
 
@@ -109,6 +150,17 @@ export class MisReportComponent {
 
   onSearch(): void {
     console.log('Executing query payload:', this.misform.value);
+    if (this.misform.invalid || this.isLoading) return;
+
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.caseRecords = []; // Clear previous search results while loading
+
+    // Simulated API call (replace setTimeout with your actual API subscription)
+    setTimeout(() => {
+      this.loadApiData();
+      this.isLoading = false;
+    }, 1000);
   }
 
   onReset(): void {

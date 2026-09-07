@@ -1,1 +1,16 @@
-<p>view-bench works!</p>
+<div class="dashboard-section-header view-header-nexus">
+  <div class="title-accent-wrapper">
+    <h2 class="section-title">BENCH COMPOSITION</h2>
+  </div>
+</div>
+
+<app-custom-table
+  [cols]="tableColumns"
+  [data]="caseRecords"
+  (onView)="handleRecordView($event)"
+  [showActions]="false"
+  [showMoreActions]="true"
+  [moreActions]="customActions"
+>
+  ></app-custom-table
+>

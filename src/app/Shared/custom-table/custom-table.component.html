@@ -50,6 +50,11 @@
         <th *ngIf="showActions" style="text-align: center; width: 12%">
           Actions
         </th>
+
+        <!-- Optional More Actions Header -->
+        <th *ngIf="showMoreActions" style="text-align: center; width: 15%">
+          More Links
+        </th>
       </tr>
     </ng-template>
 
@@ -68,7 +73,7 @@
           {{ getFieldValue(item, col.field) }}
         </td>
 
-        <!-- Actions Column -->
+        <!-- Standard Actions Column -->
         <td *ngIf="showActions" style="text-align: center">
           <button
             pButton
@@ -79,6 +84,44 @@
             (click)="onViewRecord(item)"
           ></button>
         </td>
+
+        <!-- Dynamic Hyperlink-style Buttons Column -->
+        <td *ngIf="showMoreActions" style="text-align: center">
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <ng-container *ngFor="let act of moreActions">
+              <!-- Case A: Agar direct anchor link / href ho -->
+              <a
+                *ngIf="act.url"
+                [href]="act.url(item)"
+                [target]="act.target || '_blank'"
+                pButton
+                type="button"
+                [icon]="act.icon || ''"
+                [label]="act.label"
+                class="p-button-link p-button-sm"
+              ></a>
+
+              <!-- Case B: Agar button click event trigger karna ho (look link jaisa hi rahega) -->
+              <button
+                *ngIf="!act.url"
+                pButton
+                type="button"
+                [icon]="act.icon || ''"
+                [label]="act.label"
+                class="p-button-link p-button-sm"
+                (click)="handleActionClick(act, item, $event)"
+              ></button>
+            </ng-container>
+          </div>
+        </td>
       </tr>
     </ng-template>
 
@@ -86,7 +129,9 @@
     <ng-template pTemplate="emptymessage">
       <tr>
         <td
-          [attr.colspan]="cols.length + (showActions ? 1 : 0)"
+          [attr.colspan]="
+            cols.length + (showActions ? 1 : 0) + (showMoreActions ? 1 : 0)
+          "
           class="grid-empty-state-cell"
         >
           <i class="pi pi-filter-slash empty-icon-node"></i>

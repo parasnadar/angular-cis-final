@@ -4,7 +4,7 @@
   </div>
 </div>
 <div>
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSearch()">
     <div class="filter-criteria-row">
       <div class="inline-filter-field dropdown-wrapper">
         <label class="filter-label">Show:</label>
@@ -70,19 +70,40 @@
       <div class="filter-actions-group">
         <button
           pButton
-          type="button"
-          label="Search"
-          (click)="onSearch()"
+          type="submit"
+          [label]="isLoading ? 'Searching...' : 'Search'"
+          [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
           class="filter-search-btn"
+          [disabled]="form.invalid || isLoading"
         ></button>
+
         <button
           pButton
           type="button"
           label="Reset"
+          icon="pi pi-refresh"
           (click)="onReset()"
           class="filter-reset-btn"
+          [disabled]="isLoading"
         ></button>
       </div>
     </div>
   </form>
+</div>
+<div *ngIf="!isLoading && hasSearched" class="fade-in-up">
+  <app-custom-table
+    [cols]="tableColumns"
+    [data]="caseRecords"
+    [showActions]="true"
+    [showMoreActions]="false"
+    (onView)="handleRecordView($event)"
+  ></app-custom-table>
+</div>
+<div *ngIf="isLoading" class="centered-loader-wrap fade-in">
+  <div class="loader-dots-row">
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+    <span class="pulse-dot"></span>
+  </div>
+  <p class="loader-label">Searching records...</p>
 </div>
