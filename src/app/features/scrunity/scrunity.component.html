@@ -208,18 +208,487 @@
   header="Case Scrutiny"
   [(visible)]="displayScrunityCheckModal"
   [modal]="true"
-  [style]="{ width: '1000px' }"
+  [style]="{ width: '96vw', height: '94vh', maxHeight: '94vh' }"
+  [contentStyle]="{ height: 'calc(100% - 60px)', padding: '16px' }"
   [draggable]="false"
   [resizable]="false"
   [appendTo]="'body'"
   styleClass="custom-notice-modal"
   (onHide)="onCloseModal()"
 >
-  <div class="modal-body-container py-3">
-    <!-- Future Content / Form will go here -->
-    <p class="text-slate-600 text-sm">
-      Selected Case: <strong>{{ selectedCaseData?.location }}</strong>
-    </p>
+  <div class="workspace-main-viewport">
+    <div *ngIf="true" class="vibrant-summary-card">
+      <!-- Centered Cause Title Block -->
+      <div class="card-hero-center">
+        <div class="cause-badge">
+          <i class="pi pi-bookmark"></i>
+          <span>CAUSE TITLE</span>
+        </div>
+        <h3 class="cause-highlight-text">
+          Abhi Shek Gstat VS RAKESH RANJAN PARIDA
+        </h3>
+      </div>
+
+      <!-- Micro Line Divider -->
+      <div class="accent-glow-line"></div>
+
+      <!-- 3-Column Interactive Metric Tiles -->
+      <div class="interactive-metrics-grid">
+        <!-- Filing No Tile (Cyan/Sky Glow) -->
+        <div class="metric-glass-tile sky-tile">
+          <span class="tile-label">Diary/Filing No</span>
+          <span class="tile-val">2025257101000020</span>
+        </div>
+
+        <!-- Case No Tile (Indigo Glow) -->
+        <div class="metric-glass-tile indigo-tile">
+          <span class="tile-label">Case Number</span>
+          <span class="tile-val">1110025</span>
+        </div>
+
+        <!-- Filing Date Tile (Emerald/Green Glow) -->
+        <div class="metric-glass-tile emerald-tile">
+          <span class="tile-label">Date of Filing</span>
+          <span class="tile-val">11/10/2025</span>
+        </div>
+      </div>
+
+      <!-- note banner -->
+      <div class="jurisdiction-banner-v2">
+        <div class="banner-accent-rail"></div>
+        <div class="banner-core-wrap">
+          <div class="icon-avatar">
+            <i class="pi pi-exclamation-circle"></i>
+          </div>
+          <div class="text-content">
+            <div class="top-tag-line">
+              <span class="sub-lead">Mandatory Check</span>
+            </div>
+            <p class="body-copy">
+              This case/appeal has issue over which only the Principal Bench has
+              jurisdiction in terms of the provisions of the act or
+              rules/notification made/issued thereunder. Please scrutinize/check
+              jurisdiction first,once verified then proceed for rest defect
+              checklist next.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bo remarks -->
+
+    <div class="bo-remarks-nexus-card">
+      <!-- Table Top Title Banner -->
+      <div class="bo-panel-banner">
+        <span class="banner-title-text">BO Remarks</span>
+      </div>
+
+      <!-- Responsive Modern Grid Table -->
+      <div class="table-responsive-wrapper">
+        <table class="bo-custom-table">
+          <thead>
+            <tr>
+              <th class="col-sn">SN</th>
+              <th class="col-param">Parameters</th>
+              <th class="col-input">Input from BO</th>
+              <th class="col-remark">Remark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of boRemarksList" class="bo-row">
+              <!-- SN -->
+              <td class="col-sn text-center font-medium">
+                {{ row.sn }}
+              </td>
+
+              <!-- Parameter Text (Handles Multi-line & Legal Citations) -->
+              <td class="col-param parameter-cell">
+                <div class="text-wrap-container">
+                  {{ row.parameter }}
+                </div>
+              </td>
+
+              <!-- Input from BO (Handles Long Paragraphs / Tags) -->
+              <td class="col-input input-cell">
+                <div
+                  class="text-wrap-container"
+                  [class.text-center-wrapper]="row.inputFromBO === 'NA'"
+                >
+                  <span
+                    *ngIf="row.inputFromBO; else emptySlot"
+                    [class.badge-na]="row.inputFromBO === 'NA'"
+                    [class.content-text]="row.inputFromBO !== 'NA'"
+                  >
+                    {{ row.inputFromBO }}
+                  </span>
+                </div>
+              </td>
+
+              <!-- Remark (Handles Long Remarks) -->
+              <td class="col-remark remark-cell">
+                <div
+                  class="text-wrap-container"
+                  [class.text-center-wrapper]="row.remark === 'NA'"
+                >
+                  <span
+                    *ngIf="row.remark; else emptySlot"
+                    [class.badge-na]="row.remark === 'NA'"
+                    [class.content-text]="row.remark !== 'NA'"
+                  >
+                    {{ row.remark }}
+                  </span>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Fallback for empty data -->
+            <ng-template #emptySlot>
+              <span class="empty-dash">—</span>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS DOCKET STRIP -->
+
+    <div class="case-docket-modern-deck">
+      <div class="docket-cards-grid">
+        <!-- 1. Case Detail -->
+        <div
+          class="docket-interactive-tile"
+          (click)="onViewQuickLink('case-detail')"
+        >
+          <div class="tile-icon-bubble bubble-indigo">
+            <i class="pi pi-id-card"></i>
+          </div>
+          <div class="tile-details">
+            <span class="tile-name">Case Detail</span>
+            <span class="tile-action">
+              View Overview <i class="pi pi-arrow-up-right"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. Documents -->
+        <div
+          class="docket-interactive-tile"
+          (click)="onViewQuickLink('documents')"
+        >
+          <div class="tile-icon-bubble bubble-cyan">
+            <i class="pi pi-folder-open"></i>
+          </div>
+          <div class="tile-details">
+            <span class="tile-name">Documents</span>
+            <span class="tile-action">
+              View Files <i class="pi pi-arrow-up-right"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- 3. Full DMS -->
+        <div
+          class="docket-interactive-tile"
+          (click)="onViewQuickLink('full-dms')"
+        >
+          <div class="tile-icon-bubble bubble-purple">
+            <i class="pi pi-database"></i>
+          </div>
+          <div class="tile-details">
+            <span class="tile-name">Full DMS</span>
+            <span class="tile-action">
+              Access Vault <i class="pi pi-arrow-up-right"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- 4. Payment Details -->
+        <div
+          class="docket-interactive-tile"
+          (click)="onViewQuickLink('payment-details')"
+        >
+          <div class="tile-icon-bubble bubble-emerald">
+            <i class="pi pi-receipt"></i>
+          </div>
+          <div class="tile-details">
+            <span class="tile-name">Payment Details</span>
+            <span class="tile-action">
+              Verify Challan <i class="pi pi-arrow-up-right"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- 5. Pre Deposite -->
+        <div
+          class="docket-interactive-tile"
+          (click)="onViewQuickLink('pre-deposite')"
+        >
+          <div class="tile-icon-bubble bubble-rose">
+            <i class="pi pi-wallet"></i>
+          </div>
+          <div class="tile-details">
+            <span class="tile-name">Pre Deposite</span>
+            <span class="tile-action">
+              Audit Amount <i class="pi pi-arrow-up-right"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checklistsc-master-wrapper">
+      <!-- 1. CHECKLIST TABLE -->
+      <div class="checklistsc-table-scroll-container">
+        <table class="checklistsc-table-grid">
+          <thead>
+            <tr>
+              <th class="checklistsc-col-sr">SN</th>
+              <th class="checklistsc-col-desc">Description</th>
+              <th class="checklistsc-col-appellant">As per appellant</th>
+              <th class="checklistsc-col-comm-appellant">
+                Comments of appellant, if any
+              </th>
+              <th class="checklistsc-col-scrutiny">As per scrutiny reporter</th>
+              <th class="checklistsc-col-comm-scrutiny">
+                Comments of scrutiny reporter, if any
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of checklistItems"
+              [class.checklistsc-row-defective]="item.asPerScrutiny === 'NO'"
+            >
+              <td class="checklistsc-cell-center checklistsc-font-bold">
+                {{ item.srNo }}
+              </td>
+              <td class="checklistsc-desc-content">{{ item.description }}</td>
+              <td class="checklistsc-cell-center checklistsc-font-semibold">
+                {{ item.asPerAppellant }}
+              </td>
+              <td class="checklistsc-cell-center checklistsc-font-semibold">
+                {{ item.commentsOfAppellant }}
+              </td>
+
+              <td class="checklistsc-cell-center">
+                <select
+                  [(ngModel)]="item.asPerScrutiny"
+                  (change)="onScrutinyStatusChange(item)"
+                  class="checklistsc-select-pill"
+                  [class.checklistsc-select-no]="item.asPerScrutiny === 'NO'"
+                >
+                  <option value="YES">YES</option>
+                  <option value="NO">NO</option>
+                </select>
+              </td>
+
+              <td>
+                <textarea
+                  rows="2"
+                  [(ngModel)]="item.commentsOfScrutiny"
+                  (input)="onCommentChange(item)"
+                  [placeholder]="
+                    item.asPerScrutiny === 'NO'
+                      ? 'Mandatory comment for defect...'
+                      : ''
+                  "
+                  class="checklistsc-comment-textarea"
+                  [class.checklistsc-textarea-error]="item.isCommentInvalid"
+                ></textarea>
+                <span
+                  *ngIf="item.isCommentInvalid"
+                  class="checklistsc-error-hint"
+                >
+                  <i class="pi pi-exclamation-circle"></i> Comment is mandatory
+                  when marked as NO.
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. DEFECTS IN CONFIGURATION PANEL (Multi-select) -->
+      <div *ngIf="!isDefectFree" class="checklistsc-defects-card">
+        <div class="checklistsc-defects-header">
+          <div class="checklistsc-header-left">
+            <span class="checklistsc-asterisk">*</span>
+            <span class="checklistsc-title-bold">Defects in</span>
+            <span class="checklistsc-title-hint"
+              >(Multiple selection enabled — click or ctrl+click)</span
+            >
+          </div>
+          <div class="checklistsc-selected-count-badge">
+            {{ selectedDefectCategoryIds.length }} Selected
+          </div>
+        </div>
+
+        <div class="checklistsc-defects-layout">
+          <!-- Defect Categories Listbox -->
+          <div class="checklistsc-categories-menu">
+            <div
+              *ngFor="let cat of defectCategories"
+              class="checklistsc-menu-item"
+              [class.checklistsc-menu-active]="isCategorySelected(cat.id)"
+              (click)="toggleDefectCategory(cat.id, $event)"
+            >
+              <span class="checklistsc-item-text">{{ cat.label }}</span>
+              <div class="checklistsc-item-status-icon">
+                <i *ngIf="isCategorySelected(cat.id)" class="pi pi-check"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub Documents Dynamic List (renders for each selected category that has documents) -->
+          <div class="checklistsc-subdocs-pane">
+            <ng-container
+              *ngIf="
+                selectedCategoriesWithDocs.length > 0;
+                else noDocSelectionFallback
+              "
+            >
+              <div
+                *ngFor="let catWithDoc of selectedCategoriesWithDocs"
+                class="checklistsc-subdoc-group"
+              >
+                <div class="checklistsc-subdocs-headline">
+                  {{ catWithDoc.label }} : Required Documents
+                </div>
+                <div
+                  *ngFor="let doc of catWithDoc.subDocuments"
+                  class="checklistsc-checkbox-item"
+                >
+                  <label class="checklistsc-custom-checkbox-wrap">
+                    <input type="checkbox" [(ngModel)]="doc.selected" />
+                    <span class="checklistsc-checkbox-label">{{
+                      doc.name
+                    }}</span>
+                  </label>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #noDocSelectionFallback>
+              <div class="checklistsc-no-doc-fallback">
+                <i class="pi pi-info-circle"></i>
+                <span
+                  >Selected categories have no mandatory sub-document
+                  checklists.</span
+                >
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. FOOTER ACTION DOCKS -->
+
+      <!-- CASE A: DEFECT FREE BOTTOM -->
+      <div
+        *ngIf="isDefectFree"
+        class="checklistsc-dock-panel checklistsc-dock-free"
+      >
+        <div class="checklistsc-dock-left">
+          <div class="checklistsc-input-group">
+            <label class="checklistsc-meta-title">Notification Date:</label>
+            <input
+              type="date"
+              [(ngModel)]="notificationDate"
+              class="checklistsc-date-control"
+            />
+          </div>
+
+          <label class="checklistsc-toggle-label">
+            <input type="checkbox" [(ngModel)]="isScrutinyCompleted" />
+            <span class="checklistsc-highlight-text">Scrutiny Completed</span>
+          </label>
+
+          <select [(ngModel)]="selectedUser" class="checklistsc-user-select">
+            <option *ngFor="let opt of userOptions" [value]="opt.value">
+              {{ opt.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="checklistsc-dock-right">
+          <div class="checklistsc-status-pill checklistsc-pill-success">
+            <i class="pi pi-check-circle"></i>
+            <span>DEFECT FREE</span>
+            <i class="pi pi-angle-down checklistsc-caret"></i>
+          </div>
+          <button
+            type="button"
+            class="checklistsc-btn checklistsc-btn-navy"
+            (click)="proceedFurther()"
+          >
+            <span>Proceed Further</span>
+            <i class="pi pi-arrow-right"></i>
+          </button>
+          <button
+            type="button"
+            class="checklistsc-btn checklistsc-btn-emerald"
+            (click)="saveAsDraft()"
+          >
+            <i class="pi pi-save"></i>
+            <span>SAVE AS DRAFT</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CASE B: DEFECTIVE BOTTOM -->
+      <div
+        *ngIf="!isDefectFree"
+        class="checklistsc-dock-panel checklistsc-dock-defect"
+      >
+        <div class="checklistsc-dock-left">
+          <div class="checklistsc-input-group">
+            <label class="checklistsc-meta-title">Notification Date:</label>
+            <input
+              type="date"
+              [(ngModel)]="notificationDate"
+              class="checklistsc-date-control"
+            />
+          </div>
+
+          <label class="checklistsc-toggle-label">
+            <input type="checkbox" [(ngModel)]="isReScrutinyVerify" />
+            <span class="checklistsc-highlight-text">Re- Scrutiny Verify</span>
+          </label>
+        </div>
+
+        <div class="checklistsc-dock-right">
+          <div class="checklistsc-status-pill checklistsc-pill-danger">
+            <i class="pi pi-exclamation-triangle"></i>
+            <span>DEFECTIVE</span>
+            <i class="pi pi-angle-down checklistsc-caret"></i>
+          </div>
+          <button
+            type="button"
+            class="checklistsc-btn checklistsc-btn-emerald"
+            (click)="returnToClerk()"
+          >
+            <i class="pi pi-undo"></i>
+            <span>RETURN TO SCRUTINY CLERK</span>
+          </button>
+          <button
+            type="button"
+            class="checklistsc-btn checklistsc-btn-navy"
+            (click)="submitDefective()"
+          >
+            <span>Submit</span>
+            <i class="pi pi-send"></i>
+          </button>
+          <button
+            type="button"
+            class="checklistsc-btn checklistsc-btn-outline-emerald"
+            (click)="saveAsDraft()"
+          >
+            <i class="pi pi-save"></i>
+            <span>Save As Draft</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <ng-template pTemplate="footer">
