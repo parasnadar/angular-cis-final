@@ -400,7 +400,7 @@
   [draggable]="false"
   [resizable]="false"
   [appendTo]="'body'"
-  styleClass="custom-registrar-modal"
+  styleClass="custom-notice-modal"
 >
   <div class="modal-dialog-body" *ngIf="selectedCase">
     <div class="meta-info-banner">
@@ -425,7 +425,7 @@
       pButton
       type="button"
       label="Close"
-      class="p-button-text modal-btn-secondary"
+      class="p-button-text modal-cancel-btn"
       (click)="isScrutinyCommentsModalOpen = false"
     ></button>
   </ng-template>
@@ -444,14 +444,16 @@
 >
   <div class="modal-dialog-body py-2">
     <div class="confirm-message-wrapper">
-      <i class="pi pi-question-circle confirm-icon"></i>
       <div class="confirm-text-block">
         <p class="font-bold text-slate-800">
-          Do you want to generate the case number?
+          Do you want to generate the case number for?
         </p>
-        <span class="text-xs text-slate-500"
-          >Diary/Filing No: {{ selectedCase?.location }}</span
-        >
+        <div class="meta-info-banner mb-3">
+          <span
+            >Diary/Filing No:
+            <strong>{{ selectedCase?.location }}</strong></span
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -461,14 +463,14 @@
       pButton
       type="button"
       label="No"
-      class="p-button-text modal-btn-secondary"
+      class="p-button-text modal-cancel-btn"
       (click)="isGenerateCaseModalOpen = false"
     ></button>
     <button
       pButton
       type="button"
       label="Yes"
-      class="modal-btn-primary"
+      class="modal-submit-btn"
       (click)="confirmGenerateCaseNo()"
     ></button>
   </ng-template>
@@ -483,7 +485,7 @@
   [draggable]="false"
   [resizable]="false"
   [appendTo]="'body'"
-  styleClass="custom-registrar-modal"
+  styleClass="custom-notice-modal"
 >
   <div class="modal-dialog-body py-2" *ngIf="selectedCase">
     <div class="meta-info-banner mb-3">
@@ -511,15 +513,15 @@
       pButton
       type="button"
       label="Cancel"
-      class="p-button-text modal-btn-secondary"
+      class="p-button-text modal-cancel-btn"
       (click)="isReturnToArModalOpen = false"
     ></button>
     <button
       pButton
       type="button"
-      label="OK"
+      label="Update"
       [disabled]="!returnArCommentText.trim()"
-      class="modal-btn-primary"
+      class="modal-submit-btn"
       (click)="submitReturnToAr()"
     ></button>
   </ng-template>

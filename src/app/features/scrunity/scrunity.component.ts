@@ -102,7 +102,7 @@ export class SCRUNITYComponent {
   onSelfAssignClick(row: any): void {
     row.actionType = 'scrutiny';
     console.log('Opening popup for row:', row);
-    this.notify.showSuccess('Diary number is self assigned ');
+    this.notify.showSuccess('Diary Number assigned successfully');
   }
 
   displayScrunityCheckModal: boolean = false;

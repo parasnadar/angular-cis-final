@@ -16,6 +16,7 @@ import {
   ScrutinyColumnDef,
 } from '../../Shared/scrutiny-table/scrutiny-table.component';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification.service';
 
 export interface ChromaMetricCard {
   id: string;
@@ -140,6 +141,7 @@ export class REGISTRARComponent implements OnInit {
     );
     // API trigger yahan aayega
     this.isReturnToArModalOpen = false;
+    this.notify.showSuccess('Case returned sucessfully.');
   }
   activeDisplayMode: 'grid' | 'visual' = 'grid';
 
@@ -298,7 +300,10 @@ export class REGISTRARComponent implements OnInit {
   setDisplayMode(mode: 'grid' | 'visual'): void {
     this.activeDisplayMode = mode;
   }
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private notify: NotificationService,
+  ) {}
   isPasswordModalVisible: boolean = false;
   public visible: boolean = false;
   loggedInUser = {

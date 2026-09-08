@@ -205,14 +205,14 @@
 </div>
 
 <p-dialog
-  header="Case Notice / Action"
+  header="Case Scrutiny"
   [(visible)]="displayScrunityCheckModal"
   [modal]="true"
-  [style]="{ width: '700px', maxWidth: '95vw' }"
+  [style]="{ width: '1000px' }"
   [draggable]="false"
   [resizable]="false"
   [appendTo]="'body'"
-  styleClass="custom-action-modal"
+  styleClass="custom-notice-modal"
   (onHide)="onCloseModal()"
 >
   <div class="modal-body-container py-3">
@@ -227,14 +227,15 @@
       pButton
       type="button"
       label="Cancel"
-      class="p-button-text p-button-secondary text-sm"
+      class="p-button-text modal-cancel-btn"
       (click)="onCloseModal()"
     ></button>
     <button
       pButton
-      type="button"
+      type="submit"
+      form="generateNoticeForm"
       label="Proceed"
-      class="modal-proceed-btn text-sm"
+      class="modal-submit-btn"
       (click)="onProceedModal()"
     ></button>
   </ng-template>
