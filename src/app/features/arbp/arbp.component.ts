@@ -46,8 +46,10 @@ export interface ChecklistItem {
   description: string;
   asPerAppellant: string;
   commentsOfAppellant?: string;
-  asPerScrutiny: 'YES' | 'NO';
+  asPerScrutiny?: string;
   commentsOfScrutiny?: string;
+  asPerAR: 'YES' | 'NO';
+  commentsOfAR?: string;
   isCommentInvalid?: boolean;
 }
 export interface DefectOption {
@@ -428,7 +430,9 @@ export class ARBPComponent {
       asPerAppellant: 'YES',
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
-      commentsOfScrutiny: '',
+      commentsOfScrutiny: 'NO',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 2,
@@ -437,7 +441,9 @@ export class ARBPComponent {
       asPerAppellant: 'YES',
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
-      commentsOfScrutiny: '',
+      commentsOfScrutiny: ' ',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 3,
@@ -446,7 +452,9 @@ export class ARBPComponent {
       asPerAppellant: 'YES',
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
-      commentsOfScrutiny: '',
+      commentsOfScrutiny: 'NO',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 4,
@@ -455,7 +463,9 @@ export class ARBPComponent {
       asPerAppellant: 'YES',
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
-      commentsOfScrutiny: '',
+      commentsOfScrutiny: 'NO',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 5,
@@ -464,7 +474,9 @@ export class ARBPComponent {
       asPerAppellant: 'YES',
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
-      commentsOfScrutiny: '',
+      commentsOfScrutiny: 'NO',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 6,
@@ -473,7 +485,9 @@ export class ARBPComponent {
       asPerAppellant: 'YES',
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
-      commentsOfScrutiny: '',
+      commentsOfScrutiny: 'NO',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 7,
@@ -483,6 +497,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 8,
@@ -492,6 +508,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 9,
@@ -501,6 +519,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 10,
@@ -510,6 +530,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 11,
@@ -519,6 +541,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 12,
@@ -528,6 +552,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 13,
@@ -537,6 +563,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 14,
@@ -546,6 +574,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 15,
@@ -555,6 +585,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 16,
@@ -564,6 +596,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 17,
@@ -573,6 +607,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 18,
@@ -582,6 +618,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 19,
@@ -591,6 +629,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 20,
@@ -600,6 +640,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 21,
@@ -609,6 +651,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 22,
@@ -618,6 +662,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 23,
@@ -626,6 +672,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 24,
@@ -635,6 +683,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 25,
@@ -644,6 +694,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 26,
@@ -653,6 +705,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 27,
@@ -662,6 +716,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
     {
       srNo: 28,
@@ -670,6 +726,8 @@ export class ARBPComponent {
       commentsOfAppellant: 'Y',
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
+      asPerAR: 'YES',
+      commentsOfAR: '',
     },
   ];
 
@@ -704,7 +762,7 @@ export class ARBPComponent {
   ];
 
   get isDefectFree(): boolean {
-    return this.checklistItems.every((item) => item.asPerScrutiny === 'YES');
+    return this.checklistItems.every((item) => item.asPerAR === 'YES');
   }
 
   // Returns all category objects that have sub-documents and are currently selected
@@ -751,16 +809,16 @@ export class ARBPComponent {
   }
 
   onScrutinyStatusChange(item: ChecklistItem): void {
-    if (item.asPerScrutiny === 'NO') {
-      item.isCommentInvalid = !item.commentsOfScrutiny?.trim();
+    if (item.asPerAR === 'NO') {
+      item.isCommentInvalid = !item.commentsOfAR?.trim();
     } else {
       item.isCommentInvalid = false;
     }
   }
 
   onCommentChange(item: ChecklistItem): void {
-    if (item.asPerScrutiny === 'NO') {
-      item.isCommentInvalid = !item.commentsOfScrutiny?.trim();
+    if (item.asPerAR === 'NO') {
+      item.isCommentInvalid = !item.commentsOfAR?.trim();
     }
   }
 
@@ -785,7 +843,7 @@ export class ARBPComponent {
       selectedDefectsCount: this.selectedDefectCategoryIds.length,
       selectedDefects: activeCategoriesData,
       defectiveChecklistItems: this.checklistItems.filter(
-        (item) => item.asPerScrutiny === 'NO',
+        (item) => item.asPerAR === 'NO',
       ),
       fullChecklist: this.checklistItems,
     };
@@ -830,7 +888,7 @@ export class ARBPComponent {
     }
     // Validate empty comments for NO items
     const hasInvalidComments = this.checklistItems.some(
-      (item) => item.asPerScrutiny === 'NO' && !item.commentsOfScrutiny?.trim(),
+      (item) => item.asPerAR === 'NO' && !item.commentsOfAR?.trim(),
     );
 
     if (hasInvalidComments) {

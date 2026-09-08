@@ -436,12 +436,14 @@
               <th class="checklistsc-col-comm-scrutiny">
                 Comments of scrutiny reporter, if any
               </th>
+              <th class="checklistsc-col-ar">As per AR</th>
+              <th class="checklistsc-col-comm-ar">Comments of AR, if any</th>
             </tr>
           </thead>
           <tbody>
             <tr
               *ngFor="let item of checklistItems"
-              [class.checklistsc-row-defective]="item.asPerScrutiny === 'NO'"
+              [class.checklistsc-row-defective]="item.asPerAR === 'NO'"
             >
               <td class="checklistsc-cell-center checklistsc-font-bold">
                 {{ item.srNo }}
@@ -453,13 +455,19 @@
               <td class="checklistsc-cell-center checklistsc-font-semibold">
                 {{ item.commentsOfAppellant }}
               </td>
+              <td class="checklistsc-cell-center checklistsc-font-semibold">
+                {{ item.asPerScrutiny }}
+              </td>
+              <td class="checklistsc-cell-center checklistsc-font-semibold">
+                {{ item.commentsOfScrutiny }}
+              </td>
 
               <td class="checklistsc-cell-center">
                 <select
-                  [(ngModel)]="item.asPerScrutiny"
+                  [(ngModel)]="item.asPerAR"
                   (change)="onScrutinyStatusChange(item)"
                   class="checklistsc-select-pill"
-                  [class.checklistsc-select-no]="item.asPerScrutiny === 'NO'"
+                  [class.checklistsc-select-no]="item.asPerAR === 'NO'"
                 >
                   <option value="YES">YES</option>
                   <option value="NO">NO</option>
@@ -471,10 +479,10 @@
                 <div class="checklistsc-comment-cell-wrap">
                   <textarea
                     rows="2"
-                    [(ngModel)]="item.commentsOfScrutiny"
+                    [(ngModel)]="item.commentsOfAR"
                     (input)="onCommentChange(item)"
                     [placeholder]="
-                      item.asPerScrutiny === 'NO'
+                      item.asPerAR === 'NO'
                         ? 'Mandatory comment for defect...'
                         : ''
                     "

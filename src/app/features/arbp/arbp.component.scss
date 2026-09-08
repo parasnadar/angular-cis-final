@@ -127,6 +127,7 @@
 
 .checklistsc-table-grid {
   width: 100%;
+
   border-collapse: separate;
   border-spacing: 0;
   font-size: 13px;
@@ -189,23 +190,33 @@
   }
 
   .checklistsc-col-sr {
-    width: 4.5%;
+    width: 45px;
     text-align: center;
   }
   .checklistsc-col-desc {
-    width: 42.5%;
+    width: 32%; // Description gets ample room
   }
   .checklistsc-col-appellant {
-    width: 9%;
+    width: 85px;
+    text-align: center;
   }
   .checklistsc-col-comm-appellant {
-    width: 11%;
+    width: 95px;
+    text-align: center;
   }
   .checklistsc-col-scrutiny {
-    width: 11%;
+    width: 95px;
+    text-align: center;
   }
   .checklistsc-col-comm-scrutiny {
-    width: 22%;
+    width: 140px; // Readonly scrutiny comment
+  }
+  .checklistsc-col-ar {
+    width: 95px;
+    text-align: center;
+  }
+  .checklistsc-col-comm-ar {
+    width: 220px; // EDITABLE AR COMMENT: Plenty of writing room
   }
 
   .checklistsc-cell-center {
