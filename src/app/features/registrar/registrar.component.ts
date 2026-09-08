@@ -129,6 +129,7 @@ export class REGISTRARComponent implements OnInit {
     );
     // API trigger for generation yahan aayega
     this.isGenerateCaseModalOpen = false;
+    this.notify.showSuccess('Case Number Generated Successfully');
   }
 
   // 3. Pre Deposit Page Navigation
@@ -160,9 +161,8 @@ export class REGISTRARComponent implements OnInit {
     this.fetchTribunalMetricsPayload();
     this.loadRegistrarData();
     this.form = this.fb.group({
-      caseCategory: ['fresh'],
-      caseType: ['all'],
-      diaryFilingNo: [''],
+      caseCategory: ['1'],
+
       fromFilingDate: [null],
       toFilingDate: [null],
     });
@@ -175,8 +175,7 @@ export class REGISTRARComponent implements OnInit {
   onReset(): void {
     this.form.patchValue({
       caseCategory: ['fresh'],
-      caseType: 'all',
-      diaryFilingNo: '',
+
       fromFilingDate: null,
       toFilingDate: null,
     });
@@ -334,17 +333,14 @@ export class REGISTRARComponent implements OnInit {
   ) {}
   form!: FormGroup;
   caseCategoryOptions = [
-    { label: 'Fresh case for scrutiny', value: 'fresh' },
-    { label: 'Defective cases', value: 'defective' },
-    { label: 'Refiled Cases', value: 'refiled' },
-    { label: 'Return Cases', value: 'return' },
+    { label: 'Case No Generation', value: '1' },
+    { label: 'Refiled Cases', value: '2' },
+    { label: 'Defective cases', value: '3' },
+    { label: 'Defective Cases Sent', value: '4' },
+    { label: 'No action taken by user', value: '5' },
+    { label: 'Defective Docs/Cross Objection', value: '6' },
   ];
 
-  caseTypeOptions = [
-    { label: 'All', value: 'all' },
-    { label: 'Company Appeal', value: 'ca' },
-    { label: 'Contempt Petition', value: 'cp' },
-  ];
   isPasswordModalVisible: boolean = false;
   public visible: boolean = false;
   loggedInUser = {
