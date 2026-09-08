@@ -161,7 +161,7 @@
     }
 
     &.checklistsc-row-defective {
-      background-color: #fff1f2 !important;
+      background-color: #fff5f5 !important;
 
       td {
         border-bottom-color: #fecaca;
@@ -169,10 +169,10 @@
     }
 
     td {
-      padding: 11px 14px;
+      padding: 12px 14px;
       border-bottom: 1px solid #e2e8f0;
       border-right: 1px solid #f1f5f9;
-      vertical-align: middle;
+      vertical-align: top; // <-- KEY FIX (stops vertical jump)
       color: #334155;
       line-height: 1.45;
 
@@ -208,6 +208,18 @@
 
   .checklistsc-cell-center {
     text-align: center;
+    padding-top: 14px !important; // Dropdown aur SR no. description ke barabar start honge
+  }
+
+  .checklistsc-comment-cell-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+  }
+
+  .checklistsc-comment-col-cell {
+    padding-top: 8px !important;
   }
   .checklistsc-font-bold {
     font-weight: 700;
@@ -259,16 +271,19 @@
   // Textarea
   .checklistsc-comment-textarea {
     width: 100%;
+    min-height: 52px;
     background: #ffffff;
     border: 1.5px solid #cbd5e1;
     border-radius: 6px;
-    padding: 7px 10px;
+    padding: 8px 10px;
     font-size: 12.5px;
     font-family: inherit;
     color: #1e293b;
     outline: none;
     resize: vertical;
-    transition: all 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:focus {
       border-color: #1e1b4b;
@@ -276,184 +291,406 @@
     }
 
     &.checklistsc-textarea-error {
-      border-color: #ef4444;
-      background-color: #fffaf0;
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+      }
     }
   }
 
   .checklistsc-error-hint {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     color: #dc2626;
     font-size: 11px;
     font-weight: 600;
-    margin-top: 4px;
+    margin-top: 5px;
+    line-height: 1.2;
+
+    i {
+      font-size: 11px;
+      flex-shrink: 0;
+    }
   }
 }
 
-// 2. DEFECTS IN CONFIGURATION PANEL (Multi-Select Ready)
 .checklistsc-defects-card {
   background: #ffffff;
   border: 1px solid #fed7aa;
-  border-left: 5px solid #ea580c;
-  border-radius: 8px;
+  border-left: 6px solid #ea580c;
+  border-radius: 12px;
   padding: 16px 20px;
-  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.06);
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
+  // Header Zone
   .checklistsc-defects-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ffedd5;
+    flex-wrap: wrap;
+    gap: 12px;
 
     .checklistsc-header-left {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 12px;
 
-      .checklistsc-asterisk {
-        color: #dc2626;
-        font-weight: 800;
-        font-size: 16px;
-      }
-
-      .checklistsc-title-bold {
-        color: #9a3412;
-        font-weight: 800;
-        font-size: 14px;
-        letter-spacing: 0.3px;
-      }
-
-      .checklistsc-title-hint {
+      .checklistsc-alert-pulse-node {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #ffedd5;
         color: #c2410c;
-        font-size: 12px;
-        font-weight: 500;
-        margin-left: 4px;
+        flex-shrink: 0;
+
+        i {
+          font-size: 16px;
+        }
+      }
+
+      .checklistsc-header-titles {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .checklistsc-title-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .checklistsc-title-bold {
+            color: #9a3412;
+            font-weight: 800;
+            font-size: 14.5px;
+            letter-spacing: 0.2px;
+          }
+
+          .checklistsc-mandatory-badge {
+            background: #fee2e2;
+            color: #b91c1c;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+          }
+        }
+
+        .checklistsc-title-hint {
+          color: #7c2d12;
+          font-size: 12px;
+          font-weight: 500;
+        }
       }
     }
 
     .checklistsc-selected-count-badge {
-      background: #ffedd5;
-      color: #9a3412;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff7ed;
       border: 1px solid #fed7aa;
+      padding: 5px 14px;
+      border-radius: 20px;
+
+      .count-pill {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        background: #ea580c;
+        color: #ffffff;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 800;
+      }
     }
   }
 
+  // Worksurface Layout
   .checklistsc-defects-layout {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    gap: 16px;
+    align-items: stretch;
 
+    @media (max-width: 960px) {
+      grid-template-columns: 1fr;
+    }
+
+    // Left Categories Sidebar
     .checklistsc-categories-menu {
-      width: 320px;
       background: #0f172a;
-      border-radius: 8px;
-      padding: 6px;
+      border-radius: 10px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+      .checklistsc-menu-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 8px 8px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        .menu-sub-badge {
+          font-size: 9.5px;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 2px 6px;
+          border-radius: 3px;
+          color: #cbd5e1;
+        }
+      }
+
+      .checklistsc-pills-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
 
       .checklistsc-menu-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        color: #94a3b8;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.4px;
         padding: 9px 12px;
         border-radius: 6px;
         cursor: pointer;
         user-select: none;
         transition: all 0.15s ease;
+        border: 1px solid transparent;
 
-        &:hover {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.08);
-        }
+        .checklistsc-item-meta {
+          display: flex;
+          align-items: center;
+          gap: 10px;
 
-        &.checklistsc-menu-active {
-          background: #2563eb;
-          color: #ffffff;
-          box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+          .checklistsc-select-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1.5px solid #475569;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.15s ease;
 
-          .checklistsc-item-status-icon {
-            opacity: 1;
+            i {
+              font-size: 9px;
+              color: #ffffff;
+              font-weight: 800;
+            }
+          }
+
+          .checklistsc-item-text {
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
           }
         }
 
-        .checklistsc-item-status-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 11px;
-          opacity: 0;
+        .checklistsc-nav-chevron {
+          font-size: 12px;
+          color: #93c5fd;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.07);
+
+          .checklistsc-item-text {
+            color: #ffffff;
+          }
+        }
+
+        &.checklistsc-menu-active {
+          background: #1d4ed8;
+          border-color: #3b82f6;
+
+          .checklistsc-select-checkbox {
+            background: #ffffff;
+            border-color: #ffffff;
+
+            i {
+              color: #1d4ed8;
+            }
+          }
+
+          .checklistsc-item-text {
+            color: #ffffff;
+            font-weight: 700;
+          }
         }
       }
     }
 
+    // Right Sub-Documents Desk
     .checklistsc-subdocs-pane {
-      flex: 1;
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 14px 16px;
-      min-height: 200px;
+      border-radius: 10px;
+      padding: 16px;
+      min-height: 220px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
 
       .checklistsc-subdoc-group {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
 
         .checklistsc-subdocs-headline {
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.4px;
-          color: #1e3a8a;
-          border-bottom: 1px dashed #cbd5e1;
-          padding-bottom: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 8px;
+          border-bottom: 1.5px dashed #cbd5e1;
+
+          .headline-tag {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #1e3a8a;
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+
+            i {
+              font-size: 13px;
+              color: #2563eb;
+            }
+          }
+
+          .headline-instruction {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+          }
+        }
+
+        .checklistsc-docs-cards-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 10px;
+        }
+
+        // Checkbox Card: Uses native visible styled input (Fixed check visibility)
+        .checklistsc-checkbox-card {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          background: #ffffff;
+          border: 1.5px solid #cbd5e1;
+          border-radius: 8px;
+          padding: 10px 14px;
+          cursor: pointer;
+          user-select: none;
+          transition: all 0.18s ease;
+
+          // Native checkbox styled cleanly with modern accent
+          .native-action-checkbox {
+            width: 17px;
+            height: 17px;
+            accent-color: #2563eb;
+            cursor: pointer;
+            margin-top: 2px;
+            flex-shrink: 0;
+          }
+
+          .checklistsc-checkbox-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            .checklistsc-checkbox-label {
+              font-size: 12.5px;
+              font-weight: 600;
+              color: #1e293b;
+              line-height: 1.35;
+            }
+
+            .checklistsc-checkbox-sub {
+              font-size: 10.5px;
+              color: #64748b;
+            }
+          }
+
+          &:hover {
+            border-color: #94a3b8;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+          }
+
+          &.card-selected {
+            background: #eff6ff;
+            border-color: #2563eb;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+
+            .checklistsc-checkbox-label {
+              color: #1e3a8a;
+              font-weight: 700;
+            }
+          }
         }
       }
 
+      // Fallback
       .checklistsc-no-doc-fallback {
         display: flex;
         align-items: center;
-        gap: 8px;
-        color: #64748b;
-        font-size: 12.5px;
-        font-weight: 500;
-        padding: 24px;
         justify-content: center;
-      }
+        gap: 14px;
+        padding: 40px 20px;
+        margin: auto 0;
 
-      .checklistsc-checkbox-item {
-        .checklistsc-custom-checkbox-wrap {
-          display: inline-flex;
+        .fallback-icon-ring {
+          display: flex;
           align-items: center;
-          gap: 10px;
-          cursor: pointer;
-          user-select: none;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: #e2e8f0;
+          color: #475569;
 
-          input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #2563eb;
-            cursor: pointer;
+          i {
+            font-size: 20px;
+          }
+        }
+
+        .fallback-text-block {
+          h4 {
+            margin: 0;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #334155;
           }
 
-          .checklistsc-checkbox-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1e293b;
+          p {
+            margin: 3px 0 0 0;
+            font-size: 11.5px;
+            color: #64748b;
           }
         }
       }
@@ -667,4 +904,21 @@
       }
     }
   }
+}
+.checklistsc-mandatory-star {
+  color: #dc2626;
+  font-weight: 800;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.checklistsc-mandatory-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
 }

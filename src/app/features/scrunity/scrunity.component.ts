@@ -358,6 +358,202 @@ export class SCRUNITYComponent {
       asPerScrutiny: 'YES',
       commentsOfScrutiny: '',
     },
+    {
+      srNo: 7,
+      description:
+        'If an English translation has been uploaded, has an affidavit confirming the accuracy of the translation been uploaded by the appellant/authorized representative/translator?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 8,
+      description:
+        'Have the details of the appellate/revisional authority (designation and office) been correctly and fully specified in the present appeal?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 9,
+      description:
+        'Have the details of the officer/authority (as referred to question no.3) who passed the order (designation and office) been correctly and specified filled in the present appeal?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 10,
+      description:
+        'Has the order type (of the order referred to in the previous question) been correctly identified in the present appeal?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 11,
+      description:
+        'Have the issues under dispute before the Tribunal been clearly stated in the present appeal?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 12,
+      description:
+        'Has a case summary of the dispute before the Tribunal been provided in the present appeal?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 13,
+      description:
+        'Has a statement of facts regarding the dispute before the Tribunal been included in the present appeal?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 14,
+      description:
+        'Have all uploaded documents been digitally signed by the person uploading them?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 15,
+      description:
+        'Has the required amount of pre-deposit as per section 112(8) of the CGST Act, 2017, been made?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 16,
+      description:
+        'Have the fees as specified in rule 110(5) of the CGST Rules, 2017, been paid?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 17,
+      description:
+        'Have all documents been uploaded with correct indexing in a single PDF?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 18,
+      description:
+        'Has bookmarking/pagination been done according to the index?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 19,
+      description:
+        'Have all documents uploaded been color scanned from the respective originals?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 20,
+      description:
+        'Have all documents requiring the signature of the parties been physically signed, scanned, and uploaded?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 21,
+      description:
+        'Have all type-written documents uploaded with the present appeal, been typewritten on one side of A4 size paper with double spacing, justified horizontal alignment in the "Times New Roman" font and font size of 12?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 22,
+      description:
+        'Are form of Appeal & attached documents are properly paginated and indexed',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 23,
+      description: 'Are all affidavits properly attested and identified?',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 24,
+      description:
+        'Are all documents/enclosures are fully and properly scanned in color and legible',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 25,
+      description:
+        "Has present appeal been filed under the correct 'category of case' and has the appropriate code been specified therein",
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 26,
+      description:
+        'Whether the amount of demand as per the present appeal is in accordance with the order passed by the appellate authority under section 107',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 27,
+      description:
+        'Whether the amount admitted before the appellate authority under section 107 as declared in the present appeal is in accordance with the appeal filed before the said authority',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
+    {
+      srNo: 28,
+      description: 'Any other',
+      asPerAppellant: 'YES',
+      commentsOfAppellant: 'Y',
+      asPerScrutiny: 'YES',
+      commentsOfScrutiny: '',
+    },
   ];
 
   defectCategories: DefectOption[] = [
@@ -479,29 +675,75 @@ export class SCRUNITYComponent {
   }
 
   // ================= BUTTON ACTION LOGGERS =================
+
   proceedFurther(): void {
-    console.log('--- ACTION TRIGGERED: PROCEED FURTHER ---');
+    // Checkbox validation
+    if (!this.isScrutinyCompleted) {
+      this.notify.showError(
+        ' Please check "Scrutiny Completed" before proceeding.',
+      );
+      return;
+    }
+
+    // Assigned User validation
+    if (!this.selectedUser || !this.selectedUser.trim()) {
+      this.notify.showError(
+        ' Please select a user from the dropdown before proceeding.',
+      );
+      return;
+    }
+
+    this.notify.showSuccess(' ACTION TRIGGERED: PROCEED FURTHER');
     console.log(this.getSubmissionPayload());
+    this.displayScrunityCheckModal = false;
   }
 
   submitDefective(): void {
+    const hasDocUploadCategory =
+      this.selectedDefectCategoryIds.includes('DOCUMENT_UPLOAD');
+    const isAnyDocChecked = this.defectCategories
+      .find((c) => c.id === 'DOCUMENT_UPLOAD')
+      ?.subDocuments?.some((d) => d.selected);
+
+    if (hasDocUploadCategory && !isAnyDocChecked) {
+      this.notify.showError(
+        ' Document Upload defect marked: Selecting at least one mandatory document is required.',
+      );
+      return;
+    }
     // Validate empty comments for NO items
     const hasInvalidComments = this.checklistItems.some(
       (item) => item.asPerScrutiny === 'NO' && !item.commentsOfScrutiny?.trim(),
     );
 
     if (hasInvalidComments) {
-      alert('Please fill mandatory comments for all items marked as NO.');
+      this.notify.showError(
+        ' Please provide mandatory comments for all checklist items marked as NO.',
+      );
       return;
     }
 
-    if (!this.selectedDefectCategoryIds.length) {
-      alert('Please select at least one Defect Category.');
+    if (
+      !this.selectedDefectCategoryIds ||
+      this.selectedDefectCategoryIds.length === 0
+    ) {
+      this.notify.showError(
+        ' Please select at least one Defect Category from "Defects in".',
+      );
+      return;
+    }
+
+    if (!this.isReScrutinyVerify) {
+      this.notify.showError(
+        ' Please check "Re- Scrutiny Verify" before submitting.',
+      );
       return;
     }
 
     console.log('--- ACTION TRIGGERED: SUBMIT DEFECTIVE REPORT ---');
     console.log(this.getSubmissionPayload());
+    this.displayScrunityCheckModal = false;
+    this.notify.showSuccess(' ACTION TRIGGERED: SUBMIT DEFECTIVE REPORT');
   }
 
   returnToClerk(): void {

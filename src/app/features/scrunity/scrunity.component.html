@@ -482,64 +482,105 @@
                 </select>
               </td>
 
-              <td>
-                <textarea
-                  rows="2"
-                  [(ngModel)]="item.commentsOfScrutiny"
-                  (input)="onCommentChange(item)"
-                  [placeholder]="
-                    item.asPerScrutiny === 'NO'
-                      ? 'Mandatory comment for defect...'
-                      : ''
-                  "
-                  class="checklistsc-comment-textarea"
-                  [class.checklistsc-textarea-error]="item.isCommentInvalid"
-                ></textarea>
-                <span
-                  *ngIf="item.isCommentInvalid"
-                  class="checklistsc-error-hint"
-                >
-                  <i class="pi pi-exclamation-circle"></i> Comment is mandatory
-                  when marked as NO.
-                </span>
+              <!-- Table row me textarea column ko is tareeqe se likhein -->
+              <td class="checklistsc-comment-col-cell">
+                <div class="checklistsc-comment-cell-wrap">
+                  <textarea
+                    rows="2"
+                    [(ngModel)]="item.commentsOfScrutiny"
+                    (input)="onCommentChange(item)"
+                    [placeholder]="
+                      item.asPerScrutiny === 'NO'
+                        ? 'Mandatory comment for defect...'
+                        : ''
+                    "
+                    class="checklistsc-comment-textarea"
+                    [class.checklistsc-textarea-error]="item.isCommentInvalid"
+                  ></textarea>
+
+                  <!-- Clean Error Hint -->
+                  <div
+                    *ngIf="item.isCommentInvalid"
+                    class="checklistsc-error-hint"
+                  >
+                    <i class="pi pi-exclamation-circle"></i>
+                    <span>Comment is mandatory when marked as NO.</span>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 2. DEFECTS IN CONFIGURATION PANEL (Multi-select) -->
+      <!-- 2. DEFECTS IN CONFIGURATION PANEL (Multi-select Modern Bento) -->
       <div *ngIf="!isDefectFree" class="checklistsc-defects-card">
+        <!-- Top Banner / Alert Bar -->
         <div class="checklistsc-defects-header">
           <div class="checklistsc-header-left">
-            <span class="checklistsc-asterisk">*</span>
-            <span class="checklistsc-title-bold">Defects in</span>
-            <span class="checklistsc-title-hint"
-              >(Multiple selection enabled — click or ctrl+click)</span
-            >
+            <div class="checklistsc-alert-pulse-node">
+              <i class="pi pi-shield"></i>
+            </div>
+            <div class="checklistsc-header-titles">
+              <div class="checklistsc-title-row">
+                <span class="checklistsc-title-bold"
+                  >Defects in Parameters</span
+                >
+                <span class="checklistsc-mandatory-badge"
+                  >Mandatory Scrutiny</span
+                >
+              </div>
+              <span class="checklistsc-title-hint">
+                Toggle multiple defect categories to flag specific issues for
+                appellant cure
+              </span>
+            </div>
           </div>
+
           <div class="checklistsc-selected-count-badge">
-            {{ selectedDefectCategoryIds.length }} Selected
+            <span class="count-pill">{{
+              selectedDefectCategoryIds.length
+            }}</span>
+            <span class="count-label">Flagged Areas</span>
           </div>
         </div>
 
+        <!-- 2-Column High Density Workspace -->
         <div class="checklistsc-defects-layout">
-          <!-- Defect Categories Listbox -->
+          <!-- Left Category Drawer -->
           <div class="checklistsc-categories-menu">
-            <div
-              *ngFor="let cat of defectCategories"
-              class="checklistsc-menu-item"
-              [class.checklistsc-menu-active]="isCategorySelected(cat.id)"
-              (click)="toggleDefectCategory(cat.id, $event)"
-            >
-              <span class="checklistsc-item-text">{{ cat.label }}</span>
-              <div class="checklistsc-item-status-icon">
-                <i *ngIf="isCategorySelected(cat.id)" class="pi pi-check"></i>
+            <div class="checklistsc-menu-label">
+              <span>Defect Categories</span>
+              <span class="menu-sub-badge">Multi-Select</span>
+            </div>
+
+            <div class="checklistsc-pills-stack">
+              <div
+                *ngFor="let cat of defectCategories"
+                class="checklistsc-menu-item"
+                [class.checklistsc-menu-active]="isCategorySelected(cat.id)"
+                (click)="toggleDefectCategory(cat.id, $event)"
+              >
+                <div class="checklistsc-item-meta">
+                  <!-- Left check-mark box for categories -->
+                  <div class="checklistsc-select-checkbox">
+                    <i
+                      class="pi pi-check"
+                      *ngIf="isCategorySelected(cat.id)"
+                    ></i>
+                  </div>
+                  <span class="checklistsc-item-text">{{ cat.label }}</span>
+                </div>
+
+                <i
+                  class="pi pi-angle-right checklistsc-nav-chevron"
+                  *ngIf="isCategorySelected(cat.id)"
+                ></i>
               </div>
             </div>
           </div>
 
-          <!-- Sub Documents Dynamic List (renders for each selected category that has documents) -->
+          <!-- Right Sub-Documents Workspace -->
           <div class="checklistsc-subdocs-pane">
             <ng-container
               *ngIf="
@@ -552,17 +593,38 @@
                 class="checklistsc-subdoc-group"
               >
                 <div class="checklistsc-subdocs-headline">
-                  {{ catWithDoc.label }} : Required Documents
+                  <div class="headline-tag">
+                    <i class="pi pi-folder"></i>
+                    <span>{{ catWithDoc.label }}</span>
+                    <!-- Mandatory Star on Section -->
+                    <span class="checklistsc-mandatory-star">*</span>
+                  </div>
+                  <span class="checklistsc-mandatory-pill"
+                    >At least 1 file required</span
+                  >
                 </div>
-                <div
-                  *ngFor="let doc of catWithDoc.subDocuments"
-                  class="checklistsc-checkbox-item"
-                >
-                  <label class="checklistsc-custom-checkbox-wrap">
-                    <input type="checkbox" [(ngModel)]="doc.selected" />
-                    <span class="checklistsc-checkbox-label">{{
-                      doc.name
-                    }}</span>
+
+                <div class="checklistsc-docs-cards-grid">
+                  <label
+                    *ngFor="let doc of catWithDoc.subDocuments"
+                    class="checklistsc-checkbox-card"
+                    [class.card-selected]="doc.selected"
+                  >
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="doc.selected"
+                      class="native-action-checkbox"
+                    />
+                    <div class="checklistsc-checkbox-meta">
+                      <span class="checklistsc-checkbox-label">
+                        {{ doc.name }}
+                        <!-- Asterisk on document name -->
+                        <span class="checklistsc-mandatory-star">*</span>
+                      </span>
+                      <span class="checklistsc-checkbox-sub">
+                        Mandatory compliance attachment
+                      </span>
+                    </div>
                   </label>
                 </div>
               </div>
@@ -570,11 +632,16 @@
 
             <ng-template #noDocSelectionFallback>
               <div class="checklistsc-no-doc-fallback">
-                <i class="pi pi-info-circle"></i>
-                <span
-                  >Selected categories have no mandatory sub-document
-                  checklists.</span
-                >
+                <div class="fallback-icon-ring">
+                  <i class="pi pi-check-circle"></i>
+                </div>
+                <div class="fallback-text-block">
+                  <h4>No Upload Checklists Flagged</h4>
+                  <p>
+                    The selected categories doesn't have any sub part selection
+                    .
+                  </p>
+                </div>
               </div>
             </ng-template>
           </div>
@@ -690,22 +757,4 @@
       </div>
     </div>
   </div>
-
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      type="button"
-      label="Cancel"
-      class="p-button-text modal-cancel-btn"
-      (click)="onCloseModal()"
-    ></button>
-    <button
-      pButton
-      type="submit"
-      form="generateNoticeForm"
-      label="Proceed"
-      class="modal-submit-btn"
-      (click)="onProceedModal()"
-    ></button>
-  </ng-template>
 </p-dialog>
