@@ -1,14 +1,21 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, inject, OnInit, Type } from '@angular/core';
 import { AuthServiceService } from '../../core/services/auth-service.service';
 import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.component';
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
 import { MENU_REGISTRY } from '../../core/menu-registry';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+
+import {
+  ScrutinyTableComponent,
+  ScrutinyColumnDef,
+} from '../../Shared/scrutiny-table/scrutiny-table.component';
+import { Router } from '@angular/router';
 
 export interface ChromaMetricCard {
   id: string;
@@ -45,19 +52,131 @@ export interface BarOptionItem {
     DatePickerModule,
     ButtonModule,
     InputTextModule,
+    ScrutinyTableComponent,
+    DialogModule,
+    FormsModule,
   ],
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.scss',
 })
 export class REGISTRARComponent implements OnInit {
+  private router = inject(Router);
+
+  selectedCase: any = null;
+
+  // Modals Visibility Flags
+  isScrutinyCommentsModalOpen: boolean = false;
+  isGenerateCaseModalOpen: boolean = false;
+  isReturnToArModalOpen: boolean = false;
+
+  // Form states
+  scrutinyCommentsData: any = null; // API data load karne ke liye
+  returnArCommentText: string = '';
+
+  // Master Action Switcher
+  handleRegistrarAction(action: string, row: any): void {
+    this.selectedCase = row;
+
+    switch (action) {
+      case 'Scrutiny Comments':
+        this.openScrutinyCommentsModal(row);
+        break;
+
+      case 'Generate Case No':
+        this.isGenerateCaseModalOpen = true;
+        break;
+
+      case 'Pre Deposit':
+        this.openPreDepositPage(row);
+        break;
+
+      case 'Return TO AR':
+        this.returnArCommentText = ''; // Reset text
+        this.isReturnToArModalOpen = true;
+        break;
+
+      default:
+        console.warn(`Unknown action: ${action}`);
+    }
+  }
+
+  // 1. Scrutiny Comments Action
+  openScrutinyCommentsModal(row: any): void {
+    // Dummy / API fetch simulation
+    this.scrutinyCommentsData = {
+      caseNo: row.location,
+      scrutinizedBy: 'Verification Officer 1',
+      date: '31/03/2026',
+      notes:
+        'All core documents uploaded. Court fee challan matches criteria. Defect check complete.',
+    };
+    this.isScrutinyCommentsModalOpen = true;
+  }
+
+  // 2. Generate Case No Confirmation
+  confirmGenerateCaseNo(): void {
+    console.log(
+      'YES clicked: Case Number Generated Successfully for ->',
+      this.selectedCase?.location,
+    );
+    // API trigger for generation yahan aayega
+    this.isGenerateCaseModalOpen = false;
+  }
+
+  // 3. Pre Deposit Page Navigation
+  openPreDepositPage(row: any): void {
+    const urlTree = this.router.createUrlTree(['/pre-deposit', row.location]);
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
+  }
+
+  // 4. Return to AR Submission
+  submitReturnToAr(): void {
+    console.log(
+      'Returned to AR for Case:',
+      this.selectedCase?.location,
+      'with comment:',
+      this.returnArCommentText,
+    );
+    // API trigger yahan aayega
+    this.isReturnToArModalOpen = false;
+  }
   activeDisplayMode: 'grid' | 'visual' = 'grid';
 
   // Master Data Stream Container Array
   metricsDataList: ChromaMetricCard[] = [];
+  registrarRecords: any[] = [];
 
   ngOnInit(): void {
     this.fetchTribunalMetricsPayload();
+    this.loadRegistrarData();
   }
+
+  loadRegistrarData(): void {
+    this.registrarRecords = [
+      {
+        sNo: '1',
+        diaryNo: '30/03/2026 05:11 PM',
+        caseDetails: 'Appeal',
+        location: '2026251201000102',
+        personName: 'SIDDHARTHA GUPTA', // (XYZ) name under filing no.
+        date: 'NA',
+        TITLE: 'try VS SAURABH, BO, DELHI & Ors.',
+        fromCourt: '',
+        // Array of actions (API response pattern ready)
+        availableActions: [
+          'Scrutiny Comments',
+          'Generate Case No',
+          'Pre Deposit',
+          'Return TO AR',
+        ],
+      },
+    ];
+  }
+
+  getRowClass = (row: any): string => {
+    return 'row-tint-registrar-blue';
+  };
 
   fetchTribunalMetricsPayload(): void {
     this.metricsDataList = [
@@ -191,7 +310,7 @@ export class REGISTRARComponent implements OnInit {
   gstatViewOptions: BarOptionItem[] = [
     { id: 'dashboard', label: 'Dashboard', icon: 'pi pi-objects-column' },
     {
-      id: ' registrarhome ',
+      id: ' registrarhome',
       label: 'Home',
       icon: 'pi pi-objects-column',
     },
@@ -354,13 +473,14 @@ export class REGISTRARComponent implements OnInit {
     parent: BarOptionItem;
     child?: BarOptionItem;
   }): void {
-    const selectedId = event.child
-      ? (event.child.id as string)
-      : (event.parent.id as string);
+    const selectedId = (
+      event.child ? (event.child.id as string) : (event.parent.id as string)
+    ).trim(); // trim safe rakhega
+
     this.activeView = selectedId;
 
-    // Dynamically look up the component type using the string ID from MENU_REGISTRY
-    if (selectedId === 'registrarhome') {
+    // Jab dashboard ya registrarhome ho, dynamic component outlet null rahega
+    if (selectedId === 'dashboard' || selectedId === 'registrarhome') {
       this.activeComponentType = null;
     } else {
       this.activeComponentType = MENU_REGISTRY[selectedId] || null;
@@ -378,4 +498,15 @@ export class REGISTRARComponent implements OnInit {
 
     // Optional: Trigger a success notification banner drop here if needed
   }
+
+  registrarColumns: ScrutinyColumnDef[] = [
+    { field: 'sNo', header: 'Sr No.', width: '5%' },
+    { field: 'diaryNo', header: 'Date Of Filing', width: '12%' },
+    { field: 'caseDetails', header: 'Case Type', width: '8%' },
+    { field: 'location', header: 'Diary/Filing No.', width: '15%' },
+    { field: 'date', header: 'Main Case Diary/Filing No.', width: '13%' },
+    { field: 'TITLE', header: 'Title Of Case', width: '22%' },
+    { field: 'fromCourt', header: 'From Court', width: '8%' },
+    { field: 'Action', header: 'Action', width: '15%', align: 'center' },
+  ];
 }

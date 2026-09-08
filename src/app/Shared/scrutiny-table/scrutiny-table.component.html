@@ -1,17 +1,17 @@
-<div class="table-container fade-in-container">
+<div class="table-nexus-container fade-in-container">
   <p-table
     #dt
     [value]="data"
     [rows]="selectedRowsCount"
     [paginator]="true"
     [globalFilterFields]="globalFilterFields"
-    styleClass="p-datatable-striped p-datatable-gridlines scrutiny-grid"
+    styleClass="p-datatable-striped custom-modern-grid"
     [rowsPerPageOptions]="[5, 10, 25, 50]"
   >
     <!-- Upper Toolbar -->
     <ng-template pTemplate="caption">
-      <div class="table-toolbar">
-        <div class="toolbar-left">
+      <div class="table-header-toolbar">
+        <div class="toolbar-left-pane">
           <p-select
             [(ngModel)]="selectedRowsCount"
             [options]="rowsOptions"
@@ -21,15 +21,15 @@
           ></p-select>
         </div>
 
-        <div class="toolbar-right">
-          <i class="pi pi-search search-icon"></i>
+        <div class="toolbar-right-pane p-input-icon-left">
+          <i class="pi pi-search search-lens-node"></i>
           <input
             pInputText
             type="text"
             [(ngModel)]="globalSearchText"
             (input)="dt.filterGlobal(globalSearchText, 'contains')"
             placeholder="Quick search..."
-            class="search-input"
+            class="grid-global-search-input"
           />
         </div>
       </div>

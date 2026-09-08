@@ -1,6 +1,6 @@
 <app-utility-bar
   [menuOptions]="gstatViewOptions"
-  [defaultSelectId]="'registrarhome'"
+  [defaultSelectId]="'dashboard'"
   (onOptionSelected)="handleBarSelectionEvent($event)"
   (onAccountAction)="handleAccountActionEvent($event)"
   [username]="loggedInUser.name"
@@ -339,6 +339,43 @@
         </div>
       </div>
     </div>
+  } @else if (activeView === "registrarhome") {
+    <div class="fade-in-container registrar-luxury-console">
+      <div class="registrar-table-container">
+        <app-scrutiny-table
+          [cols]="registrarColumns"
+          [data]="registrarRecords"
+          [getRowClass]="getRowClass"
+        >
+          <!-- Slot 1: Diary/Filing No + Person Name (SIDDHARTHA GUPTA) -->
+          <ng-template #diaryTemplate let-row>
+            <div class="registrar-filing-cell">
+              <a href="javascript:void(0)" class="filing-number-link">{{
+                row.location
+              }}</a>
+              <span *ngIf="row.personName" class="sub-person-name">
+                ({{ row.personName }})
+              </span>
+            </div>
+          </ng-template>
+
+          <!-- Slot 2: Action Column Buttons -->
+          <ng-template #actionTemplate let-row>
+            <div class="registrar-actions-stack">
+              <ng-container *ngFor="let act of row.availableActions">
+                <button
+                  type="button"
+                  class="navy-registrar-btn"
+                  (click)="handleRegistrarAction(act, row)"
+                >
+                  {{ act }}
+                </button>
+              </ng-container>
+            </div>
+          </ng-template>
+        </app-scrutiny-table>
+      </div>
+    </div>
   } @else if (activeComponentType) {
     <div class="form-content-card fade-in-container">
       <ng-container *ngComponentOutlet="activeComponentType"></ng-container>
@@ -354,3 +391,136 @@
     </div>
   }
 </div>
+<!-- 1. POPUP: Scrutiny Comments Modal -->
+<p-dialog
+  header="Scrutiny Comments"
+  [(visible)]="isScrutinyCommentsModalOpen"
+  [modal]="true"
+  [style]="{ width: '600px', maxWidth: '95vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+  styleClass="custom-registrar-modal"
+>
+  <div class="modal-dialog-body" *ngIf="selectedCase">
+    <div class="meta-info-banner">
+      <span
+        >Filing No: <strong>{{ selectedCase.location }}</strong></span
+      >
+      <span
+        >Title: <strong>{{ selectedCase.TITLE }}</strong></span
+      >
+    </div>
+
+    <div class="api-content-box mt-3">
+      <label class="font-bold block mb-1">Scrutiny Notes:</label>
+      <p class="comments-text">
+        {{ scrutinyCommentsData?.notes || "No comments found from API." }}
+      </p>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="Close"
+      class="p-button-text modal-btn-secondary"
+      (click)="isScrutinyCommentsModalOpen = false"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<!-- 2. POPUP: Generate Case No Confirmation Modal -->
+<p-dialog
+  header="Generate Case Number"
+  [(visible)]="isGenerateCaseModalOpen"
+  [modal]="true"
+  [style]="{ width: '450px', maxWidth: '90vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+  styleClass="custom-registrar-modal"
+>
+  <div class="modal-dialog-body py-2">
+    <div class="confirm-message-wrapper">
+      <i class="pi pi-question-circle confirm-icon"></i>
+      <div class="confirm-text-block">
+        <p class="font-bold text-slate-800">
+          Do you want to generate the case number?
+        </p>
+        <span class="text-xs text-slate-500"
+          >Diary/Filing No: {{ selectedCase?.location }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="No"
+      class="p-button-text modal-btn-secondary"
+      (click)="isGenerateCaseModalOpen = false"
+    ></button>
+    <button
+      pButton
+      type="button"
+      label="Yes"
+      class="modal-btn-primary"
+      (click)="confirmGenerateCaseNo()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<!-- 3. POPUP: Return to AR Modal with Comment Input -->
+<p-dialog
+  header="Return to AR"
+  [(visible)]="isReturnToArModalOpen"
+  [modal]="true"
+  [style]="{ width: '550px', maxWidth: '90vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+  styleClass="custom-registrar-modal"
+>
+  <div class="modal-dialog-body py-2" *ngIf="selectedCase">
+    <div class="meta-info-banner mb-3">
+      <span
+        >Filing No: <strong>{{ selectedCase.location }}</strong></span
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="arComment" class="block font-semibold mb-1">
+        Remarks / Reason for Return <span class="text-red-500">*</span>
+      </label>
+      <textarea
+        id="arComment"
+        rows="4"
+        [(ngModel)]="returnArCommentText"
+        placeholder="Enter comments for returning to AR..."
+        class="w-full text-area-input"
+      ></textarea>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="Cancel"
+      class="p-button-text modal-btn-secondary"
+      (click)="isReturnToArModalOpen = false"
+    ></button>
+    <button
+      pButton
+      type="button"
+      label="OK"
+      [disabled]="!returnArCommentText.trim()"
+      class="modal-btn-primary"
+      (click)="submitReturnToAr()"
+    ></button>
+  </ng-template>
+</p-dialog>
