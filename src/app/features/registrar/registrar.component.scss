@@ -1196,17 +1196,6 @@
   }
 }
 
-:host ::ng-deep {
-  .p-datatable .p-datatable-tbody > tr.row-tint-registrar-blue > td {
-    background-color: #a4c2f4 !important;
-    color: #000000 !important;
-    border-color: #8dafe8 !important;
-  }
-
-  .p-datatable .p-datatable-tbody > tr.row-tint-registrar-blue:hover > td {
-    background-color: #93b5ee !important;
-  }
-}
 .custom-registrar-modal {
   .p-dialog-header {
     background-color: #f8fafc;

@@ -45,7 +45,6 @@ export interface BarOptionItem {
     ButtonModule,
     InputTextModule,
     DynamicRadioGroupComponent,
-    CustomTableComponent,
     ScrutinyTableComponent,
     Dialog,
   ],

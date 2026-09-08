@@ -136,7 +136,7 @@
             <!-- Slot 2: Diary/Filing No Column (Sirf No of Docs, NO links) -->
             <ng-template #diaryTemplate let-row>
               <div class="arb-filing-cell">
-                <span class="filing-id">{{ row.location }}</span>
+                <span class="filing-number-link">{{ row.location }}</span>
                 <span
                   *ngIf="row.docCount"
                   class="text-red-subtext docs-indicator"

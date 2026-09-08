@@ -117,7 +117,7 @@
           </ng-template>
           <ng-template #diaryTemplate let-row>
             <div class="filing-meta-block">
-              <span class="font-medium text-slate-800">{{ row.location }}</span>
+              <span class="filing-number-link">{{ row.location }}</span>
               <span *ngIf="row.docCount" class="text-danger-link font-semibold">
                 (No.of Docs - {{ row.docCount }})
               </span>

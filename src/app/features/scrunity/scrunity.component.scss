@@ -3,6 +3,17 @@
   flex-direction: column;
   gap: 2px;
 
+  .filing-number-link {
+    color: #1d4ed8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .text-danger-link {
     color: #c92a2a;
     font-size: 12px;
