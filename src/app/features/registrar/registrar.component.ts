@@ -4,7 +4,12 @@ import { UtilityBarComponent } from '../../Shared/utility-bar/utility-bar.compon
 import { ChangePasswordModalComponent } from '../../Shared/change-password-modal/change-password-modal.component';
 import { MENU_REGISTRY } from '../../core/menu-registry';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -17,6 +22,7 @@ import {
 } from '../../Shared/scrutiny-table/scrutiny-table.component';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
+import { DynamicRadioGroupComponent } from '../../Shared/dynamic-radio-group/dynamic-radio-group.component';
 
 export interface ChromaMetricCard {
   id: string;
@@ -56,6 +62,7 @@ export interface BarOptionItem {
     ScrutinyTableComponent,
     DialogModule,
     FormsModule,
+    DynamicRadioGroupComponent,
   ],
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.scss',
@@ -152,8 +159,28 @@ export class REGISTRARComponent implements OnInit {
   ngOnInit(): void {
     this.fetchTribunalMetricsPayload();
     this.loadRegistrarData();
+    this.form = this.fb.group({
+      caseCategory: ['fresh'],
+      caseType: ['all'],
+      diaryFilingNo: [''],
+      fromFilingDate: [null],
+      toFilingDate: [null],
+    });
   }
 
+  onSearch(): void {
+    console.log('Executing query payload:', this.form.value);
+  }
+
+  onReset(): void {
+    this.form.patchValue({
+      caseCategory: ['fresh'],
+      caseType: 'all',
+      diaryFilingNo: '',
+      fromFilingDate: null,
+      toFilingDate: null,
+    });
+  }
   loadRegistrarData(): void {
     this.registrarRecords = [
       {
@@ -303,7 +330,21 @@ export class REGISTRARComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
     private notify: NotificationService,
+    private fb: FormBuilder,
   ) {}
+  form!: FormGroup;
+  caseCategoryOptions = [
+    { label: 'Fresh case for scrutiny', value: 'fresh' },
+    { label: 'Defective cases', value: 'defective' },
+    { label: 'Refiled Cases', value: 'refiled' },
+    { label: 'Return Cases', value: 'return' },
+  ];
+
+  caseTypeOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Company Appeal', value: 'ca' },
+    { label: 'Contempt Petition', value: 'cp' },
+  ];
   isPasswordModalVisible: boolean = false;
   public visible: boolean = false;
   loggedInUser = {
