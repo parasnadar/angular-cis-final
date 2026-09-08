@@ -215,6 +215,7 @@
   [appendTo]="'body'"
   styleClass="custom-notice-modal"
   (onHide)="onCloseModal()"
+  [focusOnShow]="false"
 >
   <div class="workspace-main-viewport">
     <div *ngIf="true" class="vibrant-summary-card">
@@ -433,6 +434,16 @@
             </span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="checklistsc-category-header-strip">
+      <div class="strip-left-node">
+        <div class="strip-accent-dot"></div>
+        <span class="strip-title">General</span>
+      </div>
+      <div class="strip-right-meta">
+        <span class="strip-badge">Core Checklist</span>
       </div>
     </div>
 
